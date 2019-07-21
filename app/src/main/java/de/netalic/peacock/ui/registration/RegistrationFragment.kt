@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.ehsanmashhadi.library.view.CountryPicker
 import de.netalic.peacock.R
-import de.netalic.peacock.ui.BaseFragment
-import de.netalic.peacock.ui.util.Converter
+import de.netalic.peacock.ui.base.BaseFragment
+import de.netalic.peacock.util.Converter
 import kotlinx.android.synthetic.main.fragment_registration.*
 
 

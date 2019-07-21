@@ -1,10 +1,8 @@
 package de.netalic.peacock.ui.main
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import de.netalic.peacock.R
-import de.netalic.peacock.ui.BaseActivity
+import de.netalic.peacock.ui.base.BaseActivity
 import de.netalic.peacock.ui.registration.RegistrationFragment
 
 class MainActivity : BaseActivity() {

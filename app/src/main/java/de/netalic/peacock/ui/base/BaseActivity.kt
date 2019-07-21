@@ -1,4 +1,4 @@
-package de.netalic.peacock.ui
+package de.netalic.peacock.ui.base
 
 import androidx.appcompat.app.AppCompatActivity
 

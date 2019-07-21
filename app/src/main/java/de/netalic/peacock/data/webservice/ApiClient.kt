@@ -1,11 +1,11 @@
-package de.netalic.peacock.ui.data.webservice
+package de.netalic.peacock.data.webservice
 
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-object APIClient {
+object ApiClient {
 
     private const val BASE_URL = "https://nightly-alpha.carrene.com/apiv1/"
 

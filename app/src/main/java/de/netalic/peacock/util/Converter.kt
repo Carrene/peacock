@@ -1,4 +1,4 @@
-package de.netalic.peacock.ui.util
+package de.netalic.peacock.util
 
 import android.content.Context
 import kotlin.math.roundToInt
