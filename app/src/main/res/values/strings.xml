@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Peacock</string>
+    <string name="registration_registration">Registration</string>
+    <string name="registration_guid">Enter your phone number, we will send you OTP to verify later.</string>
+    <string name="registration_continue">Continue</string>
+    <string name="registration_hint">- - - - - - - - - -</string>
+    <string name="registration_iranCode">(+98)</string>
+    <string name="paranteses_left">(</string>
+    <string name="paranteses_right">)</string>
 </resources>

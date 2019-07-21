@@ -7,5 +7,50 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+<!--parents-->
+    <style name="RobotoBold" parent="AppTheme">
 
+    </style>
+    <style name="RobotoMedium" parent="AppTheme">
+
+    </style>
+    <style name="RobotoRegular" parent="AppTheme">
+
+    </style>
+
+    <style name="H1HeadLine" parent="RobotoMedium">
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">24dp</item>
+    </style>
+    <style name="H2HeadLine" parent="RobotoBold">
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">24dp</item>
+    </style>
+    <style name="Body1" parent="RobotoRegular">
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">24dp</item>
+    </style>
+    <style name="Body2" parent="RobotoMedium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">24dp</item>
+    </style>
+    <style name="Body3" parent="RobotoRegular">
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="Caption" parent="RobotoMedium">
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">24dp</item>
+    </style>
+<!--main styles-->
+    <style name="H1HeadLineDarkText" parent="H1HeadLine">
+        <item name="android:textColor">@color/DarkText</item>
+    </style>
+
+    <style name="H2HeadLineDarkText" parent="H2HeadLine">
+        <item name="android:textColor">@color/DarkText</item>
+    </style>
+
+    <style name="Body3LightText" parent="Body3">
+        <item name="android:textColor">@color/LightText</item>
+    </style>
 </resources>
