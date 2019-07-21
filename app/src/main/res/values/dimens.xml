@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="H1TextSize">16sp</dimen>
+    <dimen name="H2TextSize">16sp</dimen>
+    <dimen name="Body1TextSize">16sp</dimen>
+    <dimen name="Body2TextSize">14sp</dimen>
+    <dimen name="Body3TextSize">14sp</dimen>
+    <dimen name="CaptionTextSize">12sp</dimen>
+
+    <integer name="PatternDotCount">3</integer>
+
+</resources>
