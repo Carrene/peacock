@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Peacock</string>
+    <string name="everywhere_value">VALUE</string>
+
+
+    <string name="codeVerification_steps">Steps</string>
+    <string name="codeVerification_codeVerification">Code Verification</string>
+    <string name="codeVerification_enterFourDigit">Enter 4 digit number that sent to</string>
+    <string name="codeVerification_textButton">Continue</string>
+    <string name="codeVerification_resend">Re_Send code in</string>
 </resources>
