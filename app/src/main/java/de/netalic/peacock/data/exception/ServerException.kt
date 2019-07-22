@@ -1,3 +1,5 @@
 package de.netalic.peacock.data.exception
 
-class ServerException : Throwable()
+object ServerException : Throwable(){
+    const val code = 500
+}

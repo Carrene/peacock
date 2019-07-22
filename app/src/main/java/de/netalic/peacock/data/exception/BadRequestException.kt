@@ -1,3 +1,5 @@
 package de.netalic.peacock.data.exception
 
-class BadRequestException : Throwable()
+object BadRequestException : Throwable(){
+    const val code = 400
+}

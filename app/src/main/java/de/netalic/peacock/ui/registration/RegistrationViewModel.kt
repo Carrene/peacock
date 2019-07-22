@@ -3,6 +3,7 @@ package de.netalic.peacock.ui.registration
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.netalic.peacock.data.exception.BadRequestException
+import de.netalic.peacock.data.exception.InvalidUdidOrPhoneException
 import de.netalic.peacock.data.exception.ServerException
 import de.netalic.peacock.data.model.MyResponse
 import de.netalic.peacock.data.model.UserModel
@@ -28,8 +29,10 @@ class RegistrationViewModel(private val userRepository: UserRepository) : BaseVi
             .subscribe({
                 when (it.code()) {
                     200 -> mClaimResponseLiveData.value = MyResponse.success(it.body()!!)
-                    400 -> mClaimResponseLiveData.value = MyResponse.failed(BadRequestException())
-                    500 -> mClaimResponseLiveData.value = MyResponse.failed(ServerException())
+                    InvalidUdidOrPhoneException.code-> mClaimResponseLiveData.value =
+                        MyResponse.failed(InvalidUdidOrPhoneException)
+                    BadRequestException.code -> mClaimResponseLiveData.value = MyResponse.failed(BadRequestException)
+                    ServerException.code -> mClaimResponseLiveData.value = MyResponse.failed(ServerException)
                 }
             }, { throwable ->
                 mClaimResponseLiveData.value = MyResponse.failed(throwable)
