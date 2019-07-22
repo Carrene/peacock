@@ -24,7 +24,7 @@
                 android:id="@+id/textView_codeVerification_stepCounter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/everywhere_value"
+                android:text="@string/codeVerification_stepsValue"
                 android:layout_toEndOf="@+id/textView_codeVerification_steps"
                 android:layout_marginStart="5dp"
                 style="@style/TextAppearanceBaseMediumTitleTextDark"/>
@@ -98,7 +98,7 @@
                 android:layout_marginTop="30dp"/>
 
         <Button
-
+                android:id="@+id/button_codeVerification_continue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/pinEntryEditText_codeVerification_setPin"
