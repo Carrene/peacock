@@ -16,7 +16,7 @@ object ApiClient {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
-    fun getService(): APIInterface? =
-        getClient().create(APIInterface::class.java)
+    fun getService(): ApiInterface? =
+        getClient().create(ApiInterface::class.java)
 
 }

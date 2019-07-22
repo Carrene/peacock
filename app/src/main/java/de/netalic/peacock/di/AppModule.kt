@@ -6,23 +6,21 @@ import de.netalic.peacock.ui.registration.RegistrationViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-class AppModule {
 
-    val repositoryModule = module {
-        single {
-            UserRepository(get())
-        }
+val repositoryModule = module {
+    single {
+        UserRepository(get())
     }
+}
 
-    val viewModelModule = module {
-        viewModel {
-            RegistrationViewModel(get())
-        }
+val viewModelModule = module {
+    viewModel {
+        RegistrationViewModel(get())
     }
+}
 
-    val apiModule = module {
-        single {
-            ApiClient.getService()
-        }
+val apiModule = module {
+    single {
+        ApiClient.getService()
     }
 }
