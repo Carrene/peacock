@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 
-open class BaseFragment :Fragment(){
+abstract class BaseFragment :Fragment(){
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -13,9 +13,6 @@ open class BaseFragment :Fragment(){
         initUiListener()
     }
 
-    private fun initUiListener(){
-
-
-    }
+    open abstract fun initUiListener()
 
 }

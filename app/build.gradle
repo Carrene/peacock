@@ -77,4 +77,5 @@ dependencies {
     implementation ('com.alimuzaffar.lib:pinentryedittext:2.0.6') {
         exclude group: 'androidx.appcompat', module: 'appcompat'
     }
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 }
