@@ -71,7 +71,7 @@ class PhoneInputViewModelTest : BaseTest() {
 
         val singleResponse = Single.just(
             Response.error<UserModel>(
-                BadRequestException.code,
+                400,
                 ResponseBody.create(MediaType.parse("text/plain"), "")
             )
         )
@@ -98,7 +98,7 @@ class PhoneInputViewModelTest : BaseTest() {
 
         val singleResponse = Single.just(
             Response.error<UserModel>(
-                ServerException.code,
+                500,
                 ResponseBody.create(MediaType.parse("text/plain"), "")
             )
         )
@@ -125,7 +125,7 @@ class PhoneInputViewModelTest : BaseTest() {
 
         val singleResponse = Single.just(
             Response.error<UserModel>(
-                InvalidUdidOrPhoneException.code,
+                710,
                 ResponseBody.create(MediaType.parse("text/plain"), "")
             )
         )

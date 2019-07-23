@@ -29,10 +29,10 @@ class RegistrationViewModel(private val userRepository: UserRepository) : BaseVi
             .subscribe({
                 when (it.code()) {
                     200 -> mClaimResponseLiveData.value = MyResponse.success(it.body()!!)
-                    InvalidUdidOrPhoneException.code-> mClaimResponseLiveData.value =
+                    400 -> mClaimResponseLiveData.value = MyResponse.failed(BadRequestException)
+                    500 -> mClaimResponseLiveData.value = MyResponse.failed(ServerException)
+                    710-> mClaimResponseLiveData.value =
                         MyResponse.failed(InvalidUdidOrPhoneException)
-                    BadRequestException.code -> mClaimResponseLiveData.value = MyResponse.failed(BadRequestException)
-                    ServerException.code -> mClaimResponseLiveData.value = MyResponse.failed(ServerException)
                 }
             }, { throwable ->
                 mClaimResponseLiveData.value = MyResponse.failed(throwable)
