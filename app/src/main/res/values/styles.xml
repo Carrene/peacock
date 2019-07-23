@@ -1,49 +1,48 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-<!--parents-->
+    <!--parents-->
     <style name="RobotoBold" parent="AppTheme">
-
+        <item name="android:fontFamily">@font/roboto_bold</item>
     </style>
     <style name="RobotoMedium" parent="AppTheme">
-
+        <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
     <style name="RobotoRegular" parent="AppTheme">
-
+        <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
     <style name="H1HeadLine" parent="RobotoMedium">
         <item name="android:textSize">16sp</item>
-        <item name="android:lineSpacingExtra">24dp</item>
     </style>
     <style name="H2HeadLine" parent="RobotoBold">
         <item name="android:textSize">16sp</item>
-        <item name="android:lineSpacingExtra">24dp</item>
     </style>
     <style name="Body1" parent="RobotoRegular">
         <item name="android:textSize">16sp</item>
-        <item name="android:lineSpacingExtra">24dp</item>
     </style>
     <style name="Body2" parent="RobotoMedium">
         <item name="android:textSize">14sp</item>
-        <item name="android:lineSpacingExtra">24dp</item>
     </style>
     <style name="Body3" parent="RobotoRegular">
         <item name="android:textSize">14sp</item>
     </style>
     <style name="Caption" parent="RobotoMedium">
         <item name="android:textSize">16sp</item>
-        <item name="android:lineSpacingExtra">24dp</item>
     </style>
-<!--main styles-->
+    <!--main styles-->
     <style name="H1HeadLineLightText" parent="H1HeadLine">
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="H1HeadLineDarkText" parent="H1HeadLine">
+        <item name="android:textColor">@color/darkText</item>
     </style>
 
     <style name="H2HeadLineDarkText" parent="H2HeadLine">
