@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.activity_mainhost.*
 
 class MainHostActivity : AppCompatActivity() {
 
-    private val mToolbar by lazy { toolbar_mainHost }
+    private val mToolbar by lazy { toolbar_mainHost_toolbar }
     private val mTextViewToolbarTitle by lazy { textView_mainHost_toolbarTitle }
 
     override fun onCreate(savedInstanceState: Bundle?) {

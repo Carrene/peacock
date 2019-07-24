@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.andrognito.patternlockview.PatternLockView
-        android:id="@+id/patternLockView_patternLogin"
+        android:id="@+id/patternLockView_patternLogin_pattern"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:dotCount="@integer/PatternDotCount"

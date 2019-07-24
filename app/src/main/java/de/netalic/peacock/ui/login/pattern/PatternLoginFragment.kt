@@ -1,8 +1,6 @@
 package de.netalic.peacock.ui.login.pattern
 
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,19 +10,17 @@ import com.andrognito.patternlockview.PatternLockView
 import com.andrognito.patternlockview.listener.PatternLockViewListener
 import com.andrognito.patternlockview.utils.PatternLockUtils
 import de.netalic.peacock.R
-import de.netalic.peacock.common.GlideApp
 import kotlinx.android.synthetic.main.fragment_patternlogin.*
 import timber.log.Timber
-import java.lang.Exception
 
 
 class PatternLoginFragment : Fragment(), PatternLockViewListener {
 
     private val mImageViewProfile by lazy { imageView_patternLogin_profile }
-    private val mPatternLockView by lazy { patternLockView_patternLogin }
+    private val mPatternLockView by lazy { patternLockView_patternLogin_pattern }
     private val mTextViewMessage by lazy { textView_patternLogin_message }
 
-    private var drawCounter = 1
+    private var mDrawCounter = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +40,7 @@ class PatternLoginFragment : Fragment(), PatternLockViewListener {
         if (activity is MainHostActivity) {
             activity.updateToolbarTitle(getString(R.string.patternLogin_stepNOfFour, "1"))
         }
-        GlideApp.with(requireContext()).load(R.drawable.temp).circleCrop().into(mImageViewProfile)
+        mImageViewProfile.setImageResource(R.drawable.temp)
     }
 
     private fun initUiListeners() {
@@ -56,7 +52,7 @@ class PatternLoginFragment : Fragment(), PatternLockViewListener {
         Timber.tag("OnComplete").d(result)
         mPatternLockView.clearPattern()
         mTextViewMessage.text = getString(R.string.patternLogin_messageDrawAgain)
-        ++drawCounter
+        ++mDrawCounter
     }
     override fun onCleared() {
         Timber.tag("OnCleared").d("onCleared()")
