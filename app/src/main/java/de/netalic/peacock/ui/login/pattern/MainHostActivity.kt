@@ -1,25 +1,22 @@
 package de.netalic.peacock.ui.login.pattern
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import de.netalic.peacock.R
+import de.netalic.peacock.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_mainhost.*
 
-class MainHostActivity : AppCompatActivity() {
+class MainHostActivity : BaseActivity() {
 
     private val mToolbar by lazy { toolbar_mainHost_toolbar }
     private val mTextViewToolbarTitle by lazy { textView_mainHost_toolbarTitle }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mainhost)
-        initUiComponents()
-    }
+    override fun getLayoutResourceId() = R.layout.activity_mainhost
 
-    private fun initUiComponents() {
+    override fun initUiComponents() {
         setSupportActionBar(mToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
+
+    override fun initUiListeners() {}
 
     fun updateToolbarTitle(title: String) {
         mTextViewToolbarTitle.text = title

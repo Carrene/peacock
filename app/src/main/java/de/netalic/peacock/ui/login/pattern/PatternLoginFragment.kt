@@ -2,7 +2,6 @@ package de.netalic.peacock.ui.login.pattern
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +9,12 @@ import com.andrognito.patternlockview.PatternLockView
 import com.andrognito.patternlockview.listener.PatternLockViewListener
 import com.andrognito.patternlockview.utils.PatternLockUtils
 import de.netalic.peacock.R
+import de.netalic.peacock.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_patternlogin.*
 import timber.log.Timber
 
 
-class PatternLoginFragment : Fragment(), PatternLockViewListener {
+class PatternLoginFragment : BaseFragment(), PatternLockViewListener {
 
     private val mImageViewProfile by lazy { imageView_patternLogin_profile }
     private val mPatternLockView by lazy { patternLockView_patternLogin_pattern }
@@ -29,13 +29,7 @@ class PatternLoginFragment : Fragment(), PatternLockViewListener {
         return inflater.inflate(R.layout.fragment_patternlogin, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initUiComponents()
-        initUiListeners()
-    }
-
-    private fun initUiComponents() {
+    override fun initUiComponents() {
         val activity = requireActivity()
         if (activity is MainHostActivity) {
             activity.updateToolbarTitle(getString(R.string.patternLogin_stepNOfFour, "1"))
@@ -43,7 +37,7 @@ class PatternLoginFragment : Fragment(), PatternLockViewListener {
         mImageViewProfile.setImageResource(R.drawable.temp)
     }
 
-    private fun initUiListeners() {
+    override fun initUiListeners() {
         mPatternLockView.addPatternLockListener(this)
     }
 
