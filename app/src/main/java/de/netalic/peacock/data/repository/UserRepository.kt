@@ -8,7 +8,7 @@ import retrofit2.Response
 class UserRepository(private val apiInterface: ApiInterface) : BaseRepository() {
 
 
-    fun claim(phone:String,udid:String): Single<Response<UserModel>> {
-        return apiInterface.claim(phone,udid)
+    fun claim(phone: String, udid: String): Single<Response<UserModel>> {
+        return apiInterface.claim(phone, udid)
     }
 }

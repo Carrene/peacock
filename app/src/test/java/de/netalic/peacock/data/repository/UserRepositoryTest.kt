@@ -15,7 +15,7 @@ class UserRepositoryTest : BaseTest() {
 
     companion object {
 
-        val sUser = UserModel("98123", "123","")
+        val sUser = UserModel("98123", "123", "")
     }
 
     private lateinit var mUserRepository: UserRepository

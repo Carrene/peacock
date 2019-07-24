@@ -7,7 +7,6 @@ import de.netalic.peacock.ui.registration.RegistrationFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-
 class MainActivity : BaseActivity() {
 
     private val mToolbar by lazy { toolbar_mainHost }
@@ -20,7 +19,7 @@ class MainActivity : BaseActivity() {
         supportFragmentManager.beginTransaction().add(R.id.frameLayout_main_container, RegistrationFragment()).commit()
     }
 
-    override fun initUiComponents() {
+    override fun initComponents() {
         setSupportActionBar(mToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)

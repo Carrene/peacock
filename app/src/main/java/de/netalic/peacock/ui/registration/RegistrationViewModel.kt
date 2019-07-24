@@ -20,9 +20,9 @@ class RegistrationViewModel(private val userRepository: UserRepository) : BaseVi
         return mClaimResponseLiveData
     }
 
-    fun claim(phone:String,udid:String) {
+    fun claim(phone: String, udid: String) {
 
-        val disposable = userRepository.claim(phone,udid)
+        val disposable = userRepository.claim(phone, udid)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { mClaimResponseLiveData.value = MyResponse.loading() }
@@ -31,7 +31,7 @@ class RegistrationViewModel(private val userRepository: UserRepository) : BaseVi
                     200 -> mClaimResponseLiveData.value = MyResponse.success(it.body()!!)
                     400 -> mClaimResponseLiveData.value = MyResponse.failed(BadRequestException)
                     500 -> mClaimResponseLiveData.value = MyResponse.failed(ServerException)
-                    710-> mClaimResponseLiveData.value =
+                    710 -> mClaimResponseLiveData.value =
                         MyResponse.failed(InvalidUdidOrPhoneException)
                 }
             }, { throwable ->

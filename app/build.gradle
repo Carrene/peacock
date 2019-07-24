@@ -27,6 +27,7 @@ android {
         targetSdkVersion 29
         versionCode generateVersionCode()
         versionName generateVersionName()
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

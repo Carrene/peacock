@@ -19,16 +19,17 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class RegistrationFragment : BaseFragment() {
 
-    companion object {
-        const val mPhoneNumberMinLegnth = 5
-    }
+    private val phoneNumberMinLength = 5
+    private val patternMatcherWithCharacterLength = "[0-9]{5,18}".toRegex()
+    private val patternMatcherWithCharacter = "[0-9]{5,18}".toRegex()
+
 
     private lateinit var mViewRoot: View
     private val mPhoneInputViewModel: RegistrationViewModel by viewModel()
     private val mPhoneInputEditText by lazy { editText_registration_phoneInput }
-    private val mCountryFlagImageView by lazy { imagebutton_registration_flags }
+    private val mCountryFlagImageView by lazy { imageButton_registration_flags }
     private val mCountryCode by lazy { textView_registration_countryCode }
-    private val mContinueButton by lazy { button_registarion_continue }
+    private val mContinueButton by lazy { button_registration_continue }
 
     private var countryCode = "+98"
 
@@ -40,10 +41,9 @@ class RegistrationFragment : BaseFragment() {
     override fun initUiListeners() {
         mCountryFlagImageView.setOnClickListener { countryPicker() }
         mContinueButton.setOnClickListener { claim() }
-
     }
 
-    override fun initUiComponent() {
+    override fun initComponents() {
         phoneInputEdittextWatcher()
         initObserver()
     }
@@ -52,19 +52,22 @@ class RegistrationFragment : BaseFragment() {
         mPhoneInputViewModel.getClaimLiveData().observe(this, Observer {
 
             //when (it.status) {
-               Snackbar.make(mViewRoot, it.status.toString(), Snackbar.LENGTH_LONG).show()
-                //ToDo get all status for
+            Snackbar.make(mViewRoot, it.status.toString(), Snackbar.LENGTH_LONG).show()
+            //ToDo get all status for
             //}
         })
     }
 
     private fun claim() {
-        val phoneNumber =countryCode + mPhoneInputEditText.text.toString()
-        context?.let { mPhoneInputViewModel.claim(phoneNumber, PhoneInfo.getPhoneUdid(it)) }
+        val inputEditText = mPhoneInputEditText.text
+        if (patternMatcherWithCharacterLength.matches(inputEditText)) {
+            val phoneNumber = countryCode + mPhoneInputEditText.text.toString()
+            mPhoneInputViewModel.claim(phoneNumber, PhoneInfo.getPhoneUdid(requireContext()))
+        }
     }
 
     private fun countryPicker() {
-        val countryPicker = CountryPicker.Builder(context).setCountrySelectionListener { country ->
+        val countryPicker = CountryPicker.Builder(requireContext()).setCountrySelectionListener { country ->
 
             countryCode = country.code
             changeCountryImage(country.flagName)
@@ -87,7 +90,7 @@ class RegistrationFragment : BaseFragment() {
 
     private fun setCodeDialText(dialCode: String) {
         val dialCodeText =
-            getString(R.string.paranteses_left) + dialCode + getString(R.string.paranteses_right)
+            getString(R.string.country_Code, countryCode)
         mCountryCode.text = dialCodeText
     }
 
@@ -100,9 +103,9 @@ class RegistrationFragment : BaseFragment() {
             }
 
             override fun onTextChanged(characters: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (characters != null && characters.length > mPhoneNumberMinLegnth)
+                if (characters != null && patternMatcherWithCharacter.matches(characters))
                     enableContinueButton()
-                else if (characters != null && characters.length < mPhoneNumberMinLegnth)
+                else if (characters != null && characters.length < phoneNumberMinLength)
                     disableContinueButton()
             }
 
@@ -110,14 +113,10 @@ class RegistrationFragment : BaseFragment() {
     }
 
     private fun enableContinueButton() {
-        mContinueButton.apply {
-            isEnabled = true
-        }
+        mContinueButton.isEnabled = true
     }
 
     private fun disableContinueButton() {
-        mContinueButton.apply {
-            isEnabled = false
-        }
+        mContinueButton.isEnabled = false
     }
 }

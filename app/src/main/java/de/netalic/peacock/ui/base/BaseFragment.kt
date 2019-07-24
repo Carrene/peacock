@@ -7,10 +7,10 @@ import androidx.fragment.app.Fragment
 abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUiComponent()
+        initComponents()
         initUiListeners()
     }
 
     abstract fun initUiListeners()
-    abstract fun initUiComponent()
+    abstract fun initComponents()
 }
