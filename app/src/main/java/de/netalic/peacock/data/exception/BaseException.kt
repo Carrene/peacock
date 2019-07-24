@@ -1,3 +1,3 @@
 package de.netalic.peacock.data.exception
 
-class ServerException : BaseException()
+open class BaseException:Throwable()

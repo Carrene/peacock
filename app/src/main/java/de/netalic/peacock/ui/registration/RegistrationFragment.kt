@@ -3,6 +3,7 @@ package de.netalic.peacock.ui.registration
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,8 @@ import com.ehsanmashhadi.library.view.CountryPicker
 import com.google.android.material.snackbar.Snackbar
 import de.netalic.peacock.R
 import de.netalic.peacock.ui.base.BaseFragment
+import de.netalic.peacock.ui.main.MainActivity
+import de.netalic.peacock.util.CommonUtils
 import de.netalic.peacock.util.PhoneInfo
 import kotlinx.android.synthetic.main.fragment_registration.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -20,8 +23,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class RegistrationFragment : BaseFragment() {
 
     private val phoneNumberMinLength = 5
-    private val patternMatcherWithCharacterLength = "[0-9]{5,18}".toRegex()
-    private val patternMatcherWithCharacter = "[0-9]{5,18}".toRegex()
+    private val patternMatcher = "[0-9]{5,18}".toRegex()
 
 
     private lateinit var mViewRoot: View
@@ -41,11 +43,27 @@ class RegistrationFragment : BaseFragment() {
     override fun initUiListeners() {
         mCountryFlagImageView.setOnClickListener { countryPicker() }
         mContinueButton.setOnClickListener { claim() }
+        mPhoneInputEditText.setOnKeyListener { _, keyCode, keyEvent ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_DOWN) {
+                mContinueButton.callOnClick()
+                CommonUtils.hideSoftKeyboard(requireActivity())
+                true
+            } else
+                false
+        }
     }
 
     override fun initComponents() {
+        initToolbar()
         phoneInputEdittextWatcher()
         initObserver()
+    }
+
+    private fun initToolbar() {
+        val activity = requireActivity()
+        if (activity is MainActivity) {
+            activity.updateToolbarTitle(getString(R.string.patternLogin_stepNOfFour, "2"))
+        }
     }
 
     private fun initObserver() {
@@ -60,7 +78,7 @@ class RegistrationFragment : BaseFragment() {
 
     private fun claim() {
         val inputEditText = mPhoneInputEditText.text
-        if (patternMatcherWithCharacterLength.matches(inputEditText)) {
+        if (patternMatcher.matches(inputEditText)) {
             val phoneNumber = countryCode + mPhoneInputEditText.text.toString()
             mPhoneInputViewModel.claim(phoneNumber, PhoneInfo.getPhoneUdid(requireContext()))
         }
@@ -76,6 +94,7 @@ class RegistrationFragment : BaseFragment() {
             .showingDialCode(true)
             .enablingSearch(true)
             .setPreSelectedCountry("iran")
+            .setViewType(CountryPicker.ViewType.BOTTOMSHEET)
             .build()
 
         countryPicker.show(activity as AppCompatActivity?)
@@ -103,7 +122,7 @@ class RegistrationFragment : BaseFragment() {
             }
 
             override fun onTextChanged(characters: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (characters != null && patternMatcherWithCharacter.matches(characters))
+                if (characters != null && patternMatcher.matches(characters))
                     enableContinueButton()
                 else if (characters != null && characters.length < phoneNumberMinLength)
                     disableContinueButton()
