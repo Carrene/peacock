@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Peacock</string>
+    <string name="patternLogin_authorization">Authorization</string>
+    <string name="patternLogin_messageEnterPassword">Enter a sample password for more security</string>
+    <string name="patternLogin_messageDrawAgain">Draw your pattern again</string>
+    <string name="patternLogin_skipToPattern">Switch to Pattern</string>
+    <string name="patternLogin_stepNOfFour">Step %1$s/4</string>
+    <string name="imageView_contentDescription">-</string>
+    <string name="hint_passwordLogin_password">- - - - - - - -</string>
+    <string name="passwordLogin_passwordRules">8–20 characters, at least one capital letter, at least one number, and no spaces</string>
+    <string name="passwordLogin_continue">Continue</string>
 </resources>

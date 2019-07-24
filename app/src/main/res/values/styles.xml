@@ -1,11 +1,101 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTextViewAppearance" parent="Widget.MaterialComponents.TextView" />
+
+    <!-- H1 -->
+
+    <style name="H1" parent="AppTextViewAppearance">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">@dimen/H1TextSize</item>
+    </style>
+
+    <style name="H1WithTextColor" parent="H1">
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="H1WithDarkTextColor" parent="H1">
+        <item name="android:textColor">@color/darkText</item>
+    </style>
+
+    <!-- H2 -->
+
+    <style name="H2" parent="AppTextViewAppearance">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">@dimen/H2TextSize</item>
+    </style>
+
+    <style name="H2WithTextColor" parent="H2">
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="H2WithDarkTextColor" parent="H2">
+        <item name="android:textColor">@color/darkText</item>
+    </style>
+
+    <!-- Body1 -->
+
+    <style name="Body1" parent="AppTextViewAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">@dimen/Body1TextSize</item>
+    </style>
+
+    <style name="Body1WithTextColor" parent="Body1">
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="Body1WithDarkTextColor" parent="Body1">
+        <item name="android:textColor">@color/darkText</item>
+    </style>
+
+    <!-- Body2 -->
+
+    <style name="Body2" parent="AppTextViewAppearance">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">@dimen/Body2TextSize</item>
+    </style>
+
+    <style name="Body2WithTextColor" parent="Body2">
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="Body2WithDarkTextColor" parent="Body2">
+        <item name="android:textColor">@color/darkText</item>
+    </style>
+
+    <!-- Body3 -->
+
+    <style name="Body3" parent="AppTextViewAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">@dimen/Body3TextSize</item>
+    </style>
+
+    <style name="Body3WithTextColor" parent="Body2">
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="Body3WithDarkTextColor" parent="Body3">
+        <item name="android:textColor">@color/darkText</item>
+    </style>
+
+    <!-- Caption -->
+
+    <style name="Caption" parent="AppTextViewAppearance">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">@dimen/CaptionTextSize</item>
+    </style>
+
+    <style name="CaptionWithTextColor" parent="Caption">
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="CaptionWithDarkTextColor" parent="Caption">
+        <item name="android:textColor">@color/darkText</item>
     </style>
 
 </resources>
