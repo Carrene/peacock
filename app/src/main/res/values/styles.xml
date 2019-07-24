@@ -23,6 +23,10 @@
         <item name="android:textColor">@color/darkText</item>
     </style>
 
+    <style name="H1WithTertiaryColor" parent="H1">
+        <item name="android:textColor">@color/tertiary</item>
+    </style>
+
     <!-- H2 -->
 
     <style name="H2" parent="AppTextViewAppearance">
