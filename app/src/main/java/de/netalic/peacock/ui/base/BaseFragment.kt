@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 
-abstract class BaseFragment :Fragment(){
+abstract class BaseFragment : Fragment() {
 
+    abstract fun initUiListener()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initUiListener()
     }
-
-    open abstract fun initUiListener()
 
 }

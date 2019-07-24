@@ -8,31 +8,44 @@ import de.netalic.peacock.data.repository.UserRepository
 import de.netalic.peacock.ui.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.ResponseBody
 
-class CodeVerificationViewModel(private val userRepository:UserRepository): BaseViewModel() {
+class CodeVerificationViewModel(private val userRepository: UserRepository) : BaseViewModel() {
 
 
-    private val mBindResponseLiveData= MutableLiveData<MyResponse<Long>>()
+    private val mBindResponseLiveData = MutableLiveData<MyResponse<ResponseBody>>()
 
-    fun getBindLiveData() :LiveData<MyResponse<Long>> {
+    fun getBindLiveData(): LiveData<MyResponse<ResponseBody>> {
 
         return mBindResponseLiveData
     }
 
-    fun bind(user:User){
+    fun bind(user: User) {
 
-        val disposable=userRepository.bind(user)
+        val disposable = userRepository.bind(user)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { mBindResponseLiveData.value = MyResponse.loading() }
             .subscribe({
 
-                when(it.toInt()){
+                when (it.code()) {
+
+                    200 -> {
+                        mBindResponseLiveData.value = MyResponse.success(it.body()!!)
+                    }
+                    400 -> {
+                        mBindResponseLiveData.value = MyResponse.success(it.body()!!)
+                    }
+                    700 -> {
+                        mBindResponseLiveData.value
+                    }
 
 
                 }
-            },{
-                mBindResponseLiveData.value = MyResponse.failed(it)
-            })
+            },
+                {
+
+                })
 
         mCompositDisposable.add(disposable)
     }

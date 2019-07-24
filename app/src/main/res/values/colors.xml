@@ -8,6 +8,10 @@
     <color name="colorSecondaryDark">#A87612</color>
     <color name="colorSecondaryLight">#FFFCCC</color>
 
+    <color name="colorTertiary">#7A6AE9</color>
+    <color name="colorTertiaryDark">#5240C8</color>
+    <color name="colorTertiaryLight">#D4D1F1</color>
+
     <color name="colorBackground">#F2F1F6</color>
 
     <color name="colorTextDark">#00141E</color>

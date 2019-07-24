@@ -23,6 +23,7 @@ data class MyResponse<T>(
 }
 
 enum class Status {
+
     LOADING,
     SUCCESS,
     FAILED
