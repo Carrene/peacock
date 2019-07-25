@@ -81,4 +81,10 @@ dependencies {
         exclude group: 'androidx.appcompat', module: 'appcompat'
     }
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+
+    //test
+    testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-inline:3.0.0"
+    testImplementation 'org.koin:koin-test:2.0.1'
+    testImplementation "android.arch.core:core-testing:1.1.1"
 }
