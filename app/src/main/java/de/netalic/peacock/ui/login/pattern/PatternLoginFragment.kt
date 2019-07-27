@@ -53,11 +53,14 @@ class PatternLoginFragment : BaseFragment(), PatternLockViewListener {
             mUserPattern = result
             Toast.makeText(requireContext(), result, Toast.LENGTH_LONG).show()
         } else if (mDrawCounter == 2) {
-            Toast.makeText(requireContext(), result, Toast.LENGTH_LONG).show()
             if (result == mUserPattern) {
                 Toast.makeText(requireContext(), "MATCH", Toast.LENGTH_LONG).show()
+                mPatternLockView.removePatternLockListener(this)
             } else {
                 Toast.makeText(requireContext(), "Error, different patterns. Try again", Toast.LENGTH_LONG).show()
+                mTextViewMessage.text = getString(R.string.patternLogin_messageDraw)
+                mUserPattern = null
+                mDrawCounter = 1
             }
 
         }
