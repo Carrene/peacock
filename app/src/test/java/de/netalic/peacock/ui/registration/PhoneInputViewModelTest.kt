@@ -22,7 +22,7 @@ import retrofit2.Response
 class PhoneInputViewModelTest : BaseTest() {
 
     companion object {
-        val sUser = UserModel("989359323175", "123456", "")
+        val sUser = UserModel("","","989359323175", "123456", "")
     }
 
     @get:Rule
