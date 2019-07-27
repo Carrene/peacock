@@ -9,14 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import com.alimuzaffar.lib.pin.PinEntryEditText
 import de.netalic.peacock.R
+
 import de.netalic.peacock.data.model.Status
 import de.netalic.peacock.data.model.User
 import de.netalic.peacock.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_codeverification.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
+
 
 class CodeVerificationFragment : BaseFragment() {
 
@@ -26,12 +27,13 @@ class CodeVerificationFragment : BaseFragment() {
         var sTimer = 30000
     }
 
-    private var mIsRunning:Boolean = false
-    private lateinit var mCountDownTimer:CountDownTimer
+    private var mIsRunning: Boolean = false
+    private lateinit var mCountDownTimer: CountDownTimer
     private lateinit var mView: View
 
     private val mCodeVerificationViewModel: CodeVerificationViewModel by viewModel()
 
+    private val mImageView by lazy { imageView_codeVerification_icon }
     private val mTextViewPhoneNumber by lazy { textView_codeVerification_phoneNumber }
     private val mPinEntryEditText by lazy { pinEntryEditText_codeVerification_setPin }
     private val mButton by lazy { button_codeVerification_continue }
@@ -39,7 +41,7 @@ class CodeVerificationFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        mView = inflater.inflate(R.layout.fragment_codeverification, container, false)
+        mView = inflater.inflate(de.netalic.peacock.R.layout.fragment_codeverification, container, false)
         return mView
     }
 
@@ -55,9 +57,9 @@ class CodeVerificationFragment : BaseFragment() {
 
     override fun initUiListener() {
 
-        button_codeVerification_continue.setOnClickListener { bind() }
+        mButton.setOnClickListener { bind() }
 
-        textView_codeVerification_resendTime.setOnClickListener {
+        mTextViewTimer.setOnClickListener {
 
             if (!mIsRunning) {
                 setTimer()
@@ -66,13 +68,8 @@ class CodeVerificationFragment : BaseFragment() {
             }
         }
 
-        pinEntryEditText_codeVerification_setPin.setOnPinEnteredListener(PinEntryEditText.OnPinEnteredListener {
 
-
-
-        })
-
-        pinEntryEditText_codeVerification_setPin.addTextChangedListener(object :TextWatcher{
+        mPinEntryEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
 
             }
@@ -84,11 +81,10 @@ class CodeVerificationFragment : BaseFragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
 
-                if (p0!!.length==6){
+                if (p0!!.length == 6) {
 
                     enableButton()
-                }
-                else{
+                } else {
                     disableButton()
                 }
             }
@@ -127,13 +123,7 @@ class CodeVerificationFragment : BaseFragment() {
         })
     }
 
-    private fun navigationToEmailVerification() {
-
-        //navigate to Email verification fragment here
-
-    }
-
-    private fun setTimer(){
+    private fun setTimer() {
 
 
         mCountDownTimer = object : CountDownTimer(sTimer.toLong(), 1000) {
@@ -143,33 +133,33 @@ class CodeVerificationFragment : BaseFragment() {
                 val secondTimer = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)
                 )
-                textView_codeVerification_resendTime.text = String.format("%02d:%02d ", minuteTimer, secondTimer)
-                textView_codeVerification_resendTime.isEnabled = false
-                textView_codeVerification_resendTime.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorText))
+                mTextViewTimer.text = String.format("%02d:%02d ", minuteTimer, secondTimer)
+                mTextViewTimer.isEnabled = false
+                mTextViewTimer.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorText))
 
             }
 
             override fun onFinish() {
 
-                textView_codeVerification_resendTime.isEnabled = true
+                mTextViewTimer.isEnabled = true
                 mIsRunning = false
                 if (context != null) {
-                    textView_codeVerification_resendTime.text=getString(R.string.codeVerification_resendCode)
-                    textView_codeVerification_resendTime.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorTertiaryDark))
+                    mTextViewTimer.text = getString(R.string.codeVerification_resendCode)
+                    mTextViewTimer.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorTertiaryDark))
                 }
             }
         }.start()
 
     }
 
-    private fun disableButton(){
+    private fun disableButton() {
 
-        button_codeVerification_continue.isEnabled=false
+        mButton.isEnabled = false
     }
 
-    private fun enableButton(){
+    private fun enableButton() {
 
-        button_codeVerification_continue.isEnabled=true
+        mButton.isEnabled = true
     }
 
 }

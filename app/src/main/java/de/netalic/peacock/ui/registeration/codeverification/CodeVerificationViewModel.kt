@@ -2,6 +2,10 @@ package de.netalic.peacock.ui.registeration.codeverification
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import de.netalic.peacock.data.exception.ActivationCodeIsNotValid
+import de.netalic.peacock.data.exception.BadRequestException
+import de.netalic.peacock.data.exception.InvalidDeviceName
+import de.netalic.peacock.data.exception.InvalidUdidOrPhone
 import de.netalic.peacock.data.model.MyResponse
 import de.netalic.peacock.data.model.User
 import de.netalic.peacock.data.repository.UserRepository
@@ -34,12 +38,17 @@ class CodeVerificationViewModel(private val userRepository: UserRepository) : Ba
                         mBindResponseLiveData.value = MyResponse.success(it.body()!!)
                     }
                     400 -> {
-                        mBindResponseLiveData.value = MyResponse.success(it.body()!!)
+                        mBindResponseLiveData.value =  MyResponse.failed(BadRequestException())
                     }
-                    700 -> {
-                        mBindResponseLiveData.value
+                    710 -> {
+                        mBindResponseLiveData.value =  MyResponse.failed(InvalidUdidOrPhone())
                     }
-
+                    711 -> {
+                        mBindResponseLiveData.value =  MyResponse.failed(ActivationCodeIsNotValid())
+                    }
+                    716 -> {
+                        mBindResponseLiveData.value =  MyResponse.failed(InvalidDeviceName())
+                    }
 
                 }
             },

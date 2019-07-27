@@ -32,7 +32,7 @@
     </RelativeLayout>
 
     <ImageView
-            android:id="@+id/ImageView_codeVerification_icon"
+            android:id="@+id/imageView_codeVerification_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="28dp"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/codeVerification_codeVerification"
-            android:layout_below="@+id/ImageView_codeVerification_icon"
+            android:layout_below="@+id/imageView_codeVerification_icon"
             android:gravity="center"
             android:layout_marginTop="20dp"
             style="@style/TextAppearanceBaseBold"/>
