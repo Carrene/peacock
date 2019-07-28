@@ -15,8 +15,6 @@ import de.netalic.peacock.ui.base.BaseFragment
 import de.netalic.peacock.ui.base.MainHostActivity
 import kotlinx.android.synthetic.main.fragment_patternlogin.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import org.koin.core.KoinComponent
-import timber.log.Timber
 
 
 class PatternFragment : BaseFragment(), PatternLockViewListener {
@@ -44,7 +42,8 @@ class PatternFragment : BaseFragment(), PatternLockViewListener {
         mPatternViewModel.getResponse().observe(this, Observer {
 
             when (it.data) {
-                ResponseStatus.FIRST_SUCCESS -> mTextViewMessage.text = getString(R.string.patternLogin_messageDrawAgain)
+                ResponseStatus.FIRST_SUCCESS -> mTextViewMessage.text =
+                    getString(R.string.patternLogin_messageDrawAgain)
                 ResponseStatus.SECOND_SUCCESS -> {
                     Toast.makeText(requireContext(), "MATCH", Toast.LENGTH_LONG).show()
                     mPatternLockView.removePatternLockListener(this)
@@ -73,6 +72,7 @@ class PatternFragment : BaseFragment(), PatternLockViewListener {
         val result = PatternLockUtils.patternToString(mPatternLockView, pattern)
         mPatternViewModel.onPatternListener(result)
     }
+
     override fun onCleared() {}
     override fun onStarted() {}
     override fun onProgress(progressPattern: MutableList<PatternLockView.Dot>?) {}

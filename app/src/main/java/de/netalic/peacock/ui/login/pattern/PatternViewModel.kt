@@ -37,7 +37,5 @@ class PatternViewModel : BaseViewModel() {
                 mResponse.value = MyResponse.success(ResponseStatus.FAILED)
             }
         }
-
     }
-
 }
