@@ -5,7 +5,9 @@ import android.provider.Settings
 import android.util.Log
 import java.security.MessageDigest
 
+//TODO-Tina companion object
 object PhoneInfo {
+
     private const val SHA_1 = "SHA-1"
     const val HEXCHARS = "0123456789ABCDEF"
 

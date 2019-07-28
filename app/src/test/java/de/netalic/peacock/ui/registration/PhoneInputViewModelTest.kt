@@ -61,10 +61,10 @@ class PhoneInputViewModelTest : BaseTest() {
         delayer.onComplete()
         Assert.assertEquals(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).status, Status.SUCCESS)
         Assert.assertEquals(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).data, sUser)
+        //TODO-Tina Add an assert for throwable
 
     }
 
-    //
     @Test
     fun claimUser_showBadRequestException() {
         val delayer = PublishSubject.create<Void>()
@@ -91,7 +91,6 @@ class PhoneInputViewModelTest : BaseTest() {
         )
     }
 
-    //
     @Test
     fun claimUser_showServerException() {
         val delayer = PublishSubject.create<Void>()
@@ -118,7 +117,7 @@ class PhoneInputViewModelTest : BaseTest() {
         )
     }
 
-    //
+
     @Test
     fun claimUser_showInvalidUdidOrPhoneException() {
         val delayer = PublishSubject.create<Void>()

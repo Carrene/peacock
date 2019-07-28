@@ -24,7 +24,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class RegistrationFragment : BaseFragment() {
-    //ToDo min and max size of phone number
+    //ToDo-tina min and max size of phone number
     private val mPatternMatcher = "[0-9 ]{5,15}".toRegex()
     private lateinit var mCustomPhoneFormatTextWatcher: CustomPhoneFormatTextWatcher
 
@@ -75,10 +75,8 @@ class RegistrationFragment : BaseFragment() {
     private fun initObserver() {
         mPhoneInputViewModel.getClaimLiveData().observe(this, Observer {
 
-            //when (it.status) {
+            //ToDo-tina: get all status for
             Snackbar.make(mViewRoot, it.status.toString(), Snackbar.LENGTH_LONG).show()
-            //ToDo get all status for
-            //}
         })
     }
 
@@ -99,7 +97,6 @@ class RegistrationFragment : BaseFragment() {
             setCodeDialText()
             mPhoneInputEditText.setText("")
 
-
         }.showingFlag(true)
             .showingDialCode(true)
             .enablingSearch(true)
@@ -114,7 +111,6 @@ class RegistrationFragment : BaseFragment() {
     private fun changeCountryImage(flagName: String) {
         val iconResId = resources.getIdentifier(flagName, "drawable", activity?.packageName)
         mCountryFlagImageView.setImageResource(iconResId)
-
     }
 
     private fun setCodeDialText() {
@@ -136,9 +132,7 @@ class RegistrationFragment : BaseFragment() {
                     enableContinueButton()
                 else
                     disableContinueButton()
-
             }
-
         })
     }
 
@@ -159,6 +153,4 @@ class RegistrationFragment : BaseFragment() {
         mContinueButton.isEnabled = false
         mContinueButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.buttonDisable))
     }
-
-
 }
