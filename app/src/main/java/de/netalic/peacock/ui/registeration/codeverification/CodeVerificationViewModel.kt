@@ -56,7 +56,7 @@ class CodeVerificationViewModel(private val userRepository: UserRepository) : Ba
 
                 })
 
-        mCompositDisposable.add(disposable)
+        mCompositeDisposable.add(disposable)
     }
 
 }

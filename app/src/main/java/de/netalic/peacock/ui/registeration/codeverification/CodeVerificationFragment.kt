@@ -10,17 +10,16 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import de.netalic.peacock.R
-
 import de.netalic.peacock.data.model.Status
 import de.netalic.peacock.data.model.User
 import de.netalic.peacock.ui.base.BaseFragment
+import de.netalic.peacock.ui.util.CommonUtils
 import kotlinx.android.synthetic.main.fragment_codeverification.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
 
 class CodeVerificationFragment : BaseFragment() {
-
 
     companion object {
 
@@ -33,22 +32,20 @@ class CodeVerificationFragment : BaseFragment() {
 
     private val mCodeVerificationViewModel: CodeVerificationViewModel by viewModel()
 
-    private val mImageView by lazy { imageView_codeVerification_icon }
-    private val mTextViewPhoneNumber by lazy { textView_codeVerification_phoneNumber }
     private val mPinEntryEditText by lazy { pinEntryEditText_codeVerification_setPin }
     private val mButton by lazy { button_codeVerification_continue }
     private val mTextViewTimer by lazy { textView_codeVerification_resendTime }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        mView = inflater.inflate(de.netalic.peacock.R.layout.fragment_codeverification, container, false)
+        mView = inflater.inflate(R.layout.fragment_codeverification, container, false)
         return mView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeViewModel()
+
         setTimer()
         disableButton()
 
@@ -84,11 +81,18 @@ class CodeVerificationFragment : BaseFragment() {
                 if (p0!!.length == 6) {
 
                     enableButton()
+                    CommonUtils.hideSoftKeyboard(requireActivity())
                 } else {
                     disableButton()
                 }
             }
         })
+
+    }
+
+    override fun initUiComponent() {
+
+        observeViewModel()
 
     }
 

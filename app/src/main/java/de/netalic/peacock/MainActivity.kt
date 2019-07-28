@@ -13,4 +13,5 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(R.id.frameLayout_mainActivity_fragmentContainer,
             CodeVerificationFragment()).commit()
     }
+
 }

@@ -7,11 +7,13 @@ import androidx.fragment.app.Fragment
 abstract class BaseFragment : Fragment() {
 
     abstract fun initUiListener()
+    abstract fun initUiComponent()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initUiListener()
+        initUiComponent()
     }
 
 }
