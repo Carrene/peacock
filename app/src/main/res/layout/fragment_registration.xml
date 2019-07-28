@@ -83,7 +83,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
             <com.google.android.material.button.MaterialButton
                     android:background="@color/buttonDisable"
-                    app:cornerRadius="25dp"
+                    app:cornerRadius="@dimen/buttonRadius"
                     style="@style/H1HeadLineLightText"
                     android:enabled="false"
                     android:text="@string/registration_continue"

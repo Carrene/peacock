@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.ehsanmashhadi.library.view.CountryPicker
 import com.google.android.material.snackbar.Snackbar
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_registration.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class RegistrationFragment : BaseFragment(){
+class RegistrationFragment : BaseFragment() {
     //ToDo min and max size of phone number
     private val mPatternMatcher = "[0-9 ]{5,15}".toRegex()
     private lateinit var mCustomPhoneFormatTextWatcher: CustomPhoneFormatTextWatcher
@@ -31,11 +32,11 @@ class RegistrationFragment : BaseFragment(){
     private val mPhoneInputViewModel: RegistrationViewModel by viewModel()
     private val mPhoneInputEditText by lazy { editText_registration_phoneInput }
     private val mCountryFlagImageView by lazy { imageButton_registration_flags }
-    private val mCountryCode by lazy { textView_registration_countryCode }
+    private val mCountryCodeTextView by lazy { textView_registration_countryCode }
     private val mContinueButton by lazy { button_registration_continue }
 
-    private var countryCode = "IR"
-    private var dialCode = "+98"
+    private var mCountryCode = "IR"
+    private var mDialCode = "+98"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mViewRoot = inflater.inflate(R.layout.fragment_registration, container, false)
@@ -67,7 +68,7 @@ class RegistrationFragment : BaseFragment(){
     private fun initToolbar() {
         val activity = requireActivity()
         if (activity is MainActivity) {
-            activity.updateToolbarTitle(getString(R.string.patternLogin_stepNOfFour, "2"))
+            activity.updateToolbarTitle(getString(R.string.all_stepNOfFour, "2"))
         }
     }
 
@@ -84,7 +85,7 @@ class RegistrationFragment : BaseFragment(){
     private fun claim() {
         val inputEditText = mPhoneInputEditText.text
         if (mPatternMatcher.matches(inputEditText)) {
-            val phoneNumber = countryCode + mPhoneInputEditText.text.toString()
+            val phoneNumber = mCountryCode + mPhoneInputEditText.text.toString()
             mPhoneInputViewModel.claim(phoneNumber, PhoneInfo.getPhoneUdid(requireContext()))
         }
     }
@@ -92,8 +93,8 @@ class RegistrationFragment : BaseFragment(){
     private fun countryPicker() {
         val countryPicker = CountryPicker.Builder(requireContext()).setCountrySelectionListener { country ->
 
-            countryCode = country.code
-            dialCode = country.dialCode
+            mCountryCode = country.code
+            mDialCode = country.dialCode
             changeCountryImage(country.flagName)
             setCodeDialText()
             mPhoneInputEditText.setText("")
@@ -118,8 +119,8 @@ class RegistrationFragment : BaseFragment(){
 
     private fun setCodeDialText() {
         val dialCodeText =
-            getString(R.string.country_Code, dialCode)
-        mCountryCode.text = dialCodeText
+            getString(R.string.registration_countryCode, mDialCode)
+        mCountryCodeTextView.text = dialCodeText
     }
 
     private fun phoneInputEditTextWatcher() {
@@ -142,7 +143,7 @@ class RegistrationFragment : BaseFragment(){
     }
 
     private fun phoneFormat() {
-        mCustomPhoneFormatTextWatcher = CustomPhoneFormatTextWatcher(countryCode, dialCode)
+        mCustomPhoneFormatTextWatcher = CustomPhoneFormatTextWatcher(mCountryCode, mDialCode)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mPhoneInputEditText.removeTextChangedListener(mCustomPhoneFormatTextWatcher)
             mPhoneInputEditText.addTextChangedListener(mCustomPhoneFormatTextWatcher)
@@ -151,12 +152,12 @@ class RegistrationFragment : BaseFragment(){
 
     private fun enableContinueButton() {
         mContinueButton.isEnabled = true
-        mContinueButton.setBackgroundColor(resources.getColor(R.color.purple))
+        mContinueButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorTertiary))
     }
 
     private fun disableContinueButton() {
         mContinueButton.isEnabled = false
-        mContinueButton.setBackgroundColor(resources.getColor(R.color.buttonDisable))
+        mContinueButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.buttonDisable))
     }
 
 

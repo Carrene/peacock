@@ -5,6 +5,6 @@
     <string name="registration_continue">Continue</string>
     <string name="registration_hint">- - - - - - - - - -</string>
     <string name="registration_iranCode">(+98)</string>
-    <string name="country_Code">(%1$s)</string>
-    <string name="patternLogin_stepNOfFour">Step %1$s/4</string>
+    <string name="registration_countryCode">(%1$s)</string>
+    <string name="all_stepNOfFour">Step %1$s/4</string>
 </resources>

@@ -10,5 +10,5 @@
     <color name="white">#FFFFFF</color>
     <color name="circleImage">#D4D1F1</color>
     <color name="background">#F2F1F6</color>
-    <color name="purple">#7A6AE9</color>
+    <color name="colorTertiary">#7A6AE9</color>
 </resources>
