@@ -7,13 +7,13 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp">
+        app:elevation="@dimen/elevation_0">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_mainHost_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="@color/background"
-            app:elevation="0dp">
+            app:elevation="@dimen/elevation_0">
             <TextView
                 android:id="@+id/textView_mainHost_toolbarTitle"
                 android:layout_width="wrap_content"

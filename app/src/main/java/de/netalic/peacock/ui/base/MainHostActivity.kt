@@ -1,4 +1,4 @@
-package de.netalic.peacock.ui.login.pattern
+package de.netalic.peacock.ui.base
 
 import de.netalic.peacock.R
 import de.netalic.peacock.ui.base.BaseActivity
@@ -12,6 +12,10 @@ class MainHostActivity : BaseActivity() {
     override fun getLayoutResourceId() = R.layout.activity_mainhost
 
     override fun initUiComponents() {
+        setupToolbar()
+    }
+
+    private fun setupToolbar() {
         setSupportActionBar(mToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }

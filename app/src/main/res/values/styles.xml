@@ -12,7 +12,7 @@
 
     <style name="H1" parent="AppTextViewAppearance">
         <item name="android:fontFamily">@font/roboto_medium</item>
-        <item name="android:textSize">@dimen/H1TextSize</item>
+        <item name="android:textSize">@dimen/textSize_h1_16dp</item>
     </style>
 
     <style name="H1WithTextColor" parent="H1">
@@ -31,7 +31,7 @@
 
     <style name="H2" parent="AppTextViewAppearance">
         <item name="android:fontFamily">@font/roboto_bold</item>
-        <item name="android:textSize">@dimen/H2TextSize</item>
+        <item name="android:textSize">@dimen/textSize_h2_16dp</item>
     </style>
 
     <style name="H2WithTextColor" parent="H2">
@@ -46,7 +46,7 @@
 
     <style name="Body1" parent="AppTextViewAppearance">
         <item name="android:fontFamily">@font/roboto_regular</item>
-        <item name="android:textSize">@dimen/Body1TextSize</item>
+        <item name="android:textSize">@dimen/textSize_body1_16dp</item>
     </style>
 
     <style name="Body1WithTextColor" parent="Body1">
@@ -61,7 +61,7 @@
 
     <style name="Body2" parent="AppTextViewAppearance">
         <item name="android:fontFamily">@font/roboto_medium</item>
-        <item name="android:textSize">@dimen/Body2TextSize</item>
+        <item name="android:textSize">@dimen/textSize_body2_14dp</item>
     </style>
 
     <style name="Body2WithTextColor" parent="Body2">
@@ -76,7 +76,7 @@
 
     <style name="Body3" parent="AppTextViewAppearance">
         <item name="android:fontFamily">@font/roboto_regular</item>
-        <item name="android:textSize">@dimen/Body3TextSize</item>
+        <item name="android:textSize">@dimen/textSize_body3_14dp</item>
     </style>
 
     <style name="Body3WithTextColor" parent="Body2">
@@ -91,7 +91,7 @@
 
     <style name="Caption" parent="AppTextViewAppearance">
         <item name="android:fontFamily">@font/roboto_medium</item>
-        <item name="android:textSize">@dimen/CaptionTextSize</item>
+        <item name="android:textSize">@dimen/textSize_caption_12dp</item>
     </style>
 
     <style name="CaptionWithTextColor" parent="Caption">

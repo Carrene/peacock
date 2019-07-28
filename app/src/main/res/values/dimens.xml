@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="H1TextSize">16sp</dimen>
-    <dimen name="H2TextSize">16sp</dimen>
-    <dimen name="Body1TextSize">16sp</dimen>
-    <dimen name="Body2TextSize">14sp</dimen>
-    <dimen name="Body3TextSize">14sp</dimen>
-    <dimen name="CaptionTextSize">12sp</dimen>
+    <dimen name="textSize_h1_16dp">16sp</dimen>
+    <dimen name="textSize_h2_16dp">16sp</dimen>
+    <dimen name="textSize_body1_16dp">16sp</dimen>
+    <dimen name="textSize_body2_14dp">14sp</dimen>
+    <dimen name="textSize_body3_14dp">14sp</dimen>
+    <dimen name="textSize_caption_12dp">12sp</dimen>
 
-    <integer name="PatternDotCount">3</integer>
+    <dimen name="margin_all_8">8dp</dimen>
+    <dimen name="margin_all_16">16dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+    <dimen name="margin_all_32">32dp</dimen>
+
+    <dimen name="padding_all_8">8dp</dimen>
+
+    <dimen name="elevation_0">0dp</dimen>
+
+    <dimen name="size_0">0dp</dimen>
+    <dimen name="size_90">90dp</dimen>
+
+    <integer name="count_patternView_dots">3</integer>
 
 </resources>
