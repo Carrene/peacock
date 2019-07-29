@@ -51,7 +51,7 @@ class CodeVerificationFragment : BaseFragment() {
         disableButton()
     }
 
-
+    //    TODO-Milad separate the codes in multiple functions
     override fun initUiListener() {
 
         mButton.setOnClickListener { bind() }
@@ -92,6 +92,7 @@ class CodeVerificationFragment : BaseFragment() {
 
     override fun initUiComponent() {
 
+        //TODO-Milad Add initObservers
         observeViewModel()
 
     }

@@ -16,6 +16,7 @@ import okhttp3.ResponseBody
 
 class CodeVerificationViewModel(private val userRepository: UserRepository) : BaseViewModel() {
 
+    // TODO-Milad put timer here and write tests
 
     private val mBindResponseLiveData = MutableLiveData<MyResponse<ResponseBody>>()
 
@@ -38,16 +39,16 @@ class CodeVerificationViewModel(private val userRepository: UserRepository) : Ba
                         mBindResponseLiveData.value = MyResponse.success(it.body()!!)
                     }
                     400 -> {
-                        mBindResponseLiveData.value =  MyResponse.failed(BadRequestException())
+                        mBindResponseLiveData.value = MyResponse.failed(BadRequestException())
                     }
                     710 -> {
-                        mBindResponseLiveData.value =  MyResponse.failed(InvalidUdidOrPhone())
+                        mBindResponseLiveData.value = MyResponse.failed(InvalidUdidOrPhone())
                     }
                     711 -> {
-                        mBindResponseLiveData.value =  MyResponse.failed(ActivationCodeIsNotValid())
+                        mBindResponseLiveData.value = MyResponse.failed(ActivationCodeIsNotValid())
                     }
                     716 -> {
-                        mBindResponseLiveData.value =  MyResponse.failed(InvalidDeviceName())
+                        mBindResponseLiveData.value = MyResponse.failed(InvalidDeviceName())
                     }
 
                 }
