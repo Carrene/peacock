@@ -6,40 +6,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackground">
-    <RelativeLayout
-            android:id="@+id/relativeLayout_codeVerification_title"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_all_8dp">
-
-        <TextView
-                android:id="@+id/textView_codeVerification_steps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/codeVerification_steps"
-                android:layout_marginEnd="@dimen/margin_all_5dp"
-                style="@style/TextAppearanceBaseMediumTitleTextDark"/>
-
-        <TextView
-                android:id="@+id/textView_codeVerification_stepCounter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/codeVerification_stepsValue"
-                android:layout_toEndOf="@+id/textView_codeVerification_steps"
-                android:layout_marginStart="@dimen/margin_all_5dp"
-                style="@style/TextAppearanceBaseMediumTitleTextDark"/>
-
-    </RelativeLayout>
 
     <ImageView
             android:id="@+id/imageView_codeVerification_icon"
             android:layout_width="@dimen/margin_all_100dp"
             android:layout_height="@dimen/margin_all_100dp"
             android:layout_marginTop="@dimen/margin_all_28dp"
-            android:layout_below="@+id/relativeLayout_codeVerification_title"
             android:src="@drawable/everywhere_icon"
-            android:layout_centerInParent="true"/>
+            android:layout_centerHorizontal="true"/>
 
     <TextView
             android:id="@+id/textView_codeVerification_codeVerification"

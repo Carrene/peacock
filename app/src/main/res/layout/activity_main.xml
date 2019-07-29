@@ -11,7 +11,18 @@
             android:id="@+id/toolbar_all_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:background="@color/colorBackground"/>
+            android:background="@color/colorBackground">
+
+        <TextView
+                android:id="@+id/textView_mainActivity_toolbarTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/codeVerification_steps"
+                style="@style/TextAppearanceBaseMediumTitleTextDark"
+                android:layout_marginEnd="@dimen/margin_all_16dp"/>
+
+    </androidx.appcompat.widget.Toolbar>
     <FrameLayout
             android:id="@+id/frameLayout_mainActivity_fragmentContainer"
             android:layout_width="match_parent"
