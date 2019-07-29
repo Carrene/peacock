@@ -22,7 +22,7 @@ import retrofit2.Response
 class PhoneInputViewModelTest : BaseTest() {
 
     companion object {
-        val sUser = UserModel("","","989359323175", "123456", "")
+        val sUser = UserModel(mPhone = "989359323175", mUdid = "123456")
     }
 
     @get:Rule
@@ -51,9 +51,9 @@ class PhoneInputViewModelTest : BaseTest() {
         val singleResponse = Single.just(
             Response.success(200, sUser)
         ).delaySubscription(delayer)
-        Mockito.`when`(mUserRepository.claim(sUser.phone, sUser.udid)).thenReturn(singleResponse)
-        mRegistrationViewModel.claim(sUser.phone, sUser.udid)
-        Mockito.verify(mUserRepository).claim(sUser.phone, sUser.udid)
+        Mockito.`when`(mUserRepository.claim(sUser.mPhone, sUser.mUdid)).thenReturn(singleResponse)
+        mRegistrationViewModel.claim(sUser.mPhone, sUser.mUdid)
+        Mockito.verify(mUserRepository).claim(sUser.mPhone, sUser.mUdid)
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).status,
             Status.LOADING
@@ -61,7 +61,7 @@ class PhoneInputViewModelTest : BaseTest() {
         delayer.onComplete()
         Assert.assertEquals(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).status, Status.SUCCESS)
         Assert.assertEquals(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).data, sUser)
-        //TODO-Tina Add an assert for throwable
+        Assert.assertNull(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).throwable)
 
     }
 
@@ -76,9 +76,9 @@ class PhoneInputViewModelTest : BaseTest() {
             )
         )
             .delaySubscription(delayer)
-        Mockito.`when`(mUserRepository.claim(sUser.phone, sUser.udid)).thenReturn(singleResponse)
-        mRegistrationViewModel.claim(sUser.phone, sUser.udid)
-        Mockito.verify(mUserRepository).claim(sUser.phone, sUser.udid)
+        Mockito.`when`(mUserRepository.claim(sUser.mPhone, sUser.mUdid)).thenReturn(singleResponse)
+        mRegistrationViewModel.claim(sUser.mPhone, sUser.mUdid)
+        Mockito.verify(mUserRepository).claim(sUser.mPhone, sUser.mUdid)
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).status,
             Status.LOADING
@@ -89,6 +89,7 @@ class PhoneInputViewModelTest : BaseTest() {
             LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).throwable!!::class.java,
             BadRequestException::class.java
         )
+        Assert.assertNull(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).data)
     }
 
     @Test
@@ -102,9 +103,9 @@ class PhoneInputViewModelTest : BaseTest() {
             )
         )
             .delaySubscription(delayer)
-        Mockito.`when`(mUserRepository.claim(sUser.phone, sUser.udid)).thenReturn(singleResponse)
-        mRegistrationViewModel.claim(sUser.phone, sUser.udid)
-        Mockito.verify(mUserRepository).claim(sUser.phone, sUser.udid)
+        Mockito.`when`(mUserRepository.claim(sUser.mPhone, sUser.mUdid)).thenReturn(singleResponse)
+        mRegistrationViewModel.claim(sUser.mPhone, sUser.mUdid)
+        Mockito.verify(mUserRepository).claim(sUser.mPhone, sUser.mUdid)
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).status,
             Status.LOADING
@@ -115,11 +116,12 @@ class PhoneInputViewModelTest : BaseTest() {
             LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).throwable!!::class.java,
             ServerException::class.java
         )
+        Assert.assertNull(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).data)
     }
 
 
     @Test
-    fun claimUser_showInvalidUdidOrPhoneException() {
+    fun claimUser_showInvalidmUdidOrmPhoneException() {
         val delayer = PublishSubject.create<Void>()
 
         val singleResponse = Single.just(
@@ -129,9 +131,9 @@ class PhoneInputViewModelTest : BaseTest() {
             )
         )
             .delaySubscription(delayer)
-        Mockito.`when`(mUserRepository.claim(sUser.phone, sUser.udid)).thenReturn(singleResponse)
-        mRegistrationViewModel.claim(sUser.phone, sUser.udid)
-        Mockito.verify(mUserRepository).claim(sUser.phone, sUser.udid)
+        Mockito.`when`(mUserRepository.claim(sUser.mPhone, sUser.mUdid)).thenReturn(singleResponse)
+        mRegistrationViewModel.claim(sUser.mPhone, sUser.mUdid)
+        Mockito.verify(mUserRepository).claim(sUser.mPhone, sUser.mUdid)
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).status,
             Status.LOADING
@@ -141,6 +143,27 @@ class PhoneInputViewModelTest : BaseTest() {
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).throwable!!::class.java,
             InvalidUdidOrPhoneException::class.java
+        )
+        Assert.assertNull(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).data)
+    }
+
+    @Test
+    fun phoneValidator_validPhoneNumber() {
+        val phone = "123 456"
+        mRegistrationViewModel.phoneValidator(phone)
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mRegistrationViewModel.getPhoneValidatorLiveData()).data,
+            ResponseStatus.PHONE_VALID
+        )
+    }
+
+    @Test
+    fun phoneValidator_invalidPhoneNumber() {
+        val phone = "12a456"
+        mRegistrationViewModel.phoneValidator(phone)
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mRegistrationViewModel.getPhoneValidatorLiveData()).data,
+            ResponseStatus.PHONE_INVALID
         )
     }
 

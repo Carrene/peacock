@@ -19,7 +19,10 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initComponents() {
-        //TODO-tina Put this code in separate method
+       initToolbar()
+    }
+
+    fun initToolbar(){
         setSupportActionBar(mToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)

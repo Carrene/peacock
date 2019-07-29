@@ -14,19 +14,19 @@ import androidx.lifecycle.Observer
 import com.ehsanmashhadi.library.view.CountryPicker
 import com.google.android.material.snackbar.Snackbar
 import de.netalic.peacock.R
+import de.netalic.peacock.data.model.Status
 import de.netalic.peacock.ui.base.BaseFragment
 import de.netalic.peacock.ui.main.MainActivity
 import de.netalic.peacock.util.CommonUtils
-import de.netalic.peacock.util.CustomPhoneFormatTextWatcher
-import de.netalic.peacock.util.PhoneInfo
+import de.netalic.peacock.util.CustomPhoneFormatTextWatcherUtils
+import de.netalic.peacock.util.PhoneInfoUtils
 import kotlinx.android.synthetic.main.fragment_registration.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class RegistrationFragment : BaseFragment() {
-    //ToDo-tina min and max size of phone number
-    private val mPatternMatcher = "[0-9 ]{5,15}".toRegex()
-    private lateinit var mCustomPhoneFormatTextWatcher: CustomPhoneFormatTextWatcher
+
+    private lateinit var mCustomPhoneFormatTextWatcher: CustomPhoneFormatTextWatcherUtils
 
     private lateinit var mViewRoot: View
     private val mPhoneInputViewModel: RegistrationViewModel by viewModel()
@@ -37,6 +37,8 @@ class RegistrationFragment : BaseFragment() {
 
     private var mCountryCode = "IR"
     private var mDialCode = "+98"
+    //ToDo-tina min and max size of phone number
+    private val mPhoneNumberMax = 4
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mViewRoot = inflater.inflate(R.layout.fragment_registration, container, false)
@@ -45,7 +47,7 @@ class RegistrationFragment : BaseFragment() {
 
     override fun initUiListeners() {
         mCountryFlagImageView.setOnClickListener { countryPicker() }
-        mContinueButton.setOnClickListener { claim() }
+        mContinueButton.setOnClickListener { validatePhoneNumber() }
         mPhoneInputEditText.setOnKeyListener { _, keyCode, keyEvent ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action
                 == KeyEvent.ACTION_DOWN
@@ -56,6 +58,11 @@ class RegistrationFragment : BaseFragment() {
             } else
                 false
         }
+    }
+
+    private fun validatePhoneNumber() {
+        val phoneNumber: String = mPhoneInputEditText.text.toString()
+        mPhoneInputViewModel.phoneValidator(phoneNumber)
     }
 
     override fun initComponents() {
@@ -76,16 +83,29 @@ class RegistrationFragment : BaseFragment() {
         mPhoneInputViewModel.getClaimLiveData().observe(this, Observer {
 
             //ToDo-tina: get all status for
+            when (it.status) {
+                Status.FAILED -> enableContinueButton()
+            }
             Snackbar.make(mViewRoot, it.status.toString(), Snackbar.LENGTH_LONG).show()
+        })
+
+        mPhoneInputViewModel.getPhoneValidatorLiveData().observe(this, Observer {
+
+            when (it.data) {
+                ResponseStatus.PHONE_VALID -> claim()
+                ResponseStatus.PHONE_INVALID -> Snackbar.make(
+                    mViewRoot, it.status.toString()
+                    , Snackbar.LENGTH_LONG
+                ).show()
+            }
         })
     }
 
     private fun claim() {
-        val inputEditText = mPhoneInputEditText.text
-        if (mPatternMatcher.matches(inputEditText)) {
-            val phoneNumber = mCountryCode + mPhoneInputEditText.text.toString()
-            mPhoneInputViewModel.claim(phoneNumber, PhoneInfo.getPhoneUdid(requireContext()))
-        }
+        val inputEditText: String = mPhoneInputEditText.text.toString()
+        val phoneNumberNoCode = inputEditText.replace(" ", "")
+        val phoneNumber = mDialCode + phoneNumberNoCode
+        mPhoneInputViewModel.claim(phoneNumber, PhoneInfoUtils.getPhoneUdid(requireContext()))
     }
 
     private fun countryPicker() {
@@ -128,7 +148,7 @@ class RegistrationFragment : BaseFragment() {
             }
 
             override fun onTextChanged(characters: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (characters != null && mPatternMatcher.matches(characters))
+                if (characters != null && characters.length > mPhoneNumberMax)
                     enableContinueButton()
                 else
                     disableContinueButton()
@@ -137,7 +157,8 @@ class RegistrationFragment : BaseFragment() {
     }
 
     private fun phoneFormat() {
-        mCustomPhoneFormatTextWatcher = CustomPhoneFormatTextWatcher(mCountryCode, mDialCode)
+        mCustomPhoneFormatTextWatcher =
+            CustomPhoneFormatTextWatcherUtils(mCountryCode, mDialCode)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mPhoneInputEditText.removeTextChangedListener(mCustomPhoneFormatTextWatcher)
             mPhoneInputEditText.addTextChangedListener(mCustomPhoneFormatTextWatcher)

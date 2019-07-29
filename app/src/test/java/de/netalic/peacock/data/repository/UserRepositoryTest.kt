@@ -37,8 +37,8 @@ class UserRepositoryTest : BaseTest() {
 
     @Test
     fun claimUser_claimToApi() {
-        mUserRepository.claim(sUser.phone, sUser.udid)
-        Mockito.verify(apiInterface).claim(sUser.phone, sUser.udid)
+        mUserRepository.claim(sUser.mPhone, sUser.mUdid)
+        Mockito.verify(apiInterface).claim(sUser.mPhone, sUser.mUdid)
     }
 
 }

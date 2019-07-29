@@ -23,7 +23,7 @@ import java.util.Locale;
  * The formatting will be restarted once the text is cleared.
  * This class get phone code and locale
  */
-public class CustomPhoneFormatTextWatcher implements TextWatcher {
+public class CustomPhoneFormatTextWatcherUtils implements TextWatcher {
 
     /**
      * Indicates the change was caused by ourselves.
@@ -44,7 +44,7 @@ public class CustomPhoneFormatTextWatcher implements TextWatcher {
      * The formatting is based on the current system locale and future locale changes
      * may not take effect on this instance.
      */
-    public CustomPhoneFormatTextWatcher() {
+    public CustomPhoneFormatTextWatcherUtils() {
 
         this(Locale.getDefault().getCountry(), "");
     }
@@ -56,7 +56,7 @@ public class CustomPhoneFormatTextWatcher implements TextWatcher {
      *                    where the phone number is being entered.
      * @hide
      */
-    public CustomPhoneFormatTextWatcher(String countryCode, String code) {
+    public CustomPhoneFormatTextWatcherUtils(String countryCode, String code) {
 
         if (countryCode == null) throw new IllegalArgumentException();
         mFormatter = PhoneNumberUtil.getInstance().getAsYouTypeFormatter(countryCode);
