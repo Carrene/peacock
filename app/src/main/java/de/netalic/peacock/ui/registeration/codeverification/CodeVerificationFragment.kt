@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit
 
 class CodeVerificationFragment : BaseFragment() {
 
+
     companion object {
 
         var sTimer = 30000
@@ -51,10 +52,21 @@ class CodeVerificationFragment : BaseFragment() {
         disableButton()
     }
 
-    //    TODO-Milad separate the codes in multiple functions
     override fun initUiListener() {
 
+        buttonListener()
+        resendCodeListener()
+        pinEntryEditTextListener()
+
+    }
+
+    private fun buttonListener() {
+
         mButton.setOnClickListener { bind() }
+
+    }
+
+    private fun resendCodeListener() {
 
         mTextViewResendCode.setOnClickListener {
 
@@ -66,6 +78,9 @@ class CodeVerificationFragment : BaseFragment() {
 
             }
         }
+    }
+
+    private fun pinEntryEditTextListener() {
 
         mPinEntryEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -87,13 +102,14 @@ class CodeVerificationFragment : BaseFragment() {
                 }
             }
         })
+    }
 
+    override fun initObserver() {
+
+        observeBindLiveData()
     }
 
     override fun initUiComponent() {
-
-        //TODO-Milad Add initObservers
-        observeViewModel()
 
     }
 
@@ -118,13 +134,11 @@ class CodeVerificationFragment : BaseFragment() {
                 "082016"
             )
         )
-
     }
 
-    private fun observeViewModel() {
+    private fun observeBindLiveData() {
 
         mCodeVerificationViewModel.getBindLiveData().observe(this, Observer {
-
 
             when (it.status) {
                 Status.LOADING -> {
@@ -180,5 +194,4 @@ class CodeVerificationFragment : BaseFragment() {
 
         mButton.isEnabled = true
     }
-
 }
