@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground">
+    <RelativeLayout
+            android:id="@+id/relativeLayout_codeVerification_title"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+        <TextView
+                android:id="@+id/textView_codeVerification_steps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/codeVerification_steps"
+                android:layout_marginEnd="5dp"
+                style="@style/TextAppearanceBaseMediumTitleTextDark"/>
+
+        <TextView
+                android:id="@+id/textView_codeVerification_stepCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/codeVerification_stepsValue"
+                android:layout_toEndOf="@+id/textView_codeVerification_steps"
+                android:layout_marginStart="5dp"
+                style="@style/TextAppearanceBaseMediumTitleTextDark"/>
+
+    </RelativeLayout>
+
+    <ImageView
+            android:id="@+id/imageView_codeVerification_icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="28dp"
+            android:layout_below="@+id/relativeLayout_codeVerification_title"
+            android:src="@drawable/everywhere_icon"
+            android:layout_centerInParent="true"/>
+
+    <TextView
+            android:id="@+id/textView_codeVerification_codeVerification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/codeVerification_codeVerification"
+            android:layout_below="@+id/imageView_codeVerification_icon"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            style="@style/TextAppearanceBaseBold"/>
+    <TextView
+            android:id="@+id/textView_codeVerification_enterFourDigits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_codeVerification_codeVerification"
+            android:text="@string/codeVerification_enterFourDigit"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            style="@style/TextAppearanceRegularUnderTitle"/>
+    <TextView
+            android:id="@+id/textView_codeVerification_phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_codeVerification_enterFourDigits"
+            android:text="@string/everywhere_value"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            style="@style/TextAppearanceRegularUnderTitle"/>
+
+    <RelativeLayout
+            android:id="@+id/relativeLayout_codeVerification_middle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/everywhere_whitbackgroundwithcornerradius"
+            android:layout_below="@+id/textView_codeVerification_phoneNumber"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+        <com.alimuzaffar.lib.pin.PinEntryEditText
+                android:id="@+id/pinEntryEditText_codeVerification_setPin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:digits="1234567890"
+                android:inputType="number"
+                android:maxLength="6"
+                android:textIsSelectable="true"
+                android:textSize="20sp"
+                app:pinAnimationType="popIn"
+                app:pinTextBottomPadding="10dp"
+                app:pinLineStroke="2dp"
+                app:pinLineStrokeSelected="4dp"
+                app:pinLineColors="@color/colorPrimaryDark"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="30dp"/>
+
+        <Button
+                android:id="@+id/button_codeVerification_continue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pinEntryEditText_codeVerification_setPin"
+                android:background="@drawable/codeverification_buttonselector"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/codeVerification_textButton"
+                android:layout_marginTop="30dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/relativeLayout_codeVerification_middle">
+
+        <TextView
+                android:id="@+id/textView_codeVerification_resendTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/codeVerification_resend"
+                android:layout_marginEnd="5dp"
+                style="@style/TextAppearanceBaseMediumTitleText"/>
+
+        <TextView
+                android:id="@+id/textView_codeVerification_resendTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/everywhere_value"
+                android:layout_toEndOf="@+id/textView_codeVerification_resendTitle"
+                android:layout_marginStart="5dp"
+                style="@style/TextAppearanceBaseMediumTitleText"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
