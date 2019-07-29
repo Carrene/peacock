@@ -11,4 +11,9 @@
     <color name="background">#F2F1F6</color>
 
     <color name="temp">#D4D1F1</color>
+    <color name="lightText">#91999C</color>
+    <color name="border">#8B989F</color>
+    <color name="buttonDisable">#E6E6E6</color>
+    <color name="circleImage">#D4D1F1</color>
+    <color name="colorTertiary">#7A6AE9</color>
 </resources>

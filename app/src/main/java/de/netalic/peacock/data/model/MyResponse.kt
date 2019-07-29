@@ -1,4 +1,4 @@
-package de.netalic.peacock.data
+package de.netalic.peacock.data.model
 
 data class MyResponse<T>(
     val status: Status,
@@ -19,7 +19,6 @@ data class MyResponse<T>(
         fun <T> failed(throwable: Throwable): MyResponse<T> {
             return MyResponse(status = Status.FAILED, throwable = throwable)
         }
-
     }
 }
 

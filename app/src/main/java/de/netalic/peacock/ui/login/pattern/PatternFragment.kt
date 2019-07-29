@@ -12,7 +12,7 @@ import com.andrognito.patternlockview.listener.PatternLockViewListener
 import com.andrognito.patternlockview.utils.PatternLockUtils
 import de.netalic.peacock.R
 import de.netalic.peacock.ui.base.BaseFragment
-import de.netalic.peacock.ui.base.MainHostActivity
+import de.netalic.peacock.ui.main.MainHostActivity
 import kotlinx.android.synthetic.main.fragment_patternlogin.*
 import org.koin.android.viewmodel.ext.android.viewModel
 

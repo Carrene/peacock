@@ -1,9 +1,9 @@
-package com.ehsanmashhadi.samplestructure.util
+package de.netalic.peacock.util
 
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
 object LiveDataTestUtil {
 

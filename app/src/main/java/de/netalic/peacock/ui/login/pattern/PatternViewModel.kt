@@ -2,7 +2,7 @@ package de.netalic.peacock.ui.login.pattern
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import de.netalic.peacock.data.MyResponse
+import de.netalic.peacock.data.model.MyResponse
 import de.netalic.peacock.ui.base.BaseViewModel
 
 enum class ResponseStatus {

@@ -1,7 +1,7 @@
 package de.netalic.peacock.ui.login.pattern
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.ehsanmashhadi.samplestructure.util.LiveDataTestUtil
+import de.netalic.peacock.util.LiveDataTestUtil
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule

@@ -1,6 +1,7 @@
-package de.netalic.peacock.ui.base
+package de.netalic.peacock.ui.main
 
 import de.netalic.peacock.R
+import de.netalic.peacock.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_mainhost.*
 
 class MainHostActivity : BaseActivity() {

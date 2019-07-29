@@ -6,7 +6,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTextViewAppearance" parent="Widget.MaterialComponents.TextView" />
+    <style name="AppTextViewAppearance" parent="Widget.MaterialComponents.TextView"/>
 
     <!-- H1 -->
 
@@ -87,12 +87,6 @@
         <item name="android:textColor">@color/darkText</item>
     </style>
 
-    <!-- Caption -->
-
-    <style name="Caption" parent="AppTextViewAppearance">
-        <item name="android:fontFamily">@font/roboto_medium</item>
-        <item name="android:textSize">@dimen/textSize_caption_12dp</item>
-    </style>
 
     <style name="CaptionWithTextColor" parent="Caption">
         <item name="android:textColor">@color/text</item>
@@ -100,6 +94,48 @@
 
     <style name="CaptionWithDarkTextColor" parent="Caption">
         <item name="android:textColor">@color/darkText</item>
+    </style>
+
+    <!--//TODO-Tina Refactor styles-->
+
+    <style name="RobotoBold" parent="AppTheme">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="RobotoMedium" parent="AppTheme">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="RobotoRegular" parent="AppTheme">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="H1HeadLine" parent="RobotoMedium">
+        <item name="android:textSize">@dimen/mediumTextSize</item>
+    </style>
+    <style name="H2HeadLine" parent="RobotoBold">
+        <item name="android:textSize">@dimen/mediumTextSize</item>
+    </style>
+
+    <style name="Caption" parent="RobotoMedium">
+        <item name="android:textSize">@dimen/mediumTextSize</item>
+    </style>
+
+    <!--main styles-->
+    <style name="H1HeadLineLightText" parent="H1HeadLine">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="H1HeadLineDarkText" parent="H1HeadLine">
+        <item name="android:textColor">@color/darkText</item>
+    </style>
+
+    <style name="H2HeadLineDarkText" parent="H2HeadLine">
+        <item name="android:textColor">@color/darkText</item>
+    </style>
+
+    <style name="Body3LightText" parent="Body3">
+        <item name="android:textColor">@color/lightText</item>
     </style>
 
 </resources>
