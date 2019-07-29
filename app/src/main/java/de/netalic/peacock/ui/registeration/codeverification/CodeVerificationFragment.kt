@@ -1,7 +1,6 @@
 package de.netalic.peacock.ui.registeration.codeverification
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -16,19 +15,13 @@ import de.netalic.peacock.ui.base.BaseFragment
 import de.netalic.peacock.ui.util.CommonUtils
 import kotlinx.android.synthetic.main.fragment_codeverification.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.util.concurrent.TimeUnit
 
 
 class CodeVerificationFragment : BaseFragment() {
 
 
-    companion object {
-
-        var sTimer = 30000
-    }
-
     private var mIsRunning: Boolean = false
-    private lateinit var mCountDownTimer: CountDownTimer
+
     private lateinit var mView: View
 
     private val mCodeVerificationViewModel: CodeVerificationViewModel by viewModel()
@@ -50,6 +43,7 @@ class CodeVerificationFragment : BaseFragment() {
 
         setTimer()
         disableButton()
+        mCodeVerificationViewModel.setTimer()
     }
 
     override fun initUiListener() {
@@ -71,7 +65,7 @@ class CodeVerificationFragment : BaseFragment() {
         mTextViewResendCode.setOnClickListener {
 
             if (!mIsRunning) {
-                setTimer()
+                mCodeVerificationViewModel.setTimer()
                 mTextViewTimer.visibility = View.VISIBLE
                 mTextViewIn.visibility = View.VISIBLE
                 //We have to call claim here
@@ -107,6 +101,7 @@ class CodeVerificationFragment : BaseFragment() {
     override fun initObserver() {
 
         observeBindLiveData()
+        observerTimerLiveData()
     }
 
     override fun initUiComponent() {
@@ -136,6 +131,7 @@ class CodeVerificationFragment : BaseFragment() {
         )
     }
 
+
     private fun observeBindLiveData() {
 
         mCodeVerificationViewModel.getBindLiveData().observe(this, Observer {
@@ -151,38 +147,53 @@ class CodeVerificationFragment : BaseFragment() {
         })
     }
 
-    private fun setTimer() {
+    private fun observerTimerLiveData() {
 
-        mCountDownTimer = object : CountDownTimer(sTimer.toLong(), 1000) {
-            override fun onTick(millisUntilFinished: Long) {
+        mCodeVerificationViewModel.getTimerLiveData().observe(this, Observer {
 
-                val minuteTimer = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)
-                val secondTimer = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
-                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)
-                )
-                mTextViewTimer.text = String.format("%02d:%02d ", minuteTimer, secondTimer)
-                mTextViewResendCode.isEnabled = false
-                mTextViewResendCode.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorText))
+            when (it.data) {
 
-            }
+                "RESEND" -> {
 
-            override fun onFinish() {
+                    onFinish()
+                }
 
-                mTextViewResendCode.isEnabled = true
-                mIsRunning = false
-                if (context != null) {
+                else -> {
 
-                    mTextViewResendCode.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.colorTertiaryDark
-                        )
-                    )
-                    mTextViewIn.visibility = View.GONE
-                    mTextViewTimer.visibility = View.GONE
+                    onTick(it.data!!)
                 }
             }
-        }.start()
+        })
+    }
+
+    private fun onTick(time: String) {
+
+        mTextViewResendCode.isEnabled = false
+        mTextViewTimer.text = time
+        mTextViewResendCode.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorText))
+    }
+
+    private fun onFinish() {
+
+        mTextViewResendCode.isEnabled = true
+        mIsRunning = false
+        if (context != null) {
+
+            mTextViewResendCode.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.colorTertiary
+                )
+            )
+            mTextViewIn.visibility = View.GONE
+            mTextViewTimer.visibility = View.GONE
+        }
+    }
+
+
+    private fun setTimer() {
+
+
     }
 
     private fun disableButton() {
@@ -193,5 +204,6 @@ class CodeVerificationFragment : BaseFragment() {
     private fun enableButton() {
 
         mButton.isEnabled = true
+        mButton.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorPrimaryLight))
     }
 }

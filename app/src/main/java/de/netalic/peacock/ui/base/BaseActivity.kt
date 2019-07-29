@@ -7,12 +7,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 abstract class BaseActivity:AppCompatActivity() {
 
     abstract fun getLayoutId():Int
-     open fun setToolbar( title:String){
+    abstract fun setToolbar()
 
-         mToolbarTitle.text=title
-     }
-
-    private val mToolbarTitle by lazy { textView_mainActivity_toolbarTitle }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

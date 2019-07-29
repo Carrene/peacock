@@ -2,7 +2,6 @@
     <string name="app_name">Peacock</string>
     <string name="everywhere_value">VALUE</string>
 
-
     <string name="codeVerification_steps">Steps 3/4</string>
     <string name="codeVerification_codeVerification">Code Verification</string>
     <string name="codeVerification_enterFourDigit">Enter 6 digit number that sent to</string>
@@ -10,4 +9,5 @@
     <string name="codeVerification_resend">Re_Send code </string>
     <string name="codeVerification_resendCode">RESEND</string>
     <string name="codeVerification_in">in</string>
+
 </resources>
