@@ -3,17 +3,15 @@
     <color name="colorPrimary">#F4F3F5</color>
     <color name="colorPrimaryDark">#E6E6E6</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorTertiary">#7A6AE9</color>
+    <color name="colorLightTertiary">#D4D1F1</color>
     <color name="black">#000000</color>
-    <color name="white">#FFFFFF</color>
-    <color name="tertiary">#7A6AE9</color>
-    <color name="text">#8B989F</color>
+    <color name="colorLightPrimary">#FFFFFF</color>
     <color name="darkText">#00141E</color>
     <color name="background">#F2F1F6</color>
+    <color name="text">#8B989F</color>
+    <color name="colorBaliHai">#91999C</color>
 
-    <color name="temp">#D4D1F1</color>
-    <color name="lightText">#91999C</color>
-    <color name="border">#8B989F</color>
-    <color name="buttonDisable">#E6E6E6</color>
-    <color name="circleImage">#D4D1F1</color>
-    <color name="colorTertiary">#7A6AE9</color>
+
+
 </resources>

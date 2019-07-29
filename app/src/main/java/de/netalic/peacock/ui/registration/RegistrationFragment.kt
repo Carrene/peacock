@@ -174,6 +174,6 @@ class RegistrationFragment : BaseFragment() {
 
     private fun disableContinueButton() {
         mContinueButton.isEnabled = false
-        mContinueButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.buttonDisable))
+        mContinueButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
     }
 }
