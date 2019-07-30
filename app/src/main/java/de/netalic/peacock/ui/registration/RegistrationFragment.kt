@@ -48,7 +48,10 @@ class RegistrationFragment : BaseFragment() {
 
     override fun initUiListeners() {
         mCountryFlagImageView.setOnClickListener { countryPicker() }
-        mContinueButton.setOnClickListener { validatePhoneNumber() }
+        mContinueButton.setOnClickListener {
+            disableContinueButton()
+            claim()
+        }
         mPhoneInputEditText.setOnKeyListener { _, keyCode, keyEvent ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action
                 == KeyEvent.ACTION_DOWN
@@ -59,11 +62,6 @@ class RegistrationFragment : BaseFragment() {
             } else
                 false
         }
-    }
-
-    private fun validatePhoneNumber() {
-        val phoneNumber: String = mPhoneInputEditText.text.toString()
-        mPhoneInputViewModel.phoneValidator(phoneNumber)
     }
 
     override fun initUiComponents() {
@@ -82,7 +80,6 @@ class RegistrationFragment : BaseFragment() {
     }
 
     private fun initObserver() {
-        //TODO-Tina Do phone validation like our sample structure.
         mPhoneInputViewModel.getClaimLiveData().observe(this, Observer {
 
             //ToDo-tina: get all status for
@@ -90,17 +87,6 @@ class RegistrationFragment : BaseFragment() {
                 Status.FAILED -> enableContinueButton()
             }
             Snackbar.make(mViewRoot, it.status.toString(), Snackbar.LENGTH_LONG).show()
-        })
-
-        mPhoneInputViewModel.getPhoneValidatorLiveData().observe(this, Observer {
-
-            when (it.data) {
-                ResponseStatus.PHONE_VALID -> claim()
-                ResponseStatus.PHONE_INVALID -> Snackbar.make(
-                    mViewRoot, it.status.toString()
-                    , Snackbar.LENGTH_LONG
-                ).show()
-            }
         })
     }
 
@@ -112,8 +98,7 @@ class RegistrationFragment : BaseFragment() {
     }
 
     private fun countryPicker() {
-        val countryPicker = CountryPicker.Builder(requireContext()).setCountrySelectionListener{
-                country ->
+        val countryPicker = CountryPicker.Builder(requireContext()).setCountrySelectionListener { country ->
 
             mCountryCode = country.code
             mDialCode = country.dialCode
@@ -130,7 +115,6 @@ class RegistrationFragment : BaseFragment() {
 
         countryPicker.show(activity as AppCompatActivity?)
     }
-
 
 
     private fun changeCountryImage(flagName: String) {

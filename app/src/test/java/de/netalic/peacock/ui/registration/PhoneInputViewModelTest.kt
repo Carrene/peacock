@@ -3,12 +3,14 @@ package de.netalic.peacock.ui.registration
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import de.netalic.peacock.base.BaseTest
 import de.netalic.peacock.data.exception.BadRequestException
+import de.netalic.peacock.data.exception.InvalidPhoneNumberException
 import de.netalic.peacock.data.exception.InvalidUdidOrPhoneException
 import de.netalic.peacock.data.exception.ServerException
 import de.netalic.peacock.data.model.Status
 import de.netalic.peacock.data.model.UserModel
 import de.netalic.peacock.data.repository.UserRepository
 import de.netalic.peacock.util.LiveDataTestUtil
+import de.netalic.peacock.util.ValidatorUtils
 import io.reactivex.Single
 import io.reactivex.subjects.PublishSubject
 import okhttp3.MediaType
@@ -25,6 +27,7 @@ class PhoneInputViewModelTest : BaseTest() {
 
     companion object {
         val sUser = UserModel(mPhone = "989359323175", mUdid = "123456")
+        val wrongUserPhone = UserModel(mPhone = "a359323175", mUdid = "123456")
     }
 
     @get:Rule
@@ -150,23 +153,17 @@ class PhoneInputViewModelTest : BaseTest() {
     }
 
     @Test
-    fun phoneValidator_validPhoneNumber() {
-        val phone = "123 456"
-        mRegistrationViewModel.phoneValidator(phone)
-        Assert.assertEquals(
-            LiveDataTestUtil.getValue(mRegistrationViewModel.getPhoneValidatorLiveData()).data,
-            ResponseStatus.PHONE_VALID
-        )
-    }
-
-    @Test
     fun phoneValidator_invalidPhoneNumber() {
-        val phone = "12a456"
-        mRegistrationViewModel.phoneValidator(phone)
+
+        mRegistrationViewModel.claim(wrongUserPhone.mPhone, wrongUserPhone.mUdid)
+        Assert.assertEquals(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).status, Status.FAILED)
         Assert.assertEquals(
-            LiveDataTestUtil.getValue(mRegistrationViewModel.getPhoneValidatorLiveData()).data,
-            ResponseStatus.PHONE_INVALID
+            LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).throwable!!::class.java,
+            InvalidPhoneNumberException::class.java
         )
+        Assert.assertNull(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).data)
     }
+//
+//
 
 }
