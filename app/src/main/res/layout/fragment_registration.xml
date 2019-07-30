@@ -80,9 +80,8 @@
                         app:layout_constraintStart_toEndOf="@+id/textView_registration_countryCode"
                         android:layout_marginStart="8dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <com.google.android.material.button.MaterialButton
-                    android:background="@color/colorPrimaryDark"
-                    app:cornerRadius="@dimen/size_all_buttonRadius_25"
+            <android.widget.Button
+                    android:background="@drawable/all_buttonselector"
                     style="@style/H1WithWhiteTextColor"
                     android:enabled="false"
                     android:text="@string/registration_continue"

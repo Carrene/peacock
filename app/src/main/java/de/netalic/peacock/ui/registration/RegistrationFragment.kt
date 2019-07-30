@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.ehsanmashhadi.library.view.CountryPicker
 import com.google.android.material.snackbar.Snackbar
@@ -156,11 +155,9 @@ class RegistrationFragment : BaseFragment() {
 
     private fun enableContinueButton() {
         mContinueButton.isEnabled = true
-        mContinueButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorTertiary))
     }
 
     private fun disableContinueButton() {
         mContinueButton.isEnabled = false
-        mContinueButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
     }
 }
