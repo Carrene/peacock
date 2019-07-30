@@ -2,23 +2,19 @@ package de.netalic.peacock.util
 
 import android.content.Context
 import android.provider.Settings
-import android.util.Log
 import java.security.MessageDigest
 
 
 class PhoneInfoUtils {
 
     companion object {
-        private const val SHA_1 = "SHA-1"
-        const val HEXCHARS = "0123456789ABCDEF"
+        private const val sSHA_1 = "SHA-1"
+        private const val sHEX_CHARS = "0123456789ABCDEF"
 
         fun getPhoneUdid(context: Context): String {
             val phoneId = Settings.System.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
 
-            val udid = hashString(SHA_1, phoneId)
-            Log.v("udid:", udid)
-            //
-            return udid
+            return hashString(sSHA_1, phoneId)
         }
 
         private fun hashString(type: String, input: String): String {
@@ -27,8 +23,8 @@ class PhoneInfoUtils {
 
             bytes.forEach {
                 val i = it.toInt()
-                result.append(HEXCHARS[i shr 4 and 0x0f])
-                result.append(HEXCHARS[i and 0x0f])
+                result.append(sHEX_CHARS[i shr 4 and 0x0f])
+                result.append(sHEX_CHARS[i and 0x0f])
             }
 
             return result.toString()

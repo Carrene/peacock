@@ -10,7 +10,6 @@ import de.netalic.peacock.data.model.Status
 import de.netalic.peacock.data.model.UserModel
 import de.netalic.peacock.data.repository.UserRepository
 import de.netalic.peacock.util.LiveDataTestUtil
-import de.netalic.peacock.util.ValidatorUtils
 import io.reactivex.Single
 import io.reactivex.subjects.PublishSubject
 import okhttp3.MediaType
@@ -23,7 +22,6 @@ import retrofit2.Response
 
 class PhoneInputViewModelTest : BaseTest() {
 
-    //TODO-Tina Add tests for throwable
 
     companion object {
         val sUser = UserModel(mPhone = "989359323175", mUdid = "123456")
@@ -153,6 +151,30 @@ class PhoneInputViewModelTest : BaseTest() {
     }
 
     @Test
+    fun claimUser_throwException() {
+        val delayer = PublishSubject.create<Void>()
+
+        val singleResponse = Single.error<Response<UserModel>>(Exception())
+            .delaySubscription(delayer)
+
+        Mockito.`when`(mUserRepository.claim(sUser.mPhone, sUser.mUdid)).thenReturn(singleResponse)
+        mRegistrationViewModel.claim(sUser.mPhone, sUser.mUdid)
+        Mockito.verify(mUserRepository).claim(sUser.mPhone, sUser.mUdid)
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).status,
+            Status.LOADING
+        )
+        delayer.onComplete()
+
+        Assert.assertEquals(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).status, Status.FAILED)
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).throwable!!::class.java,
+            Exception::class.java
+        )
+        Assert.assertNull(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).data)
+    }
+
+    @Test
     fun phoneValidator_invalidPhoneNumber() {
 
         mRegistrationViewModel.claim(wrongUserPhone.mPhone, wrongUserPhone.mUdid)
@@ -163,7 +185,5 @@ class PhoneInputViewModelTest : BaseTest() {
         )
         Assert.assertNull(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).data)
     }
-//
-//
 
 }
