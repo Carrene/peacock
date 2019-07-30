@@ -3,6 +3,7 @@ package de.netalic.peacock.ui.registration
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import de.netalic.peacock.base.BaseTest
 import de.netalic.peacock.data.exception.BadRequestException
+import de.netalic.peacock.data.exception.InvalidPhoneNumberException
 import de.netalic.peacock.data.exception.InvalidUdidOrPhoneException
 import de.netalic.peacock.data.exception.ServerException
 import de.netalic.peacock.data.model.Status
@@ -21,10 +22,10 @@ import retrofit2.Response
 
 class PhoneInputViewModelTest : BaseTest() {
 
-    //TODO-Tina Add tests for throwable
 
     companion object {
         val sUser = UserModel(mPhone = "989359323175", mUdid = "123456")
+        val wrongUserPhone = UserModel(mPhone = "a359323175", mUdid = "123456")
     }
 
     @get:Rule
@@ -150,23 +151,39 @@ class PhoneInputViewModelTest : BaseTest() {
     }
 
     @Test
-    fun phoneValidator_validPhoneNumber() {
-        val phone = "123 456"
-        mRegistrationViewModel.phoneValidator(phone)
+    fun claimUser_throwException() {
+        val delayer = PublishSubject.create<Void>()
+
+        val singleResponse = Single.error<Response<UserModel>>(Exception())
+            .delaySubscription(delayer)
+
+        Mockito.`when`(mUserRepository.claim(sUser.mPhone, sUser.mUdid)).thenReturn(singleResponse)
+        mRegistrationViewModel.claim(sUser.mPhone, sUser.mUdid)
+        Mockito.verify(mUserRepository).claim(sUser.mPhone, sUser.mUdid)
         Assert.assertEquals(
-            LiveDataTestUtil.getValue(mRegistrationViewModel.getPhoneValidatorLiveData()).data,
-            ResponseStatus.PHONE_VALID
+            LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).status,
+            Status.LOADING
         )
+        delayer.onComplete()
+
+        Assert.assertEquals(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).status, Status.FAILED)
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).throwable!!::class.java,
+            Exception::class.java
+        )
+        Assert.assertNull(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).data)
     }
 
     @Test
     fun phoneValidator_invalidPhoneNumber() {
-        val phone = "12a456"
-        mRegistrationViewModel.phoneValidator(phone)
+
+        mRegistrationViewModel.claim(wrongUserPhone.mPhone, wrongUserPhone.mUdid)
+        Assert.assertEquals(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).status, Status.FAILED)
         Assert.assertEquals(
-            LiveDataTestUtil.getValue(mRegistrationViewModel.getPhoneValidatorLiveData()).data,
-            ResponseStatus.PHONE_INVALID
+            LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).throwable!!::class.java,
+            InvalidPhoneNumberException::class.java
         )
+        Assert.assertNull(LiveDataTestUtil.getValue(mRegistrationViewModel.getClaimLiveData()).data)
     }
 
 }

@@ -22,11 +22,6 @@
 
     <integer name="count_patternView_dots">3</integer>
 
-    <!--TODO-Tina Name Convention-->
-    <dimen name="imageWidth">28dp</dimen>
-    <dimen name="imageHeight">20dp</dimen>
-    <dimen name="smallTextSize">14sp</dimen>
-    <dimen name="mediumTextSize">16sp</dimen>
-    <dimen name="buttonRadius">25dp</dimen>
+    <dimen name="size_all_buttonRadius_25">25dp</dimen>
 
 </resources>

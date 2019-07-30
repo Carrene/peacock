@@ -60,7 +60,7 @@ class PatternFragment : BaseFragment(), PatternLockViewListener {
     private fun updateToolbar() {
         val activity = requireActivity()
         if (activity is MainHostActivity) {
-            activity.updateToolbarTitle(getString(R.string.patternLogin_stepNOfFour, "1"))
+            activity.updateToolbarTitle(getString(R.string.all_stepNOfFour, "1"))
         }
     }
 

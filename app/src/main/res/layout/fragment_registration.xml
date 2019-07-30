@@ -16,7 +16,7 @@
 
     <TextView
             android:text="@string/registration_registration"
-            style="@style/H2HeadLineDarkText"
+            style="@style/H2WithDarkTextColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView_registration_header" app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +24,7 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             android:layout_marginBottom="10dp" app:layout_constraintBottom_toTopOf="@+id/textView_registration_guid"/>
     <TextView
-            style="@style/Body3LightText"
+            style="@style/Body3WithBaliHaiTextColor"
             android:text="@string/registration_guid"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
@@ -58,7 +58,6 @@
                     android:layout_marginStart="16dp" android:layout_marginTop="20dp">
 
                 <ImageView
-                        android:src="@drawable/iran_flag"
                         android:layout_width="28dp" android:layout_height="20dp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/imageButton_registration_flags"
@@ -81,10 +80,9 @@
                         app:layout_constraintStart_toEndOf="@+id/textView_registration_countryCode"
                         android:layout_marginStart="8dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <com.google.android.material.button.MaterialButton
-                    android:background="@color/buttonDisable"
-                    app:cornerRadius="@dimen/buttonRadius"
-                    style="@style/H1HeadLineLightText"
+            <android.widget.Button
+                    android:background="@drawable/all_buttonselector"
+                    style="@style/H1WithWhiteTextColor"
                     android:enabled="false"
                     android:text="@string/registration_continue"
                     android:layout_width="296dp"

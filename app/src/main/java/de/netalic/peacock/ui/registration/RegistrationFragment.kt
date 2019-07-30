@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.ehsanmashhadi.library.view.CountryPicker
 import com.google.android.material.snackbar.Snackbar
@@ -48,7 +47,10 @@ class RegistrationFragment : BaseFragment() {
 
     override fun initUiListeners() {
         mCountryFlagImageView.setOnClickListener { countryPicker() }
-        mContinueButton.setOnClickListener { validatePhoneNumber() }
+        mContinueButton.setOnClickListener {
+            disableContinueButton()
+            claim()
+        }
         mPhoneInputEditText.setOnKeyListener { _, keyCode, keyEvent ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action
                 == KeyEvent.ACTION_DOWN
@@ -61,16 +63,12 @@ class RegistrationFragment : BaseFragment() {
         }
     }
 
-    private fun validatePhoneNumber() {
-        val phoneNumber: String = mPhoneInputEditText.text.toString()
-        mPhoneInputViewModel.phoneValidator(phoneNumber)
-    }
-
     override fun initUiComponents() {
         initToolbar()
         phoneInputEditTextWatcher()
         phoneFormat()
         initObserver()
+        changeCountryImage("ir")
     }
 
     private fun initToolbar() {
@@ -81,7 +79,6 @@ class RegistrationFragment : BaseFragment() {
     }
 
     private fun initObserver() {
-        //TODO-Tina Do phone validation like our sample structure.
         mPhoneInputViewModel.getClaimLiveData().observe(this, Observer {
 
             //ToDo-tina: get all status for
@@ -89,17 +86,6 @@ class RegistrationFragment : BaseFragment() {
                 Status.FAILED -> enableContinueButton()
             }
             Snackbar.make(mViewRoot, it.status.toString(), Snackbar.LENGTH_LONG).show()
-        })
-
-        mPhoneInputViewModel.getPhoneValidatorLiveData().observe(this, Observer {
-
-            when (it.data) {
-                ResponseStatus.PHONE_VALID -> claim()
-                ResponseStatus.PHONE_INVALID -> Snackbar.make(
-                    mViewRoot, it.status.toString()
-                    , Snackbar.LENGTH_LONG
-                ).show()
-            }
         })
     }
 
@@ -169,11 +155,9 @@ class RegistrationFragment : BaseFragment() {
 
     private fun enableContinueButton() {
         mContinueButton.isEnabled = true
-        mContinueButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorTertiary))
     }
 
     private fun disableContinueButton() {
         mContinueButton.isEnabled = false
-        mContinueButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.buttonDisable))
     }
 }
