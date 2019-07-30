@@ -7,7 +7,7 @@
     <string name="patternLogin_stepNOfFour">Step %1$s/4</string>
     <string name="imageView_contentDescription">-</string>
     <string name="hint_passwordLogin_password">- - - - - - - -</string>
-    <string name="passwordLogin_passwordRules">8-20 characters, at least one capital letter, at least one number, and no spaces</string>
+    <string name="passwordLogin_passwordRules">8 characters, at least one capital letter, at least one number, and one character (* _ + % $ # @)</string>
     <string name="passwordLogin_continue">Continue</string>
     <string name="hint_passwordLogin_empty">- - - - - - -</string>
 </resources>

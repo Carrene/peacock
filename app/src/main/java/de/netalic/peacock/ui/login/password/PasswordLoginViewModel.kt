@@ -2,42 +2,36 @@ package de.netalic.peacock.ui.login.password
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.raywenderlich.android.validatetor.ValidateTor
+import de.netalic.peacock.common.Validator
 import de.netalic.peacock.data.model.MyResponse
 import de.netalic.peacock.ui.base.BaseViewModel
-import org.koin.core.KoinComponent
-import org.koin.core.inject
-import timber.log.Timber
 
 enum class ResponseStatus {
-    PART_ONE_COMPLETED,
-    PART_TWO_COMPLETED,
-    PART_THREE_COMPLETED,
-    PART_FOUR_COMPLETED,
-    PART_ONE_FAILED,
-    PART_TWO_FAILED,
-    PART_THREE_FAILED,
-    PART_FOUR_FAILED,
+    SUCCESS_MINIMUM_CHARS,
+    SUCCESS_UPPERCASE,
+    SUCCESS_DIGIT,
+    SUCCESS_SPECIAL_CHAR,
     PASSWORD_MATCH,
     PASSWORD_NOT_MATCH
 }
 
-class PasswordLoginViewModel : BaseViewModel(), KoinComponent {
+class PasswordLoginViewModel(private val validator: Validator) : BaseViewModel(){
 
     private var mPassword: String? = null
     private var mPasswordRepeat: String? = null
-    private val validateTor: ValidateTor by inject()
 
-    private val mResponse = MutableLiveData<MyResponse<ResponseStatus>>()
-    private val mRepeatResponse = MutableLiveData<MyResponse<ResponseStatus>>()
+    private val mPasswordResponse = MutableLiveData<MyResponse<ResponseStatus>>()
+    private val mRepeatPasswordResponse = MutableLiveData<MyResponse<ResponseStatus>>()
     private val mResponseEquality = MutableLiveData<MyResponse<ResponseStatus>>()
 
+
+
     fun getResponse(): LiveData<MyResponse<ResponseStatus>> {
-        return mResponse
+        return mPasswordResponse
     }
 
     fun getRepeatResponse(): LiveData<MyResponse<ResponseStatus>> {
-        return mRepeatResponse
+        return mRepeatPasswordResponse
     }
 
     fun getEqualityResponse(): LiveData<MyResponse<ResponseStatus>> {
@@ -48,32 +42,32 @@ class PasswordLoginViewModel : BaseViewModel(), KoinComponent {
 
         var counter = 0
 
-        if (validateTor.isAtleastLength(password, 8) && validateTor.isAtMostLength(password, 20)) {
-            mResponse.value = MyResponse.success(ResponseStatus.PART_ONE_COMPLETED)
+        if (validator.hasMinimumLength(password, 8)) {
+            mPasswordResponse.value = MyResponse.success(ResponseStatus.SUCCESS_MINIMUM_CHARS)
             ++counter
         } else {
-            mResponse.value = MyResponse.success(ResponseStatus.PART_ONE_FAILED)
+            mPasswordResponse.value = MyResponse.failed(Throwable(FAILED_MINIMUM_CHARS))
         }
 
-        if (validateTor.hasAtleastOneUppercaseCharacter(password)) {
-            mResponse.value = MyResponse.success(ResponseStatus.PART_TWO_COMPLETED)
+        if (validator.hasCapitalLetter(password)) {
+            mPasswordResponse.value = MyResponse.success(ResponseStatus.SUCCESS_UPPERCASE)
             ++counter
         } else {
-            mResponse.value = MyResponse.success(ResponseStatus.PART_TWO_FAILED)
+            mPasswordResponse.value = MyResponse.failed(Throwable(FAILED_UPPERCASE))
         }
 
-        if (validateTor.hasAtleastOneDigit(password)) {
-            mResponse.value = MyResponse.success(ResponseStatus.PART_THREE_COMPLETED)
+        if (validator.hasDigit(password)) {
+            mPasswordResponse.value = MyResponse.success(ResponseStatus.SUCCESS_DIGIT)
             ++counter
         } else {
-            mResponse.value = MyResponse.success(ResponseStatus.PART_THREE_FAILED)
+            mPasswordResponse.value = MyResponse.failed(Throwable(FAILED_DIGIT))
         }
 
-        if (password.isNotBlank()) {
-            mResponse.value = MyResponse.success(ResponseStatus.PART_FOUR_COMPLETED)
+        if (validator.hasSpecialCharacters(password)) {
+            mPasswordResponse.value = MyResponse.success(ResponseStatus.SUCCESS_SPECIAL_CHAR)
             ++counter
         } else {
-            mResponse.value = MyResponse.success(ResponseStatus.PART_FOUR_FAILED)
+            mPasswordResponse.value = MyResponse.failed(Throwable(FAILED_SPECIAL_CHAR))
         }
 
         if (counter == 4) {
@@ -83,11 +77,9 @@ class PasswordLoginViewModel : BaseViewModel(), KoinComponent {
         }
 
         isPasswordMatch()
-
     }
 
     fun onPasswordRepeated(password: String) {
-        Timber.tag("Password").d("Password = $mPassword - - - Repeat Password = $password")
         mPasswordRepeat = password
         isPasswordMatch()
     }
@@ -102,6 +94,13 @@ class PasswordLoginViewModel : BaseViewModel(), KoinComponent {
         } else {
             mResponseEquality.value = MyResponse.success(ResponseStatus.PASSWORD_NOT_MATCH)
         }
+    }
+
+    companion object {
+        const val FAILED_MINIMUM_CHARS = "failed_minimum_chars"
+        const val FAILED_UPPERCASE = "failed_uppercase"
+        const val FAILED_DIGIT = "failed_digit"
+        const val FAILED_SPECIAL_CHAR = "failed_special_char"
     }
 
 }

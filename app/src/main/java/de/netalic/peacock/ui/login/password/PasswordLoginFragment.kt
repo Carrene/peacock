@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import de.netalic.peacock.R
+import de.netalic.peacock.data.model.Status
 import de.netalic.peacock.ui.base.BaseFragment
 import de.netalic.peacock.ui.base.MainHostActivity
 import kotlinx.android.synthetic.main.fragment_passwordlogin.*
@@ -61,45 +62,68 @@ class PasswordLoginFragment : BaseFragment() {
         val successColor = ContextCompat.getColor(requireContext(), R.color.success)
         val errorColor = ContextCompat.getColor(requireContext(), R.color.error)
         val messageParts = message.split(",")
-        mViewModel.getResponse().observe(this, Observer {
-            val status = it.data ?: throw IllegalArgumentException("Data is null")
-            when (status) {
-                ResponseStatus.PART_ONE_COMPLETED ->  {
-                    val startIndex = message.indexOf(messageParts[0])
-                    val endIndex = startIndex + (messageParts[0].length)
-                    spannableString.setSpan(ForegroundColorSpan(successColor), startIndex, endIndex,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        mViewModel.getResponse().observe(this, Observer { response ->
+
+            if (response.status == Status.SUCCESS) {
+
+                when (response.data) {
+                    ResponseStatus.SUCCESS_MINIMUM_CHARS -> {
+                        val startIndex = message.indexOf(messageParts[0])
+                        val endIndex = startIndex + (messageParts[0].length)
+                        spannableString.setSpan(ForegroundColorSpan(successColor), startIndex, endIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
+                    ResponseStatus.SUCCESS_UPPERCASE -> {
+                        val startIndex = message.indexOf(messageParts[1])
+                        val endIndex = startIndex + (messageParts[1].length)
+                        spannableString.setSpan(ForegroundColorSpan(successColor), startIndex, endIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
+                    ResponseStatus.SUCCESS_DIGIT -> {
+                        val startIndex = message.indexOf(messageParts[2])
+                        val endIndex = startIndex + (messageParts[2].length)
+                        spannableString.setSpan(ForegroundColorSpan(successColor), startIndex, endIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
+                    ResponseStatus.SUCCESS_SPECIAL_CHAR -> {
+                        val startIndex = message.indexOf(messageParts[3])
+                        val endIndex = startIndex + (messageParts[3].length)
+                        spannableString.setSpan(ForegroundColorSpan(successColor), startIndex, endIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
+                    else -> {}
                 }
-                ResponseStatus.PART_ONE_FAILED -> {
-                    val startIndex = message.indexOf(messageParts[0])
-                    val endIndex = startIndex + (messageParts[0].length)
-                    Timber.tag("TAGGG").d("Text: ${messageParts[0]} - Start Index: $startIndex - Last Index: $endIndex")
-                    spannableString.setSpan(ForegroundColorSpan(errorColor), startIndex, endIndex,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                }
-                ResponseStatus.PART_TWO_COMPLETED -> {
-                    val startIndex = message.indexOf(messageParts[1])
-                    val endIndex = startIndex + (messageParts[1].length)
-                    spannableString.setSpan(ForegroundColorSpan(successColor), startIndex, endIndex,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                }
-                ResponseStatus.PART_TWO_FAILED -> {
-                    val startIndex = message.indexOf(messageParts[1])
-                    val endIndex = startIndex + (messageParts[1].length)
-                    spannableString.setSpan(ForegroundColorSpan(errorColor), startIndex, endIndex,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                }
-                ResponseStatus.PART_THREE_COMPLETED -> {
-                    val startIndex = message.indexOf(messageParts[2])
-                    val endIndex = startIndex + (messageParts[2].length)
-                    spannableString.setSpan(ForegroundColorSpan(successColor), startIndex, endIndex,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                }
-                ResponseStatus.PART_THREE_FAILED -> {
-                    val startIndex = message.indexOf(messageParts[2])
-                    val endIndex = startIndex + (messageParts[2].length)
-                    spannableString.setSpan(ForegroundColorSpan(errorColor), startIndex, endIndex,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+            }
+
+            else if (response.status == Status.FAILED) {
+                val message = response.throwable?.message ?: return@Observer
+                when (message) {
+                    PasswordLoginViewModel.FAILED_MINIMUM_CHARS -> {
+                        val startIndex = message.indexOf(messageParts[0])
+                        val endIndex = startIndex + (messageParts[0].length)
+                        Timber.tag("TAGGG").d("Text: ${messageParts[0]} - Start Index: $startIndex - Last Index: $endIndex")
+                        spannableString.setSpan(ForegroundColorSpan(errorColor), startIndex, endIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
+                    PasswordLoginViewModel.FAILED_UPPERCASE -> {
+                        val startIndex = message.indexOf(messageParts[1])
+                        val endIndex = startIndex + (messageParts[1].length)
+                        spannableString.setSpan(ForegroundColorSpan(errorColor), startIndex, endIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
+                    PasswordLoginViewModel.FAILED_DIGIT -> {
+                        val startIndex = message.indexOf(messageParts[2])
+                        val endIndex = startIndex + (messageParts[2].length)
+                        spannableString.setSpan(ForegroundColorSpan(errorColor), startIndex, endIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
+                    PasswordLoginViewModel.FAILED_SPECIAL_CHAR -> {
+                        val startIndex = message.indexOf(messageParts[3])
+                        val endIndex = startIndex + (messageParts[3].length)
+                        spannableString.setSpan(ForegroundColorSpan(errorColor), startIndex, endIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
                 }
             }
             mTextViewPasswordRules.text = spannableString
