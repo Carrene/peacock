@@ -71,6 +71,7 @@ class RegistrationFragment : BaseFragment() {
         phoneInputEditTextWatcher()
         phoneFormat()
         initObserver()
+        changeCountryImage("ir")
     }
 
     private fun initToolbar() {
@@ -111,7 +112,8 @@ class RegistrationFragment : BaseFragment() {
     }
 
     private fun countryPicker() {
-        val countryPicker = CountryPicker.Builder(requireContext()).setCountrySelectionListener { country ->
+        val countryPicker = CountryPicker.Builder(requireContext()).setCountrySelectionListener{
+                country ->
 
             mCountryCode = country.code
             mDialCode = country.dialCode
@@ -128,6 +130,7 @@ class RegistrationFragment : BaseFragment() {
 
         countryPicker.show(activity as AppCompatActivity?)
     }
+
 
 
     private fun changeCountryImage(flagName: String) {
