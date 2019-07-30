@@ -17,9 +17,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/textView_codeVerification_codeVerification"
-            android:layout_marginBottom="@dimen/margin_all_20dp"
-
-    />
+            android:layout_marginBottom="@dimen/margin_all_20dp"/>
 
     <TextView
             android:id="@+id/textView_codeVerification_codeVerification"

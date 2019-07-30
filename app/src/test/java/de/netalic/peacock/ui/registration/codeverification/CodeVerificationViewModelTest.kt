@@ -230,4 +230,13 @@ class CodeVerificationViewModelTest : BaseTest() {
         )
     }
 
+    @Test
+    fun setTimer() {
+
+        mCodeVerificationViewModel.setTimer(3)
+
+        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()), 3)
+
+    }
+
 }

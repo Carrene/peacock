@@ -1,6 +1,5 @@
 package de.netalic.peacock.ui.registeration.codeverification
 
-import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.netalic.peacock.data.exception.ActivationCodeIsNotValid
@@ -11,21 +10,21 @@ import de.netalic.peacock.data.model.MyResponse
 import de.netalic.peacock.data.model.User
 import de.netalic.peacock.data.repository.UserRepository
 import de.netalic.peacock.ui.base.BaseViewModel
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
 import java.util.concurrent.TimeUnit
+
 
 class CodeVerificationViewModel(private val userRepository: UserRepository) : BaseViewModel() {
 
 
     companion object {
 
-        var sTimer = 30000
-        const val sResend="RESEND"
+        const val sResend = "RESEND"
     }
 
-    private lateinit var mCountDownTimer: CountDownTimer
     private val mBindResponseLiveData = MutableLiveData<MyResponse<ResponseBody>>()
     private val mTimerLiveData = MutableLiveData<MyResponse<String>>()
 
@@ -39,26 +38,30 @@ class CodeVerificationViewModel(private val userRepository: UserRepository) : Ba
         return mBindResponseLiveData
     }
 
-    fun setTimer() {
+    fun setTimer(time: Long = 30) {
 
+        val timerDisposable = Observable.interval(1, TimeUnit.SECONDS)
+            .take(time)
+            .map { 30 - it }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
 
-        mCountDownTimer = object : CountDownTimer(sTimer.toLong(), 1000) {
-            override fun onTick(millisUntilFinished: Long) {
+                    val minuteTimer = TimeUnit.SECONDS.toMinutes(it)
+                    val secondTimer = TimeUnit.SECONDS.toSeconds(it) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(it))
+                    mTimerLiveData.value = MyResponse.success(String.format("%02d:%02d ", minuteTimer, secondTimer))
+                },
+                {
 
-                val minuteTimer = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)
-                val secondTimer = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
-                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)
-                )
-                mTimerLiveData.value = MyResponse.success(String.format("%02d:%02d ", minuteTimer, secondTimer))
-            }
+                },
+                {
+                    mTimerLiveData.value = MyResponse.success(sResend)
+                }
+              )
 
-            override fun onFinish() {
-
-                mTimerLiveData.value = MyResponse.success(sResend)
-
-            }
-
-        }.start()
+        mCompositeDisposable.add(timerDisposable)
     }
 
     fun bind(user: User) {

@@ -153,7 +153,7 @@ class CodeVerificationFragment : BaseFragment() {
 
             when (it.data) {
 
-                "RESEND" -> {
+                getString(R.string.codeVerification_resendCode) -> {
 
                     onFinish()
                 }
@@ -190,9 +190,7 @@ class CodeVerificationFragment : BaseFragment() {
         }
     }
 
-
     private fun setTimer() {
-
 
     }
 
@@ -204,6 +202,6 @@ class CodeVerificationFragment : BaseFragment() {
     private fun enableButton() {
 
         mButton.isEnabled = true
-        mButton.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorPrimaryLight))
+        mButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryLight))
     }
 }
