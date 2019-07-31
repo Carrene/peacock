@@ -1,5 +1,6 @@
 package de.netalic.peacock.ui.registeration.codeverification
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.netalic.peacock.data.exception.ActivationCodeIsNotValid
@@ -11,9 +12,13 @@ import de.netalic.peacock.data.model.User
 import de.netalic.peacock.data.repository.UserRepository
 import de.netalic.peacock.ui.base.BaseViewModel
 import io.reactivex.Observable
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.schedulers.TestScheduler
 import okhttp3.ResponseBody
+import org.reactivestreams.Subscription
 import java.util.concurrent.TimeUnit
 
 
@@ -42,7 +47,7 @@ class CodeVerificationViewModel(private val userRepository: UserRepository) : Ba
 
         val timerDisposable = Observable.interval(1, TimeUnit.SECONDS)
             .take(time)
-            .map { 30 - it }
+            .map { time - it }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -52,16 +57,19 @@ class CodeVerificationViewModel(private val userRepository: UserRepository) : Ba
                     val secondTimer = TimeUnit.SECONDS.toSeconds(it) -
                             TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(it))
                     mTimerLiveData.value = MyResponse.success(String.format("%02d:%02d ", minuteTimer, secondTimer))
+                    Log.d("onNext", it.toString())
                 },
                 {
-
+                    Log.d("throwble", it?.message)
                 },
                 {
                     mTimerLiveData.value = MyResponse.success(sResend)
+                    Log.d("onComplete", "onComplete")
                 }
               )
 
         mCompositeDisposable.add(timerDisposable)
+
     }
 
     fun bind(user: User) {

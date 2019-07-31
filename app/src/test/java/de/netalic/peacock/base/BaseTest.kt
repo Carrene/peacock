@@ -5,6 +5,7 @@ import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.disposables.Disposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.plugins.RxJavaPlugins
+import io.reactivex.schedulers.TestScheduler
 import org.junit.AfterClass
 import org.junit.BeforeClass
 import java.util.concurrent.Executor
@@ -33,6 +34,8 @@ open class BaseTest {
             RxJavaPlugins.setInitNewThreadSchedulerHandler { scheduler -> immediate }
             RxJavaPlugins.setInitSingleSchedulerHandler { scheduler -> immediate }
             RxAndroidPlugins.setInitMainThreadSchedulerHandler { scheduler -> immediate }
+//            val testScheduler = TestScheduler()
+//            RxJavaPlugins.setComputationSchedulerHandler { testScheduler }
         }
 
         @JvmStatic

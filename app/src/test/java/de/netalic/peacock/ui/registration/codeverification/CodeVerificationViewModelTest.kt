@@ -23,6 +23,9 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import retrofit2.Response
+import io.reactivex.schedulers.TestScheduler
+
+
 
 class CodeVerificationViewModelTest : BaseTest() {
 
@@ -232,10 +235,11 @@ class CodeVerificationViewModelTest : BaseTest() {
 
     @Test
     fun setTimer() {
-
+        val scheduler = TestScheduler()
         mCodeVerificationViewModel.setTimer(3)
 
-        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()), 3)
+
+        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()), Status.SUCCESS)
 
     }
 
