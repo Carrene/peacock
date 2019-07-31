@@ -53,10 +53,10 @@ class EmailVerificationViewModelTest : BaseTest() {
             Response.success(200, sEmail)
         ).delaySubscription(delayer)
         Mockito.`when`(
-            mEmailRepository.setEmail(token, sEmail.email)
+            mEmailRepository.setEmail(token, sEmail.mEmail)
         ).thenReturn(singleResponse)
-        mEmailVerificationViewModel.setEmail(token, sEmail.email)
-        Mockito.verify(mEmailRepository).setEmail(token, sEmail.email)
+        mEmailVerificationViewModel.setEmail(token, sEmail.mEmail)
+        Mockito.verify(mEmailRepository).setEmail(token, sEmail.mEmail)
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
             Status.LOADING
@@ -85,12 +85,12 @@ class EmailVerificationViewModelTest : BaseTest() {
             )
         ).delaySubscription(delayer)
         Mockito.`when`(
-            mEmailRepository.setEmail(token, sEmail.email)
+            mEmailRepository.setEmail(token, sEmail.mEmail)
         ).thenReturn(singleResponse)
         mEmailVerificationViewModel.setEmail(
-            token, sEmail.email
+            token, sEmail.mEmail
         )
-        Mockito.verify(mEmailRepository).setEmail(token, sEmail.email)
+        Mockito.verify(mEmailRepository).setEmail(token, sEmail.mEmail)
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
             Status.LOADING
@@ -118,12 +118,12 @@ class EmailVerificationViewModelTest : BaseTest() {
             )
         ).delaySubscription(delayer)
         Mockito.`when`(
-            mEmailRepository.setEmail(token, sEmail.email)
+            mEmailRepository.setEmail(token, sEmail.mEmail)
         ).thenReturn(singleResponse)
         mEmailVerificationViewModel.setEmail(
-            token, sEmail.email
+            token, sEmail.mEmail
         )
-        Mockito.verify(mEmailRepository).setEmail(token, sEmail.email)
+        Mockito.verify(mEmailRepository).setEmail(token, sEmail.mEmail)
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
             Status.LOADING
@@ -150,12 +150,12 @@ class EmailVerificationViewModelTest : BaseTest() {
             )
         ).delaySubscription(delayer)
         Mockito.`when`(
-            mEmailRepository.setEmail(token, sEmail.email)
+            mEmailRepository.setEmail(token, sEmail.mEmail)
         ).thenReturn(singleResponse)
         mEmailVerificationViewModel.setEmail(
-            token, sEmail.email
+            token, sEmail.mEmail
         )
-        Mockito.verify(mEmailRepository).setEmail(token, sEmail.email)
+        Mockito.verify(mEmailRepository).setEmail(token, sEmail.mEmail)
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
             Status.LOADING
@@ -182,12 +182,12 @@ class EmailVerificationViewModelTest : BaseTest() {
             )
         ).delaySubscription(delayer)
         Mockito.`when`(
-            mEmailRepository.setEmail(token, sEmail.email)
+            mEmailRepository.setEmail(token, sEmail.mEmail)
         ).thenReturn(singleResponse)
         mEmailVerificationViewModel.setEmail(
-            token, sEmail.email
+            token, sEmail.mEmail
         )
-        Mockito.verify(mEmailRepository).setEmail(token, sEmail.email)
+        Mockito.verify(mEmailRepository).setEmail(token, sEmail.mEmail)
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
             Status.LOADING
@@ -214,12 +214,12 @@ class EmailVerificationViewModelTest : BaseTest() {
             )
         ).delaySubscription(delayer)
         Mockito.`when`(
-            mEmailRepository.setEmail(token, sEmail.email)
+            mEmailRepository.setEmail(token, sEmail.mEmail)
         ).thenReturn(singleResponse)
         mEmailVerificationViewModel.setEmail(
-            token, sEmail.email
+            token, sEmail.mEmail
         )
-        Mockito.verify(mEmailRepository).setEmail(token, sEmail.email)
+        Mockito.verify(mEmailRepository).setEmail(token, sEmail.mEmail)
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
             Status.LOADING

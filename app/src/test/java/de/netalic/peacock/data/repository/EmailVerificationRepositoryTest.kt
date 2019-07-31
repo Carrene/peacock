@@ -38,8 +38,8 @@ class EmailVerificationRepositoryTest : BaseTest() {
 
     @Test
     fun claimUser_claimToApi() {
-        mEmailVerificationRepository.setEmail(token, sEmail.email)
-        Mockito.verify(apiInterface).setEmail(token, sEmail.email)
+        mEmailVerificationRepository.setEmail(token, sEmail.mEmail)
+        Mockito.verify(apiInterface).setEmail(token, sEmail.mEmail)
     }
 
 }

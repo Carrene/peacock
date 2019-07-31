@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import de.netalic.peacock.R
+import de.netalic.peacock.data.model.Status
 import de.netalic.peacock.ui.base.BaseFragment
 import de.netalic.peacock.ui.main.MainHostActivity
 import de.netalic.peacock.util.CommonUtils
@@ -18,13 +19,12 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class EmailVerificationFragment : BaseFragment() {
-    //TODO-tina email pattern length
-    private val mPatternMatcher = "[a-zA-Z0-9._-]{2,30}+@[a-zA-Z0-9-]{2,20}+\\.[a-zA-Z.]{2,10}".toRegex()
 
     private lateinit var mViewRoot: View
     private val mEmailVerificationViewModel: EmailVerificationViewModel by viewModel()
     private val mEmailInputEditText by lazy { editText_emailVerification_emailAddress }
     private val mContinueButton by lazy { button_emailValidation_continue }
+    private val emailLegnth = 5
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mViewRoot = inflater.inflate(R.layout.fragment_emailverification, container, false)
@@ -32,7 +32,10 @@ class EmailVerificationFragment : BaseFragment() {
     }
 
     override fun initUiListeners() {
-        mContinueButton.setOnClickListener { setEmail() }
+        mContinueButton.setOnClickListener {
+            setEmail()
+            disableContinueButton()
+        }
         mEmailInputEditText.setOnKeyListener { _, keyCode, keyEvent ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_DOWN) {
                 mContinueButton.callOnClick()
@@ -58,21 +61,20 @@ class EmailVerificationFragment : BaseFragment() {
 
     private fun initObserver() {
         mEmailVerificationViewModel.getSetEmailLiveData().observe(this, Observer {
-
-            //when (it.status) {
-            Snackbar.make(mViewRoot, it.status.toString(), Snackbar.LENGTH_LONG).show()
             //ToDo-tina get all status for
-            //}
+            when (it.status) {
+                Status.FAILED -> enableContinueButton()
+            }
+            Snackbar.make(mViewRoot, it.status.toString(), Snackbar.LENGTH_LONG).show()
         })
     }
 
     private fun setEmail() {
         val email = editText_emailVerification_emailAddress.text.toString()
+        //TODO-tina get token from bind
         val token =
             "eyJhbGciOiJIUzI1NiIsImlhdCI6MTU2NDU2NDExOSwiZXhwIjoxNTczMTY0MTE5fQ.eyJpZCI6NCwiZGV2aWNlX2lkIjoxLCJwaG9uZSI6Iis5ODkzNTkzMjMxNzUiLCJyb2xlcyI6WyJjbGllbnQiXSwic2Vzc2lvbklkIjoiYzkwZWI0N2QtZDRiNC00ZjQ1LWIwNmYtOWVlNTMyNTEwNWJlIiwiZW1haWwiOiIiLCJpc0FjdGl2ZSI6ZmFsc2V9.X2yjaZCLfsz4AXK3fGF-vnRNk5YCKvpipE0WZEOtHkQ"
-        if (mPatternMatcher.matches(email)) {
-            mEmailVerificationViewModel.setEmail(token, email)
-        }
+        mEmailVerificationViewModel.setEmail(token, email)
     }
 
 
@@ -85,9 +87,9 @@ class EmailVerificationFragment : BaseFragment() {
             }
 
             override fun onTextChanged(characters: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (characters != null && mPatternMatcher.matches(characters))
+                if (characters != null && characters.length > emailLegnth)
                     enableContinueButton()
-                else if (characters == null || !mPatternMatcher.matches(characters))
+                else
                     disableContinueButton()
             }
 
@@ -96,11 +98,9 @@ class EmailVerificationFragment : BaseFragment() {
 
     private fun enableContinueButton() {
         mContinueButton.isEnabled = true
-        mContinueButton.setBackgroundColor(resources.getColor(R.color.colorTertiary))
     }
 
     private fun disableContinueButton() {
         mContinueButton.isEnabled = false
-        mContinueButton.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))
     }
 }

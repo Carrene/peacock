@@ -70,8 +70,8 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="16dp"/>
             </LinearLayout>
-            <com.google.android.material.button.MaterialButton
-                    android:background="@color/colorPrimaryDark"
+            <android.widget.Button
+                    android:background="@drawable/all_buttonselector"
                     app:cornerRadius="25dp"
                     style="@style/H1WithWhiteTextColor"
                     android:enabled="false"
@@ -95,7 +95,7 @@
             android:text="@string/emailVerification_skipToPattern"
             android:gravity="center"
             android:drawablePadding="8dp"
-            app:drawableEndCompat="@drawable/icon_arrow_forward_purple_24dp"
+            app:drawableEndCompat="@drawable/all_iconarrowforwardpurple_24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView_emailValidation_phoneInput"

@@ -19,7 +19,7 @@ interface ApiInterface {
 
     @FormUrlEncoded
     @HTTP(method = "SET", path = "emails", hasBody = true)
-    fun setEmail(@Header("Authorization") token: String, @Field("email") email: String):
+    fun setEmail(@Header("Authorization") token: String, @Field("mEmail") email: String):
             Single<Response<EmailVerificationModel>>
 
 

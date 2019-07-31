@@ -1,3 +1,5 @@
 package de.netalic.peacock.data.model
 
-data class EmailVerificationModel(val email: String)
+import com.google.gson.annotations.SerializedName
+
+data class EmailVerificationModel(@SerializedName("mEmail") val mEmail: String)
