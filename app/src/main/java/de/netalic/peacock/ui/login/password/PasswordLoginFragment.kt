@@ -97,12 +97,11 @@ class PasswordLoginFragment : BaseFragment() {
             }
 
             else if (response.status == Status.FAILED) {
-                val message = response.throwable?.message ?: return@Observer
-                when (message) {
+                val throwableMessage = response.throwable?.message ?: return@Observer
+                when (throwableMessage) {
                     PasswordLoginViewModel.FAILED_MINIMUM_CHARS -> {
                         val startIndex = message.indexOf(messageParts[0])
                         val endIndex = startIndex + (messageParts[0].length)
-                        Timber.tag("TAGGG").d("Text: ${messageParts[0]} - Start Index: $startIndex - Last Index: $endIndex")
                         spannableString.setSpan(ForegroundColorSpan(errorColor), startIndex, endIndex,
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                     }
