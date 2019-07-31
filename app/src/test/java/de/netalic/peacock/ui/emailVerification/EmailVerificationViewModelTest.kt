@@ -23,7 +23,7 @@ class EmailVerificationViewModelTest : BaseTest() {
         val sEmail = EmailVerificationModel("tina.t2aq@gmail.com")
         const val token =
             "eyJhbGciOiJIUzI1NiIsImlhdCI6MTU2Mzk2Njk0OCwiZXhwIjoxNTcyNTY2OTQ4fQ.eyJpZCI6NCwiZGV2aWNlX2lkIjoxLCJwaG9uZSI6Iis5ODkzNTkzMjMxNzUiLCJyb2xlcyI6WyJjbGllbnQiXSwic2Vzc2lvbklkIjoiMTk5YmM4ZWItN2ExNC00YjBjLWI2YWMtNzQyZWQ1YTViNTk3IiwiZW1haWwiOiIiLCJpc0FjdGl2ZSI6ZmFsc2V9.sa0z7_2R-u94DlUQ0JEoaCHXi-ULaU5mJFy2KDjm_oM"
-
+        val sWrongEmail = EmailVerificationModel("tinat2aq")
     }
 
     @get:Rule
@@ -46,7 +46,7 @@ class EmailVerificationViewModelTest : BaseTest() {
     }
 
     @Test
-    fun  setEmail_showSuccess() {
+    fun setEmail_showSuccess() {
         val delayer = PublishSubject.create<Void>()
 
         val singleResponse = Single.just(
@@ -75,7 +75,7 @@ class EmailVerificationViewModelTest : BaseTest() {
 
 
     @Test
-    fun  setEmail_showEmailMissingException() {
+    fun setEmail_showEmailMissingException() {
         val delayer = PublishSubject.create<Void>()
 
         val singleResponse = Single.just(
@@ -108,7 +108,7 @@ class EmailVerificationViewModelTest : BaseTest() {
     }
 
     @Test
-    fun  setEmail_showUnauthorizedException() {
+    fun setEmail_showUnauthorizedException() {
         val delayer = PublishSubject.create<Void>()
 
         val singleResponse = Single.just(
@@ -140,7 +140,7 @@ class EmailVerificationViewModelTest : BaseTest() {
     }
 
     @Test
-    fun  setEmail_InvalidEmailException() {
+    fun setEmail_InvalidEmailException() {
         val delayer = PublishSubject.create<Void>()
 
         val singleResponse = Single.just(
@@ -172,7 +172,7 @@ class EmailVerificationViewModelTest : BaseTest() {
     }
 
     @Test
-    fun  setEmail_EmailAlreadyActivatedException() {
+    fun setEmail_EmailAlreadyActivatedException() {
         val delayer = PublishSubject.create<Void>()
 
         val singleResponse = Single.just(
@@ -204,7 +204,7 @@ class EmailVerificationViewModelTest : BaseTest() {
     }
 
     @Test
-    fun  setEmail_EmailAlreadyExistException() {
+    fun setEmail_EmailAlreadyExistException() {
         val delayer = PublishSubject.create<Void>()
 
         val singleResponse = Single.just(
@@ -233,5 +233,50 @@ class EmailVerificationViewModelTest : BaseTest() {
             LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData())
                 .throwable!!::class.java, EmailAlreadyExistException()::class.java
         )
+    }
+
+
+    @Test
+    fun claimUser_throwException() {
+        val delayer = PublishSubject.create<Void>()
+
+        val singleResponse = Single
+            .error<Response<EmailVerificationModel>>(Exception())
+            .delaySubscription(delayer)
+        Mockito.`when`(
+            mEmailRepository.setEmail(token, sEmail.mEmail)
+        ).thenReturn(singleResponse)
+        mEmailVerificationViewModel.setEmail(
+            token, sEmail.mEmail
+        )
+        Mockito.verify(mEmailRepository).setEmail(token, sEmail.mEmail)
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
+            Status.LOADING
+        )
+        delayer.onComplete()
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
+            Status.FAILED
+        )
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData())
+                .throwable!!::class.java, Exception::class.java
+        )
+    }
+
+    @Test
+    fun emailValidator_invalidEmail() {
+
+        mEmailVerificationViewModel.setEmail(token, sWrongEmail.mEmail)
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
+            Status.FAILED
+        )
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).throwable!!::class.java,
+            InvalidEmailException::class.java
+        )
+        Assert.assertNull(LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).data)
     }
 }

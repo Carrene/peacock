@@ -24,7 +24,7 @@ class EmailVerificationFragment : BaseFragment() {
     private val mEmailVerificationViewModel: EmailVerificationViewModel by viewModel()
     private val mEmailInputEditText by lazy { editText_emailVerification_emailAddress }
     private val mContinueButton by lazy { button_emailValidation_continue }
-    private val emailLegnth = 5
+    private val mEmailLength = 5
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mViewRoot = inflater.inflate(R.layout.fragment_emailverification, container, false)
@@ -87,7 +87,7 @@ class EmailVerificationFragment : BaseFragment() {
             }
 
             override fun onTextChanged(characters: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (characters != null && characters.length > emailLegnth)
+                if (characters != null && characters.length > mEmailLength)
                     enableContinueButton()
                 else
                     disableContinueButton()
