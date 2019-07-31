@@ -42,7 +42,7 @@ class PasswordLoginViewModel(private val validator: Validator) : BaseViewModel()
 
         var counter = 0
 
-        if (validator.hasMinimumLength(password, 8)) {
+        if (validator.hasMinimumLength(password, PASSWORD_LENGTH)) {
             mPasswordResponse.value = MyResponse.success(ResponseStatus.SUCCESS_MINIMUM_CHARS)
             ++counter
         } else {
@@ -101,6 +101,8 @@ class PasswordLoginViewModel(private val validator: Validator) : BaseViewModel()
         const val FAILED_UPPERCASE = "failed_uppercase"
         const val FAILED_DIGIT = "failed_digit"
         const val FAILED_SPECIAL_CHAR = "failed_special_char"
+
+        private const val PASSWORD_LENGTH = 8
     }
 
 }
