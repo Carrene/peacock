@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.andrognito.patternlockview.PatternLockView
 import com.andrognito.patternlockview.listener.PatternLockViewListener
 import com.andrognito.patternlockview.utils.PatternLockUtils
@@ -22,6 +24,7 @@ class PatternFragment : BaseFragment(), PatternLockViewListener {
     private val mImageViewProfile by lazy { imageView_patternLogin_profile }
     private val mPatternLockView by lazy { patternLockView_patternLogin_pattern }
     private val mTextViewMessage by lazy { textView_patternLogin_message }
+    private val mTextViewSkipToPassword by lazy { textView_patternLogin_skipToPassword }
 
     private val mPatternViewModel: PatternViewModel by viewModel()
 
@@ -66,6 +69,8 @@ class PatternFragment : BaseFragment(), PatternLockViewListener {
 
     override fun initUiListeners() {
         mPatternLockView.addPatternLockListener(this)
+        mTextViewSkipToPassword.setOnClickListener { findNavController()
+            .navigate(R.id.action_patternFragment_to_passwordLoginFragment) }
     }
 
     override fun onComplete(pattern: MutableList<PatternLockView.Dot>?) {

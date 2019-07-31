@@ -2,9 +2,7 @@ package de.netalic.peacock.common
 
 import android.app.Application
 import de.netalic.peacock.BuildConfig
-import de.netalic.peacock.di.apiModule
-import de.netalic.peacock.di.repositoryModule
-import de.netalic.peacock.di.viewModelModule
+import de.netalic.peacock.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -23,7 +21,9 @@ class MyApplication : Application() {
                 listOf(
                     repositoryModule,
                     viewModelModule,
-                    apiModule
+                    apiModule,
+                    validatorModule,
+                    passwordLogonViewModelModule
                 )
             )
         }

@@ -1,5 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Peacock</string>
+    <string name="patternLogin_messageEnterPassword">Enter a sample password for more security</string>
     <string name="patternLogin_authorization">Authorization</string>
     <string name="patternLogin_messageDraw">Draw a sample pattern for more secure</string>
     <string name="patternLogin_messageDrawAgain">Draw your pattern again</string>
@@ -12,4 +13,8 @@
     <string name="registration_iranCode">(+98)</string>
     <string name="registration_countryCode">(%1$s)</string>
     <string name="all_stepNOfFour" tools:ignore="TypographyFractions">Step %1$s/4</string>
+    <string name="hint_passwordLogin_password">- - - - - - - -</string>
+    <string name="passwordLogin_passwordRules">8 characters, at least one capital letter, at least one number, and one character (* _ + % $ # @)</string>
+    <string name="passwordLogin_continue">Continue</string>
+    <string name="hint_passwordLogin_empty">- - - - - - -</string>
 </resources>

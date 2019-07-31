@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/graph_main"
-            app:startDestination="@+id/patternLoginFragment">
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/graph_main"
+            app:startDestination="@id/patternFragment">
 
-    <fragment android:id="@+id/patternLoginFragment"
-              android:name="de.netalic.peacock.ui.registration.RegistrationFragment"
-              android:label="fragment_patternlogin"/>
+    <fragment android:id="@+id/patternFragment" android:name="de.netalic.peacock.ui.login.pattern.PatternFragment"
+              android:label="fragment_patternlogin" tools:layout="@layout/fragment_patternlogin">
+        <action android:id="@+id/action_patternFragment_to_passwordLoginFragment"
+                app:destination="@id/passwordLoginFragment"/>
+    </fragment>
+    <fragment android:id="@+id/passwordLoginFragment"
+              android:name="de.netalic.peacock.ui.login.password.PasswordLoginFragment"
+              android:label="fragment_passwordlogin" tools:layout="@layout/fragment_passwordlogin">
+        <action android:id="@+id/action_passwordLoginFragment_to_patternFragment"
+                app:destination="@id/patternFragment" app:popUpTo="@+id/patternFragment" app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>
