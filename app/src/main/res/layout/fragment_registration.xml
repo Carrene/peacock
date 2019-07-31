@@ -84,7 +84,7 @@
                     android:background="@drawable/all_buttonselector"
                     style="@style/H1WithWhiteTextColor"
                     android:enabled="false"
-                    android:text="@string/registration_continue"
+                    android:text="@string/all_continue"
                     android:layout_width="296dp"
                     android:layout_height="48dp"
                     android:id="@+id/button_registration_continue"

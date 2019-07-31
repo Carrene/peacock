@@ -18,7 +18,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class EmailVerificationFragment : BaseFragment() {
-    //TODO email pattern length
+    //TODO-tina email pattern length
     private val mPatternMatcher = "[a-zA-Z0-9._-]{2,30}+@[a-zA-Z0-9-]{2,20}+\\.[a-zA-Z.]{2,10}".toRegex()
 
     private lateinit var mViewRoot: View
@@ -52,7 +52,7 @@ class EmailVerificationFragment : BaseFragment() {
     private fun initToolbar() {
         val activity = requireActivity()
         if (activity is MainHostActivity) {
-            activity.updateToolbarTitle(getString(R.string.patternLogin_stepNOfFour, "4"))
+            activity.updateToolbarTitle(getString(R.string.all_stepNOfFour, "4"))
         }
     }
 
@@ -61,7 +61,7 @@ class EmailVerificationFragment : BaseFragment() {
 
             //when (it.status) {
             Snackbar.make(mViewRoot, it.status.toString(), Snackbar.LENGTH_LONG).show()
-            //ToDo get all status for
+            //ToDo-tina get all status for
             //}
         })
     }
@@ -69,7 +69,7 @@ class EmailVerificationFragment : BaseFragment() {
     private fun setEmail() {
         val email = editText_emailVerification_emailAddress.text.toString()
         val token =
-            "eyJhbGciOiJIUzI1NiIsImlhdCI6MTU2Mzk2Njk0OCwiZXhwIjoxNTcyNTY2OTQ4fQ.eyJpZCI6NCwiZGV2aWNlX2lkIjoxLCJwaG9uZSI6Iis5ODkzNTkzMjMxNzUiLCJyb2xlcyI6WyJjbGllbnQiXSwic2Vzc2lvbklkIjoiMTk5YmM4ZWItN2ExNC00YjBjLWI2YWMtNzQyZWQ1YTViNTk3IiwiZW1haWwiOiIiLCJpc0FjdGl2ZSI6ZmFsc2V9.sa0z7_2R-u94DlUQ0JEoaCHXi-ULaU5mJFy2KDjm_oM"
+            "eyJhbGciOiJIUzI1NiIsImlhdCI6MTU2NDU2NDExOSwiZXhwIjoxNTczMTY0MTE5fQ.eyJpZCI6NCwiZGV2aWNlX2lkIjoxLCJwaG9uZSI6Iis5ODkzNTkzMjMxNzUiLCJyb2xlcyI6WyJjbGllbnQiXSwic2Vzc2lvbklkIjoiYzkwZWI0N2QtZDRiNC00ZjQ1LWIwNmYtOWVlNTMyNTEwNWJlIiwiZW1haWwiOiIiLCJpc0FjdGl2ZSI6ZmFsc2V9.X2yjaZCLfsz4AXK3fGF-vnRNk5YCKvpipE0WZEOtHkQ"
         if (mPatternMatcher.matches(email)) {
             mEmailVerificationViewModel.setEmail(token, email)
         }

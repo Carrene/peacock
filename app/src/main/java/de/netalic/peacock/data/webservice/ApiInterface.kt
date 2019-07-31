@@ -18,7 +18,7 @@ interface ApiInterface {
     fun claim(@Field("phone") phone: String, @Field("udid") udid: String): Single<Response<UserModel>>
 
     @FormUrlEncoded
-    @HTTP(method = "SET", path = "login", hasBody = true)
+    @HTTP(method = "SET", path = "emails", hasBody = true)
     fun setEmail(@Header("Authorization") token: String, @Field("email") email: String):
             Single<Response<EmailVerificationModel>>
 

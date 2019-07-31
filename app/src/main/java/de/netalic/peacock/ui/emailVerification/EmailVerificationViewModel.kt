@@ -28,6 +28,7 @@ class EmailVerificationViewModel(private val repository: EmailRepository) : Base
                     200 -> mSetEmailResponseLivadata.value = MyResponse.success(it.body()!!)
                     400 -> mSetEmailResponseLivadata.value = MyResponse.failed(EmailMissingException())
                     401 -> mSetEmailResponseLivadata.value = MyResponse.failed(UnauthorizedException())
+                    405 ->mSetEmailResponseLivadata.value = MyResponse.failed(MethodNotAllowedException())
                     712 -> mSetEmailResponseLivadata.value = MyResponse.failed(InvalidEmailException())
                     717 -> mSetEmailResponseLivadata.value = MyResponse.failed(EmailAlreadyActivatedException())
                     718 -> mSetEmailResponseLivadata.value = MyResponse.failed(EmailAlreadyExistException())
