@@ -18,7 +18,6 @@ import de.netalic.peacock.ui.base.BaseFragment
 import de.netalic.peacock.ui.base.MainHostActivity
 import kotlinx.android.synthetic.main.fragment_passwordlogin.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class PasswordLoginFragment : BaseFragment() {
 
