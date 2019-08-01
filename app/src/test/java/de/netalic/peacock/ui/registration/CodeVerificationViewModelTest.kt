@@ -10,7 +10,9 @@ import de.netalic.peacock.data.model.Status
 import de.netalic.peacock.data.model.UserModel
 import de.netalic.peacock.data.repository.UserRepository
 import de.netalic.peacock.util.LiveDataTestUtil
+import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.TestScheduler
 import io.reactivex.subjects.PublishSubject
 import okhttp3.MediaType
@@ -23,6 +25,7 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import retrofit2.Response
+import java.util.concurrent.TimeUnit
 
 
 class CodeVerificationViewModelTest : BaseTest() {
@@ -235,11 +238,27 @@ class CodeVerificationViewModelTest : BaseTest() {
 
     @Test
     fun setTimer() {
+
         val scheduler = TestScheduler()
-        mCodeVerificationViewModel.setTimer(3)
+        RxJavaPlugins.setComputationSchedulerHandler { s -> scheduler }
 
 
-        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()), Status.SUCCESS)
+        val timerDisposable = Observable.interval(1, TimeUnit.SECONDS)
+            .take(3)
+            .map { 3 - it }
+            .subscribeOn(scheduler)
+            .observeOn(scheduler)
+            .test()
+
+
+        timerDisposable.assertNoValues()
+        timerDisposable.assertNotComplete()
+
+        scheduler.advanceTimeBy(1, TimeUnit.SECONDS)
+
+        timerDisposable.assertNoErrors()
+        timerDisposable.assertValueCount(1)
+        timerDisposable.assertValues(3)
 
     }
 
