@@ -5,6 +5,6 @@
             app:startDestination="@+id/patternLoginFragment">
 
     <fragment android:id="@+id/patternLoginFragment"
-              android:name="de.netalic.peacock.ui.registration.RegistrationFragment"
+              android:name="de.netalic.peacock.ui.registration.CodeVerificationFragment"
               android:label="fragment_patternlogin"/>
 </navigation>

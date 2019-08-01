@@ -78,7 +78,7 @@ class RegistrationFragment : BaseFragment() {
         }
     }
 
-    private fun initObserver() {
+    override fun initObserver() {
         mPhoneInputViewModel.getClaimLiveData().observe(this, Observer {
 
             //ToDo-tina: get all status for

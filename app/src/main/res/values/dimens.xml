@@ -24,4 +24,20 @@
 
     <dimen name="size_all_buttonRadius_25">25dp</dimen>
 
+
+    <dimen name="margin_all_8dp">8dp</dimen>
+    <dimen name="margin_all_5dp">5dp</dimen>
+    <dimen name="margin_all_100dp">100dp</dimen>
+    <dimen name="margin_all_28dp">28dp</dimen>
+    <dimen name="margin_all_20dp">20dp</dimen>
+    <dimen name="margin_all_10dp">10dp</dimen>
+    <dimen name="margin_all_16dp">16dp</dimen>
+    <dimen name="margin_all_30dp">30dp</dimen>
+    <dimen name="margin_all_2dp">2dp</dimen>
+    <dimen name="margin_all_4dp">4dp</dimen>
+
+    <dimen name="padding_all_10dp">10dp</dimen>
+
+    <dimen name="textSize_all_20sp">20sp</dimen>
+
 </resources>

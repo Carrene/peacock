@@ -19,6 +19,11 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class PatternFragment : BaseFragment(), PatternLockViewListener {
 
+
+    override fun initObserver() {
+
+    }
+
     private val mImageViewProfile by lazy { imageView_patternLogin_profile }
     private val mPatternLockView by lazy { patternLockView_patternLogin_pattern }
     private val mTextViewMessage by lazy { textView_patternLogin_message }

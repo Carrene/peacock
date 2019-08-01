@@ -12,4 +12,15 @@
     <string name="registration_iranCode">(+98)</string>
     <string name="registration_countryCode">(%1$s)</string>
     <string name="all_stepNOfFour" tools:ignore="TypographyFractions">Step %1$s/4</string>
+
+    <string name="everywhere_value">VALUE</string>
+
+    <string name="codeVerification_steps">Steps 3/4</string>
+    <string name="codeVerification_codeVerification">Code Verification</string>
+    <string name="codeVerification_enterFourDigit">Enter 6 digit number that sent to</string>
+    <string name="codeVerification_textButton">Continue</string>
+    <string name="codeVerification_resend">Re_Send code </string>
+    <string name="codeVerification_resendCode">RESEND</string>
+    <string name="codeVerification_in">in</string>
+
 </resources>

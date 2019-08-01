@@ -10,9 +10,11 @@ abstract class BaseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initUiComponents()
         initUiListeners()
+        initObserver()
     }
 
     protected abstract fun initUiComponents()
     protected abstract fun initUiListeners()
+    protected abstract fun initObserver()
 
 }

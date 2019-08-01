@@ -7,5 +7,7 @@ data class UserModel(
     @SerializedName("name") val mName: String? = null,
     @SerializedName("phone") val mPhone: String,
     @SerializedName("udid") val mUdid: String,
-    @SerializedName("firebaseToken") val mFirebaseToken: String = ""
+    @SerializedName("firebaseToken") val mFirebaseToken: String = "",
+    val mActivateToken:String,
+    val mDeviceType:String
 )
