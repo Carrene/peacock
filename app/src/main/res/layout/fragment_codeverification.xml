@@ -99,7 +99,9 @@
                 android:text="@string/codeVerification_textButton"
                 android:layout_marginTop="100dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@drawable/codeverification_buttontextcolorselector"
+        />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -119,7 +121,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/codeVerification_resend"
                 style="@style/H1"
-                android:layout_marginEnd="@dimen/margin_all_5dp"/>
+                android:layout_marginEnd="@dimen/margin_all_5dp"
+                android:textColor="@drawable/codeverification_resendtextcolorselector"
+        />
 
         <TextView
                 android:id="@+id/textView_codeVerification_in"

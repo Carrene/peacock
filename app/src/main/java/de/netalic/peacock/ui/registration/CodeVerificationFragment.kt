@@ -6,7 +6,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import de.netalic.peacock.R
 import de.netalic.peacock.data.model.Status
@@ -17,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_codeverification.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class CodeVerificationFragment : BaseFragment() {
+class CodeVerificationFragment : BaseFragment(){
 
 
     private var mIsRunning: Boolean = false
@@ -41,7 +40,6 @@ class CodeVerificationFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setTimer()
         disableButton()
         mCodeVerificationViewModel.setTimer()
     }
@@ -171,7 +169,7 @@ class CodeVerificationFragment : BaseFragment() {
 
         mTextViewResendCode.isEnabled = false
         mTextViewTimer.text = time
-        mTextViewResendCode.setTextColor(ContextCompat.getColor(requireContext(), R.color.text))
+
     }
 
     private fun onFinish() {
@@ -180,19 +178,9 @@ class CodeVerificationFragment : BaseFragment() {
         mIsRunning = false
         if (context != null) {
 
-            mTextViewResendCode.setTextColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.colorTertiary
-                )
-            )
             mTextViewIn.visibility = View.GONE
             mTextViewTimer.visibility = View.GONE
         }
-    }
-
-    private fun setTimer() {
-
     }
 
     private fun disableButton() {
@@ -203,6 +191,5 @@ class CodeVerificationFragment : BaseFragment() {
     private fun enableButton() {
 
         mButton.isEnabled = true
-        mButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorLightPrimary))
     }
 }
