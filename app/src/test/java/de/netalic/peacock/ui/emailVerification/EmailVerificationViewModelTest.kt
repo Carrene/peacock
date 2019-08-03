@@ -21,10 +21,10 @@ import retrofit2.Response
 class EmailVerificationViewModelTest : BaseTest() {
 
     companion object {
-        private val sEmail = EmailVerificationModel("tina.t2aq@gmail.com")
+        private val sEmail = EmailVerificationModel("ab@bc.com")
         private const val TOKEN =
             "eyJhbGciOiJIUzI1NiIsImlhdCI6MTU2Mzk2Njk0OCwiZXhwIjoxNTcyNTY2OTQ4fQ.eyJpZCI6NCwiZGV2aWNlX2lkIjoxLCJwaG9uZSI6Iis5ODkzNTkzMjMxNzUiLCJyb2xlcyI6WyJjbGllbnQiXSwic2Vzc2lvbklkIjoiMTk5YmM4ZWItN2ExNC00YjBjLWI2YWMtNzQyZWQ1YTViNTk3IiwiZW1haWwiOiIiLCJpc0FjdGl2ZSI6ZmFsc2V9.sa0z7_2R-u94DlUQ0JEoaCHXi-ULaU5mJFy2KDjm_oM"
-        private val sWrongEmail = EmailVerificationModel("tinat2aq")
+        private val sWrongEmail = EmailVerificationModel("abc")
     }
 
     @get:Rule
@@ -58,11 +58,11 @@ class EmailVerificationViewModelTest : BaseTest() {
             Response.success(200, sEmail)
         ).delaySubscription(delayer)
         Mockito.`when`(
-            mEmailRepository.setEmail(TOKEN, sEmail.mEmail)
+            mEmailRepository.setEmail(Mockito.anyString(), Mockito.anyString())
         ).thenReturn(singleResponse)
-        Mockito.`when`(mValidatorUtils.emailValidator(sEmail.mEmail)).thenReturn(true)
+        Mockito.`when`(mValidatorUtils.emailValidator(Mockito.anyString())).thenReturn(true)
         mEmailVerificationViewModel.setEmail(TOKEN, sEmail.mEmail)
-        Mockito.verify(mEmailRepository).setEmail(TOKEN, sEmail.mEmail)
+        Mockito.verify(mEmailRepository).setEmail(Mockito.anyString(), Mockito.anyString())
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
             Status.LOADING
@@ -88,10 +88,10 @@ class EmailVerificationViewModelTest : BaseTest() {
             Response.error<EmailVerificationModel>(
                 400,
                 ResponseBody.create(MediaType.parse("text/plain"), ""))).delaySubscription(delayer)
-        Mockito.`when`(mEmailRepository.setEmail(TOKEN, sEmail.mEmail)).thenReturn(singleResponse)
-        Mockito.`when`(mValidatorUtils.emailValidator(sEmail.mEmail)).thenReturn(true)
+        Mockito.`when`(mEmailRepository.setEmail(Mockito.anyString(), Mockito.anyString())).thenReturn(singleResponse)
+        Mockito.`when`(mValidatorUtils.emailValidator(Mockito.anyString())).thenReturn(true)
         mEmailVerificationViewModel.setEmail(TOKEN, sEmail.mEmail)
-        Mockito.verify(mEmailRepository).setEmail(TOKEN, sEmail.mEmail)
+        Mockito.verify(mEmailRepository).setEmail(Mockito.anyString(), Mockito.anyString())
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
             Status.LOADING
@@ -119,13 +119,13 @@ class EmailVerificationViewModelTest : BaseTest() {
             )
         ).delaySubscription(delayer)
         Mockito.`when`(
-            mEmailRepository.setEmail(TOKEN, sEmail.mEmail)
+            mEmailRepository.setEmail(Mockito.anyString(), Mockito.anyString())
         ).thenReturn(singleResponse)
-        Mockito.`when`(mValidatorUtils.emailValidator(sEmail.mEmail)).thenReturn(true)
+        Mockito.`when`(mValidatorUtils.emailValidator(Mockito.anyString())).thenReturn(true)
         mEmailVerificationViewModel.setEmail(
             TOKEN, sEmail.mEmail
         )
-        Mockito.verify(mEmailRepository).setEmail(TOKEN, sEmail.mEmail)
+        Mockito.verify(mEmailRepository).setEmail(Mockito.anyString(), Mockito.anyString())
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
             Status.LOADING
@@ -151,12 +151,12 @@ class EmailVerificationViewModelTest : BaseTest() {
                 ResponseBody.create(MediaType.parse("text/plain"), "")
             )
         ).delaySubscription(delayer)
-        Mockito.`when`(mEmailRepository.setEmail(TOKEN, sEmail.mEmail)).thenReturn(singleResponse)
-        Mockito.`when`(mValidatorUtils.emailValidator(sEmail.mEmail)).thenReturn(true)
+        Mockito.`when`(mEmailRepository.setEmail(Mockito.anyString(), Mockito.anyString())).thenReturn(singleResponse)
+        Mockito.`when`(mValidatorUtils.emailValidator(Mockito.anyString())).thenReturn(true)
         mEmailVerificationViewModel.setEmail(
             TOKEN, sEmail.mEmail
         )
-        Mockito.verify(mEmailRepository).setEmail(TOKEN, sEmail.mEmail)
+        Mockito.verify(mEmailRepository).setEmail(Mockito.anyString(), Mockito.anyString())
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
             Status.LOADING
@@ -182,10 +182,10 @@ class EmailVerificationViewModelTest : BaseTest() {
                 ResponseBody.create(MediaType.parse("text/plain"), "")
             )
         ).delaySubscription(delayer)
-        Mockito.`when`(mEmailRepository.setEmail(TOKEN, sEmail.mEmail)).thenReturn(singleResponse)
-        Mockito.`when`(mValidatorUtils.emailValidator(sEmail.mEmail)).thenReturn(true)
+        Mockito.`when`(mEmailRepository.setEmail(Mockito.anyString(), Mockito.anyString())).thenReturn(singleResponse)
+        Mockito.`when`(mValidatorUtils.emailValidator(Mockito.anyString())).thenReturn(true)
         mEmailVerificationViewModel.setEmail(TOKEN, sEmail.mEmail)
-        Mockito.verify(mEmailRepository).setEmail(TOKEN, sEmail.mEmail)
+        Mockito.verify(mEmailRepository).setEmail(Mockito.anyString(), Mockito.anyString())
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
             Status.LOADING
@@ -211,10 +211,10 @@ class EmailVerificationViewModelTest : BaseTest() {
                 ResponseBody.create(MediaType.parse("text/plain"), "")
             )
         ).delaySubscription(delayer)
-        Mockito.`when`(mEmailRepository.setEmail(TOKEN, sEmail.mEmail)).thenReturn(singleResponse)
-        Mockito.`when`(mValidatorUtils.emailValidator(sEmail.mEmail)).thenReturn(true)
+        Mockito.`when`(mEmailRepository.setEmail(Mockito.anyString(), Mockito.anyString())).thenReturn(singleResponse)
+        Mockito.`when`(mValidatorUtils.emailValidator(Mockito.anyString())).thenReturn(true)
         mEmailVerificationViewModel.setEmail(TOKEN, sEmail.mEmail)
-        Mockito.verify(mEmailRepository).setEmail(TOKEN, sEmail.mEmail)
+        Mockito.verify(mEmailRepository).setEmail(Mockito.anyString(), Mockito.anyString())
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
             Status.LOADING
@@ -238,10 +238,10 @@ class EmailVerificationViewModelTest : BaseTest() {
         val singleResponse = Single
             .error<Response<EmailVerificationModel>>(Exception())
             .delaySubscription(delayer)
-        Mockito.`when`(mEmailRepository.setEmail(TOKEN, sEmail.mEmail)).thenReturn(singleResponse)
-        Mockito.`when`(mValidatorUtils.emailValidator(sEmail.mEmail)).thenReturn(true)
+        Mockito.`when`(mEmailRepository.setEmail(Mockito.anyString(), Mockito.anyString())).thenReturn(singleResponse)
+        Mockito.`when`(mValidatorUtils.emailValidator(Mockito.anyString())).thenReturn(true)
         mEmailVerificationViewModel.setEmail(TOKEN, sEmail.mEmail)
-        Mockito.verify(mEmailRepository).setEmail(TOKEN, sEmail.mEmail)
+        Mockito.verify(mEmailRepository).setEmail(Mockito.anyString(), Mockito.anyString())
         Assert.assertEquals(
             LiveDataTestUtil.getValue(mEmailVerificationViewModel.getSetEmailLiveData()).status,
             Status.LOADING

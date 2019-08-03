@@ -15,7 +15,7 @@ class UserRepositoryTest : BaseTest() {
 
     companion object {
 
-        val sUser = UserModel("", "", "989359323175", "123456", "")
+        val sUser = UserModel("", "", "981234567", "123456", "")
     }
 
     private lateinit var mUserRepository: UserRepository
@@ -38,7 +38,7 @@ class UserRepositoryTest : BaseTest() {
     @Test
     fun claimUser_claimToApi() {
         mUserRepository.claim(sUser.mPhone, sUser.mUdid)
-        Mockito.verify(apiInterface).claim(sUser.mPhone, sUser.mUdid)
+        Mockito.verify(apiInterface).claim(Mockito.anyString(),Mockito.anyString())
     }
 
 }
