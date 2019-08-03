@@ -11,7 +11,6 @@
     <color name="background">#F2F1F6</color>
     <color name="text">#8B989F</color>
     <color name="colorBaliHai">#91999C</color>
-
-
-
+    <color name="error">#C92E7E</color>
+    <color name="success">#3F924D</color>
 </resources>

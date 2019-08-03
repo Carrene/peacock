@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_all_32"
         android:textAppearance="@style/H1WithTertiaryColor"
-        android:text="@string/patternLogin_skipToPattern"
+        android:text="@string/patternLogin_skipToPassword"
         android:gravity="center"
         android:drawablePadding="@dimen/padding_all_8"
         app:drawableEndCompat="@drawable/ic_arrow_forward"

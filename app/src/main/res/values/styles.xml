@@ -96,5 +96,19 @@
         <item name="android:textColor">@color/colorBaliHai</item>
     </style>
 
+    <!-- Caption -->
+
+    <style name="Caption" parent="AppTextViewAppearance">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">@dimen/textSize_caption_12dp</item>
+    </style>
+
+    <style name="CaptionWithTextColor" parent="Caption">
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="CaptionWithDarkTextColor" parent="Caption">
+        <item name="android:textColor">@color/darkText</item>
+    </style>
 
 </resources>
