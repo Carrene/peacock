@@ -1,3 +1,26 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Peacock</string>
+    <string name="patternLogin_authorization">Authorization</string>
+    <string name="patternLogin_messageDraw">Draw a sample pattern for more secure</string>
+    <string name="patternLogin_messageDrawAgain">Draw your pattern again</string>
+    <string name="patternLogin_skipToPattern">Switch to Password</string>
+    <string name="imageView_contentDescription">-</string>
+    <string name="registration_registration">Registration</string>
+    <string name="registration_guid">Enter your phone number, we will send you OTP to verify later.</string>
+    <string name="registration_continue">Continue</string>
+    <string name="registration_hint">- - - - - - - - - -</string>
+    <string name="registration_iranCode">(+98)</string>
+    <string name="registration_countryCode">(%1$s)</string>
+    <string name="all_stepNOfFour" tools:ignore="TypographyFractions">Step %1$s/4</string>
+
+    <string name="everywhere_value">VALUE</string>
+
+    <string name="codeVerification_steps">Steps 3/4</string>
+    <string name="codeVerification_codeVerification">Code Verification</string>
+    <string name="codeVerification_enterFourDigit">Enter 6 digit number that sent to</string>
+    <string name="codeVerification_textButton">Continue</string>
+    <string name="codeVerification_resend">Re_Send code </string>
+    <string name="codeVerification_resendCode">RESEND</string>
+    <string name="codeVerification_in">in</string>
+
 </resources>
