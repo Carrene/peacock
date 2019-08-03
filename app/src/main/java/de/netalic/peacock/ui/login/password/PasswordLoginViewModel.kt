@@ -2,9 +2,10 @@ package de.netalic.peacock.ui.login.password
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import de.netalic.peacock.util.PasswordValidator
+import de.netalic.peacock.data.exception.*
 import de.netalic.peacock.data.model.MyResponse
 import de.netalic.peacock.ui.base.BaseViewModel
+import de.netalic.peacock.util.PasswordValidator
 
 enum class ResponseStatus {
     SUCCESS_MINIMUM_CHARS,
@@ -45,28 +46,28 @@ class PasswordLoginViewModel(private val passwordValidator: PasswordValidator) :
             mPasswordResponse.value = MyResponse.success(ResponseStatus.SUCCESS_MINIMUM_CHARS)
             ++counter
         } else {
-            mPasswordResponse.value = MyResponse.failed(Throwable(FAILED_MINIMUM_CHARS))
+            mPasswordResponse.value = MyResponse.failed(NotMinimumCharactersException())
         }
 
         if (passwordValidator.hasCapitalLetter(password)) {
             mPasswordResponse.value = MyResponse.success(ResponseStatus.SUCCESS_UPPERCASE)
             ++counter
         } else {
-            mPasswordResponse.value = MyResponse.failed(Throwable(FAILED_UPPERCASE))
+            mPasswordResponse.value = MyResponse.failed(NoUppercaseException())
         }
 
         if (passwordValidator.hasDigit(password)) {
             mPasswordResponse.value = MyResponse.success(ResponseStatus.SUCCESS_DIGIT)
             ++counter
         } else {
-            mPasswordResponse.value = MyResponse.failed(Throwable(FAILED_DIGIT))
+            mPasswordResponse.value = MyResponse.failed(NoDigitException())
         }
 
         if (passwordValidator.hasSpecialCharacters(password)) {
             mPasswordResponse.value = MyResponse.success(ResponseStatus.SUCCESS_SPECIAL_CHAR)
             ++counter
         } else {
-            mPasswordResponse.value = MyResponse.failed(Throwable(FAILED_SPECIAL_CHAR))
+            mPasswordResponse.value = MyResponse.failed(NoSpecialCharacterException())
         }
 
         if (counter == 4) {
@@ -85,13 +86,13 @@ class PasswordLoginViewModel(private val passwordValidator: PasswordValidator) :
 
     private fun isPasswordMatch() {
         if (mPassword == null || mPasswordRepeat == null) {
-            mResponseEquality.value = MyResponse.failed(Throwable("No password match"))
+            mResponseEquality.value = MyResponse.failed(NoPasswordMatchException())
             return
         }
         if (mPassword == mPasswordRepeat) {
             mResponseEquality.value = MyResponse.success(ResponseStatus.PASSWORD_MATCH)
         } else {
-            mResponseEquality.value = MyResponse.failed(Throwable(FAILED_PASSWORD_MATCH))
+            mResponseEquality.value = MyResponse.failed(NoPasswordMatchException())
         }
     }
 
@@ -102,12 +103,6 @@ class PasswordLoginViewModel(private val passwordValidator: PasswordValidator) :
     }
 
     companion object {
-        const val FAILED_MINIMUM_CHARS = "failed_minimum_chars"
-        const val FAILED_UPPERCASE = "failed_uppercase"
-        const val FAILED_DIGIT = "failed_digit"
-        const val FAILED_SPECIAL_CHAR = "failed_special_char"
-        const val FAILED_PASSWORD_MATCH = "failed_password_match"
-
         private const val PASSWORD_LENGTH = 8
     }
 

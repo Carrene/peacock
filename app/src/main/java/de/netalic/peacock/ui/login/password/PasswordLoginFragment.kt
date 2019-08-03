@@ -9,11 +9,14 @@ import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import de.netalic.peacock.R
+import de.netalic.peacock.data.exception.NoDigitException
+import de.netalic.peacock.data.exception.NoSpecialCharacterException
+import de.netalic.peacock.data.exception.NoUppercaseException
+import de.netalic.peacock.data.exception.NotMinimumCharactersException
 import de.netalic.peacock.data.model.Status
 import de.netalic.peacock.ui.base.BaseFragment
 import de.netalic.peacock.ui.main.MainHostActivity
@@ -92,19 +95,19 @@ class PasswordLoginFragment : BaseFragment() {
             else if (response.status == Status.FAILED) {
                 val throwableMessage = response.throwable?.message ?: return@Observer
                 when (throwableMessage) {
-                    PasswordLoginViewModel.FAILED_MINIMUM_CHARS -> {
+                    NotMinimumCharactersException.MESSAGE -> {
                         val (start, end) = mViewModel.getSpanRange(message, messageParts[0])
                         setColorSpan(spannableString, errorColor, start, end)
                     }
-                    PasswordLoginViewModel.FAILED_UPPERCASE -> {
+                    NoUppercaseException.MESSAGE -> {
                         val (start, end) = mViewModel.getSpanRange(message, messageParts[1])
                         setColorSpan(spannableString, errorColor, start, end)
                     }
-                    PasswordLoginViewModel.FAILED_DIGIT -> {
+                    NoDigitException.MESSAGE -> {
                         val (start, end) = mViewModel.getSpanRange(message, messageParts[2])
                         setColorSpan(spannableString, errorColor, start, end)
                     }
-                    PasswordLoginViewModel.FAILED_SPECIAL_CHAR -> {
+                    NoSpecialCharacterException.MESSAGE -> {
                         val (start, end) = mViewModel.getSpanRange(message, messageParts[3])
                         setColorSpan(spannableString, errorColor, start, end)
                     }
@@ -128,11 +131,10 @@ class PasswordLoginFragment : BaseFragment() {
         mViewModel.getEqualityResponse().observe(this, Observer { response ->
             if (response.status == Status.FAILED) {
                 mButtonContinue.isEnabled = false
-                //mButtonContinue.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.colorPrimaryDark)
+                mButtonContinue.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.colorPrimaryDark)
             } else {
-                Toast.makeText(context, "Password Match", Toast.LENGTH_LONG).show()
                 mButtonContinue.isEnabled = true
-                //mButtonContinue.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.colorTertiary)
+                mButtonContinue.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.colorTertiary)
             }
         })
     }
