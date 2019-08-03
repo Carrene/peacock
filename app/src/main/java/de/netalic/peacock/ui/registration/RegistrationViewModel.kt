@@ -14,7 +14,7 @@ import de.netalic.peacock.util.ValidatorUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class RegistrationViewModel(private val userRepository: UserRepository) : BaseViewModel() {
+class RegistrationViewModel(private val userRepository: UserRepository, private val validatorUtils:ValidatorUtils) : BaseViewModel() {
 
     private val mClaimResponseLiveData = MutableLiveData<MyResponse<UserModel>>()
 
@@ -23,7 +23,7 @@ class RegistrationViewModel(private val userRepository: UserRepository) : BaseVi
     }
 
     fun claim(phone: String, udid: String) {
-        if (ValidatorUtils.phoneValidator(phone)) {
+        if (validatorUtils.phoneValidator(phone)) {
             val disposable = userRepository.claim(phone, udid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

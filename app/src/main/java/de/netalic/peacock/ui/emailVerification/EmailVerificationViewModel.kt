@@ -11,7 +11,7 @@ import de.netalic.peacock.util.ValidatorUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class EmailVerificationViewModel(private val repository: EmailRepository) : BaseViewModel() {
+class EmailVerificationViewModel(private val repository: EmailRepository, private val validatorUtils:ValidatorUtils) : BaseViewModel() {
 
     private val mSetEmailResponseLivaData = MutableLiveData<MyResponse<EmailVerificationModel>>()
 
@@ -20,7 +20,7 @@ class EmailVerificationViewModel(private val repository: EmailRepository) : Base
     }
 
     fun setEmail(token: String, email: String) {
-        if (ValidatorUtils.emailValidator(email)) {
+        if (validatorUtils.emailValidator(email)) {
             val disposable = repository.setEmail(token, email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -90,7 +90,7 @@ class EmailVerificationFragment : BaseFragment() {
             }
 
             override fun onTextChanged(characters: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (characters != null && ValidatorUtils.emailValidator(characters.toString()))
+                if (characters != null && ValidatorUtils().emailValidator(characters.toString()))
                     enableContinueButton()
                 else
                     disableContinueButton()
