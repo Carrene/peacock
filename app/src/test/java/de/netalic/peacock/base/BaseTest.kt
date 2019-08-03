@@ -15,6 +15,7 @@ open class BaseTest {
 
     companion object {
 
+        val testScheduler=TestScheduler()
         @JvmStatic
         @BeforeClass
         fun setUpClass() {
@@ -34,7 +35,9 @@ open class BaseTest {
             RxJavaPlugins.setInitNewThreadSchedulerHandler { scheduler -> immediate }
             RxJavaPlugins.setInitSingleSchedulerHandler { scheduler -> immediate }
             RxAndroidPlugins.setInitMainThreadSchedulerHandler { scheduler -> immediate }
-            val testScheduler=TestScheduler()
+
+
+
             RxJavaPlugins.setComputationSchedulerHandler { scheduler -> testScheduler }
         }
 

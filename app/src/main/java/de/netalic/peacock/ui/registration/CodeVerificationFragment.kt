@@ -113,22 +113,21 @@ class CodeVerificationFragment : BaseFragment() {
 
         mCodeVerificationViewModel.bind(
             UserModel(
-                "",
-                "salimi",
-                "+989211499302",
-                "D89707AC55BAED9E8F23B826FB2A28E96095A190",
-                "eyJ0eXAiOiAiSldUIiwgImFsZyI6ICJSUzI1NiIsICJraWQiOiAiODk0NTkyNzQzMzlkMzNlZmNmNTE3MDc" +
-                        "4NGM5ZGU1MjUzMjEyOWVmZiJ9.eyJpc3MiOiAiZmlyZWJhc2UtYWRtaW5zZGstaXp1MTNAYWxwaGEtZDY0ZTQuaWFtLmd" +
-                        "zZXJ2aWNlYWNjb3VudC5jb20iLCAic3ViIjogImZpcmViYXNlLWFkbWluc2RrLWl6dTEzQGFscGhhLWQ2NGU0LmlhbS5nc" +
-                        "2VydmljZWFjY291bnQuY29tIiwgImF1ZCI6ICJodHRwczovL2lkZW50aXR5dG9vbGtpdC5nb29nbGVhcGlzLmNvbS9nb" +
-                        "29nbGUuaWRlbnRpdHkuaWRlbnRpdHl0b29sa2l0LnYxLklkZW50aXR5VG9vbGtpdCIsICJ1aWQiOiAiKzk4OTIxMTQ5OTM" +
-                        "wMiIsICJpYXQiOiAxNTYzOTYwNDU3LCAiZXhwIjogMTU2Mzk2NDA1N30.HOUVBzwbmGwsglQHukGwrijlUuSZ241KdN2Eo" +
-                        "l3Gy80mmd4Kxoc58m3VhL71AWv3WS99eE7uz6xctl--yLPilhN3WJ_z2nxySqkhxiZ9OtaH_U8sTek63SJgfINeTFzJFp" +
-                        "WHkT_DlQNPTVoH_AqbXjh0gZwdpVdMyoLmmuJf-WIqx2y7BdwudCTiAqY_RoK7DdDwS8Jf28J-czpWi7Q4neUo1pC0WLi" +
-                        "986u9n0mZcfIhWoVB_fV0A2-fWRV6yhT647sfHntC2eSg-OJZKO-MAyBsgKDIZm_ubX7m3LHD6rahpnUHtY8m33eJyD-" +
-                        "EfZcKboRWalJkmje69abirvep1A",
-                "082016",
-                "android"
+                mName = "salimi",
+                mPhone = "+989211499302",
+                mUdid = "D89707AC55BAED9E8F23B826FB2A28E96095A190",
+                mFirebaseToken = "eyJ0eXAiOiAiSldUIiwgImFsZyI6ICJSUzI1NiIsICJraWQiOiAiODk0NTkyNzQzMzlkMzNlZmNmNTE3MD" +
+                        "c4NGM5ZGU1MjUzMjEyOWVmZiJ9.eyJpc3MiOiAiZmlyZWJhc2UtYWRtaW5zZGstaXp1MTNAYWxwaGEtZDY0ZTQuaWFtLmdz" +
+                        "ZXJ2aWNlYWNjb3VudC5jb20iLCAic3ViIjogImZpcmViYXNlLWFkbWluc2RrLWl6dTEzQGFscGhhLWQ2NGU0LmlhbS5nc" +
+                        "2VydmljZWFjY291bnQuY29tIiwgImF1ZCI6ICJodHRwczovL2lkZW50aXR5dG9vbGtpdC5nb29nbGVhcGlzLmNvbS9n" +
+                        "b29nbGUuaWRlbnRpdHkuaWRlbnRpdHl0b29sa2l0LnYxLklkZW50aXR5VG9vbGtpdCIsICJ1aWQiOiAiKzk4OTIxMTQ5O" +
+                        "TMwMiIsICJpYXQiOiAxNTY0ODA4NDg2LCAiZXhwIjogMTU2NDgxMjA4Nn0.JE9aGvNfgHpBJVTlhoMoBqngpg4yia624O" +
+                        "FZomnhgfA1-cywwjfT9Zpz1SSaQy0-Ldy_x_EHsq4w856QfHaqAeve8jl2UuvYNz54m8HfUAuiYnbnQJrtaZx7ybCOJn5" +
+                        "QJf1PaRC0Zu0ZJDznV-xa6a3t7yA2T6acEzCy576HSb1CBF_E24NaVH-s5z0JgEXqhH6KlsO_zMo8vF7nhme9EcPxDYaC" +
+                        "dm8LMg93oce2vjs63EdbrUuv_ilOpVjC4ziRTBbTtLX9NLLlgcEvHyN0uoeYsw2FfMlF6JDxDchvraRGQVGJjjATXcVJzg" +
+                        "Clq2dzMJd27Oeo35MFq24voNt3lw",
+                mActivateToken = "700497",
+                mDeviceType = "android"
             )
         )
     }

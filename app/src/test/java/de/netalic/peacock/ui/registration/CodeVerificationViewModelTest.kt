@@ -239,26 +239,25 @@ class CodeVerificationViewModelTest : BaseTest() {
     @Test
     fun setTimer() {
 
-        val scheduler = TestScheduler()
-        RxJavaPlugins.setComputationSchedulerHandler { s -> scheduler }
+        mCodeVerificationViewModel.setTimer(3, testScheduler, testScheduler)
 
+        testScheduler.advanceTimeBy(1, TimeUnit.SECONDS)
 
-        val timerDisposable = Observable.interval(1, TimeUnit.SECONDS)
-            .take(3)
-            .map { 3 - it }
-            .subscribeOn(scheduler)
-            .observeOn(scheduler)
-            .test()
+        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).data.toString(), String.format("%02d:%02d ", 0, 3))
+        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).status, Status.SUCCESS)
+        Assert.assertNull(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).throwable)
 
+        testScheduler.advanceTimeBy(1, TimeUnit.SECONDS)
 
-        timerDisposable.assertNoValues()
-        timerDisposable.assertNotComplete()
+        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).data.toString(), String.format("%02d:%02d ", 0, 2))
+        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).status, Status.SUCCESS)
+        Assert.assertNull(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).throwable)
 
-        scheduler.advanceTimeBy(1, TimeUnit.SECONDS)
+        testScheduler.advanceTimeBy(1, TimeUnit.SECONDS)
 
-        timerDisposable.assertNoErrors()
-        timerDisposable.assertValueCount(1)
-        timerDisposable.assertValues(3)
+        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).data.toString(), "RESEND")
+        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).status, Status.SUCCESS)
+        Assert.assertNull(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).throwable)
 
     }
 
