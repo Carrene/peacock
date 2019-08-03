@@ -13,10 +13,10 @@ import io.reactivex.schedulers.Schedulers
 
 class EmailVerificationViewModel(private val repository: EmailRepository) : BaseViewModel() {
 
-    private val mSetEmailResponseLivadata = MutableLiveData<MyResponse<EmailVerificationModel>>()
+    private val mSetEmailResponseLivaData = MutableLiveData<MyResponse<EmailVerificationModel>>()
 
     fun getSetEmailLiveData(): LiveData<MyResponse<EmailVerificationModel>> {
-        return mSetEmailResponseLivadata
+        return mSetEmailResponseLivaData
     }
 
     fun setEmail(token: String, email: String) {
@@ -24,23 +24,23 @@ class EmailVerificationViewModel(private val repository: EmailRepository) : Base
             val disposable = repository.setEmail(token, email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { mSetEmailResponseLivadata.value = MyResponse.loading() }
+                .doOnSubscribe { mSetEmailResponseLivaData.value = MyResponse.loading() }
                 .subscribe({
                     when (it.code()) {
-                        200 -> mSetEmailResponseLivadata.value = MyResponse.success(it.body()!!)
-                        400 -> mSetEmailResponseLivadata.value = MyResponse.failed(EmailMissingException())
-                        401 -> mSetEmailResponseLivadata.value = MyResponse.failed(UnauthorizedException())
-                        712 -> mSetEmailResponseLivadata.value = MyResponse.failed(InvalidEmailException())
-                        717 -> mSetEmailResponseLivadata.value = MyResponse.failed(EmailAlreadyActivatedException())
-                        718 -> mSetEmailResponseLivadata.value = MyResponse.failed(EmailAlreadyExistException())
+                        200 -> mSetEmailResponseLivaData.value = MyResponse.success(it.body()!!)
+                        400 -> mSetEmailResponseLivaData.value = MyResponse.failed(EmailMissingException())
+                        401 -> mSetEmailResponseLivaData.value = MyResponse.failed(UnauthorizedException())
+                        712 -> mSetEmailResponseLivaData.value = MyResponse.failed(InvalidEmailException())
+                        717 -> mSetEmailResponseLivaData.value = MyResponse.failed(EmailAlreadyActivatedException())
+                        718 -> mSetEmailResponseLivaData.value = MyResponse.failed(EmailAlreadyExistException())
                     }
                 }, { throwable ->
-                    mSetEmailResponseLivadata.value = MyResponse.failed(throwable)
+                    mSetEmailResponseLivaData.value = MyResponse.failed(throwable)
                 })
 
             mCompositeDisposable.add(disposable)
         } else
 //TODO-ehsan are exceptions name of local and remote same?
-            mSetEmailResponseLivadata.value = MyResponse.failed(InvalidEmailException())
+            mSetEmailResponseLivaData.value = MyResponse.failed(InvalidEmailException())
     }
 }

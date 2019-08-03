@@ -14,6 +14,7 @@ import de.netalic.peacock.data.model.Status
 import de.netalic.peacock.ui.base.BaseFragment
 import de.netalic.peacock.ui.main.MainHostActivity
 import de.netalic.peacock.util.CommonUtils
+import de.netalic.peacock.util.ValidatorUtils
 import kotlinx.android.synthetic.main.fragment_emailverification.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -24,7 +25,6 @@ class EmailVerificationFragment : BaseFragment() {
     private val mEmailVerificationViewModel: EmailVerificationViewModel by viewModel()
     private val mEmailInputEditText by lazy { editText_emailVerification_emailAddress }
     private val mContinueButton by lazy { button_emailValidation_continue }
-    private val mEmailLength = 5
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mViewRoot = inflater.inflate(R.layout.fragment_emailverification, container, false)
@@ -44,11 +44,14 @@ class EmailVerificationFragment : BaseFragment() {
             } else
                 false
         }
+
+
+        mEmailInputEditText.addTextChangedListener(emailInputEditTextWatcher())
+
     }
 
     override fun initUiComponents() {
         initToolbar()
-        emailInputEditTextWatcher()
         initObserver()
     }
 
@@ -78,8 +81,8 @@ class EmailVerificationFragment : BaseFragment() {
     }
 
 
-    private fun emailInputEditTextWatcher() {
-        mEmailInputEditText.addTextChangedListener(object : TextWatcher {
+    private fun emailInputEditTextWatcher():TextWatcher {
+        return object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
 
@@ -87,13 +90,12 @@ class EmailVerificationFragment : BaseFragment() {
             }
 
             override fun onTextChanged(characters: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (characters != null && characters.length > mEmailLength)
+                if (characters != null && ValidatorUtils.emailValidator(characters.toString()))
                     enableContinueButton()
                 else
                     disableContinueButton()
             }
-
-        })
+        }
     }
 
     private fun enableContinueButton() {
