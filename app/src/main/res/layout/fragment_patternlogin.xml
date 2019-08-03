@@ -63,7 +63,7 @@
         android:text="@string/patternLogin_skipToPattern"
         android:gravity="center"
         android:drawablePadding="@dimen/padding_all_8"
-        app:drawableEndCompat="@drawable/ic_arrow_forward"
+        app:drawableEndCompat="@drawable/all_iconarrowforwardpurple_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

@@ -1,0 +1,46 @@
+package de.netalic.peacock.ui.emailVerification
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import de.netalic.peacock.data.exception.*
+import de.netalic.peacock.data.model.EmailVerificationModel
+import de.netalic.peacock.data.model.MyResponse
+import de.netalic.peacock.data.repository.EmailRepository
+import de.netalic.peacock.ui.base.BaseViewModel
+import de.netalic.peacock.util.ValidatorUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+
+class EmailVerificationViewModel(private val repository: EmailRepository, private val validatorUtils:ValidatorUtils) : BaseViewModel() {
+
+    private val mSetEmailResponseLivaData = MutableLiveData<MyResponse<EmailVerificationModel>>()
+
+    fun getSetEmailLiveData(): LiveData<MyResponse<EmailVerificationModel>> {
+        return mSetEmailResponseLivaData
+    }
+
+    fun setEmail(token: String, email: String) {
+        if (validatorUtils.emailValidator(email)) {
+            val disposable = repository.setEmail(token, email)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { mSetEmailResponseLivaData.value = MyResponse.loading() }
+                .subscribe({
+                    when (it.code()) {
+                        200 -> mSetEmailResponseLivaData.value = MyResponse.success(it.body()!!)
+                        400 -> mSetEmailResponseLivaData.value = MyResponse.failed(EmailMissingException())
+                        401 -> mSetEmailResponseLivaData.value = MyResponse.failed(UnauthorizedException())
+                        712 -> mSetEmailResponseLivaData.value = MyResponse.failed(InvalidEmailException())
+                        717 -> mSetEmailResponseLivaData.value = MyResponse.failed(EmailAlreadyActivatedException())
+                        718 -> mSetEmailResponseLivaData.value = MyResponse.failed(EmailAlreadyExistException())
+                    }
+                }, { throwable ->
+                    mSetEmailResponseLivaData.value = MyResponse.failed(throwable)
+                })
+
+            mCompositeDisposable.add(disposable)
+        } else
+//TODO-ehsan are exceptions name of local and remote same?
+            mSetEmailResponseLivaData.value = MyResponse.failed(InvalidEmailException())
+    }
+}

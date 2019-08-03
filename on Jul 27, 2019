@@ -1,0 +1,224 @@
+[33mcommit 7ebc7cb5637966697aee6c40c1798318d873655d[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/email-verification[m[33m)[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Wed Jul 31 13:46:39 2019 +0430
+
+    Email verification run healthy after rebase,closed #41
+
+[33mcommit 014c9c9b7b1072d1698d7a5d3acf71689a0672af[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Tue Jul 30 17:23:27 2019 +0430
+
+    Rebase develop to email verification
+
+[33mcommit f55f1cb8a895a29cc80f581815ddec1ee2742c8d[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m
+Merge: 5f8fa35 4f4dfe0
+Author: Mysterious <ehsan@carrene.com>
+Date:   Tue Jul 30 16:51:14 2019 +0430
+
+    Merge branch 'refactor/code-convention' into develop
+
+[33mcommit 4f4dfe0a053aef6b6d0dbf6c588e10a35741f3da[m[33m ([m[1;31morigin/refactor/code-convention[m[33m, [m[1;32mrefactor/code-convention[m[33m)[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Tue Jul 30 14:35:13 2019 +0430
+
+    Fixed selector problem for set in the button,closed #38
+
+[33mcommit 9d3144206194c57ec52e693ce82905d875ab44f5[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Tue Jul 30 14:19:52 2019 +0430
+
+    Add test for failed status,closed #33
+
+[33mcommit 4263c1c53f3a7979f4af9e5220944568db3c739f[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Tue Jul 30 13:22:17 2019 +0430
+
+    Fix phone validator convention,closed #36
+
+[33mcommit 6b1322b97cd1846a3d3d0ebe1c62644bec38cee0[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Tue Jul 30 09:49:54 2019 +0430
+
+    Set the default country for the country picker,closed #29
+
+[33mcommit 5da055e58e726130e9f533e3eb874bbeb1ef4c5e[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Mon Jul 29 16:52:48 2019 +0430
+
+    Refactor gradle files for removing duplicate lines,closed #32
+
+[33mcommit cbd05328cdaae025fd5ec0dda24cb2b2c3fe5f14[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Mon Jul 29 16:45:04 2019 +0430
+
+    Refactor styles, strings, colors, dimens,closed #30
+
+[33mcommit 5f8fa3593f104e57917d1b9b629c48dd7ff693df[m
+Merge: 7f3553e b010162
+Author: Mysterious <ehsan@carrene.com>
+Date:   Mon Jul 29 14:49:32 2019 +0430
+
+    Merge the feature/registration into develop, Review the code, Add TODOs
+
+[33mcommit b0101626692f9eea8ebbe60a6376a45e02af4816[m[33m ([m[1;31morigin/feature/registration[m[33m, [m[1;32mfeature/registration[m[33m)[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Mon Jul 29 11:16:24 2019 +0430
+
+    Fix ViewModel, compelete tests and some name conventions,closed #18"
+
+[33mcommit e492a6b7e8c3f3b49096e56e8709c2bbfb9620cc[m
+Author: Mysterious <ehsan.mashhadi@gmail.com>
+Date:   Sun Jul 28 16:43:46 2019 +0430
+
+    Review the code
+
+[33mcommit 7f3553eb46eb8de915a7a88a70b834a089c271c1[m
+Merge: e4bd3db 1a159c4
+Author: Mysterious <ehsan.mashhadi@gmail.com>
+Date:   Sun Jul 28 15:55:01 2019 +0430
+
+    Merge branch 'feature/loginpattern' into develop
+
+[33mcommit 1a159c46786a38651b31dfe5f43153484dd17a67[m
+Author: Mysterious <ehsan.mashhadi@gmail.com>
+Date:   Sun Jul 28 15:54:05 2019 +0430
+
+    Review the code, Add pattern view model test closed #25
+
+[33mcommit e4bd3dbfeb892a5566bc634066142a7e1cbdc36a[m
+Author: Ramtin Toosi <ramtintoosi@gmail.com>
+Date:   Sun Jul 28 12:24:25 2019 +0430
+
+    Add ViewModel and Koin #5
+
+[33mcommit 9644d4532acbb7d656b1c34ff62887e0ff51aa4e[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Sun Jul 28 11:30:04 2019 +0430
+
+    Name convention and not using from deprecated code fixed,#18
+
+[33mcommit 27383f60dd4f64ecc427fc89d354390ddec0da42[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Sat Jul 27 17:39:45 2019 +0430
+
+    Registration fix: phone input format,#18
+
+[33mcommit e1f91c2d910e282bb9bd59ef2cdf3cf1e79131c0[m
+Author: Ramtin Toosi <ramtintoosi@gmail.com>
+Date:   Sat Jul 27 12:09:55 2019 +0430
+
+    Fix pattern redraw
+
+[33mcommit 912621aa904a848ca767fc435f5fcc687b348e55[m
+Author: Ramtin Toosi <ramtintoosi@gmail.com>
+Date:   Wed Jul 24 17:09:52 2019 +0430
+
+    Fix a mistake in BaseActivity
+
+[33mcommit 9c9f3e1b28f5f8fb70db20fda900bfb147322b5e[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Wed Jul 24 13:45:41 2019 +0430
+
+    App style changed to Material components,#18
+
+[33mcommit 5a4046d16f32af92578d7431b18ba68075b6b5de[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Wed Jul 24 12:39:11 2019 +0430
+
+    Toolbar title,class exception,dialog bottom sheet fixed,#18
+
+[33mcommit 861ee7aa9f2854393a73eb425dafc8606ffe0843[m
+Author: Ramtin Toosi <ramtintoosi@gmail.com>
+Date:   Wed Jul 24 12:04:55 2019 +0430
+
+    Add base (activty and fragment)
+
+[33mcommit 1d38f45a58c7a124cc5ce1aca6a2e7158aad9449[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Wed Jul 24 11:32:01 2019 +0430
+
+    Registration bug fixed for review 1,#18
+
+[33mcommit 8e701e4566668abbd183e8a06399a0366bf55b6b[m
+Author: Ramtin Toosi <ramtintoosi@gmail.com>
+Date:   Wed Jul 24 10:37:00 2019 +0430
+
+    Fix issues from pull request reviews
+
+[33mcommit 4da65efc7380bd78f7b9d99395a83ab49d314e58[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Tue Jul 23 17:30:20 2019 +0430
+
+    Add toolbar and font,#18
+
+[33mcommit 521297127d8ee040289019cc7dc09b7ff239f8f9[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Tue Jul 23 10:12:34 2019 +0430
+
+    Flag image view bug fixed,closed #6
+
+[33mcommit ec389a3650014015de84dea1ef9012f0c112b914[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Mon Jul 22 16:07:16 2019 +0430
+
+    Claim test,closed #12
+
+[33mcommit 2febd8a8a94de1dc5af1b26992450c5a06e34d1c[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Mon Jul 22 15:36:49 2019 +0430
+
+    Claim enhancement,#6
+
+[33mcommit 4a71ef155f92058f54888945b8b4b2ae7ba97fb1[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Sun Jul 21 19:33:19 2019 +0430
+
+    Add claim with all MVVM and web service packages,#6
+
+[33mcommit 14bc9b5078ea072692688a3100f201f5291e84a1[m
+Author: tinat2 <tina.t2aq@gmail.com>
+Date:   Sun Jul 21 18:45:08 2019 +0430
+
+    Registeration UI,#6
+
+[33mcommit e58977208bc17ac4eaa54152aada2cb462862b01[m[33m ([m[1;31morigin/feature/loginpattern[m[33m, [m[1;32mfeature/loginpattern[m[33m)[m
+Author: Ramtin Toosi <ramtintoosi@gmail.com>
+Date:   Sun Jul 21 17:09:45 2019 +0430
+
+    Add login
+
+[33mcommit 0797788282b20b63656b953a651fbdfe9eeee74a[m
+Merge: 35b9cd8 70eaba7
+Author: Ehsan Mashhadi <ehsan.mashhadi@gmail.com>
+Date:   Wed Jul 17 17:36:37 2019 +0430
+
+    Merge pull request #3 from Carrene/feature/readme
+    
+    Create README.md
+
+[33mcommit 70eaba772f0551bd055252fe0dd441322cbbda6c[m[33m ([m[1;31morigin/feature/readme[m[33m)[m
+Author: miladsalimiiii <31917346+miladsalimiiii@users.noreply.github.com>
+Date:   Wed Jul 17 16:58:30 2019 +0430
+
+    Create README.md
+
+[33mcommit 35b9cd8064f1c7c7aaa033bb31fb565dafca8a4f[m
+Merge: f7fcc97 707146f
+Author: Ehsan Mashhadi <ehsan.mashhadi@gmail.com>
+Date:   Wed Jul 17 16:37:19 2019 +0430
+
+    Merge pull request #2 from Carrene/feature/appversioning
+    
+    Set version code and verison name in build gradle , closed #1
+
+[33mcommit 707146fbd081eff9fa47030c7f9bff04805d5145[m[33m ([m[1;31morigin/feature/appversioning[m[33m)[m
+Author: miladsi90 <miladsalimi69@yahoo.com>
+Date:   Wed Jul 17 16:19:13 2019 +0430
+
+    Set version code and verison name in build gradle , closed #1
+
+[33mcommit f7fcc9792ca029bccb5983c2b2e95c50bf94a744[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: miladsi90 <miladsalimi69@yahoo.com>
+Date:   Wed Jul 17 15:57:10 2019 +0430
+
+    Initial commit

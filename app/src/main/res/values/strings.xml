@@ -1,5 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Peacock</string>
+
     <string name="patternLogin_authorization">Authorization</string>
     <string name="patternLogin_messageDraw">Draw a sample pattern for more secure</string>
     <string name="patternLogin_messageDrawAgain">Draw your pattern again</string>
@@ -7,9 +8,14 @@
     <string name="imageView_contentDescription">-</string>
     <string name="registration_registration">Registration</string>
     <string name="registration_guid">Enter your phone number, we will send you OTP to verify later.</string>
-    <string name="registration_continue">Continue</string>
+    <string name="all_continue">Continue</string>
     <string name="registration_hint">- - - - - - - - - -</string>
     <string name="registration_iranCode">(+98)</string>
     <string name="registration_countryCode">(%1$s)</string>
     <string name="all_stepNOfFour" tools:ignore="TypographyFractions">Step %1$s/4</string>
+    <string name="emailVerification_emailVerification">Email Verification</string>
+    <string name="emailVerification_guid">Enter Your email address or skip this step</string>
+    <string name="emailVerification_skipToPattern">Skip This Step</string>
+    <string name="emailValidation_hint">sample@alpha.com</string>
+
 </resources>
