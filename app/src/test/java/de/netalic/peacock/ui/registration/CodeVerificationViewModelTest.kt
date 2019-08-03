@@ -10,7 +10,6 @@ import de.netalic.peacock.data.model.Status
 import de.netalic.peacock.data.model.UserModel
 import de.netalic.peacock.data.repository.UserRepository
 import de.netalic.peacock.util.LiveDataTestUtil
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.TestScheduler
@@ -239,26 +238,48 @@ class CodeVerificationViewModelTest : BaseTest() {
     @Test
     fun setTimer() {
 
-        mCodeVerificationViewModel.setTimer(3, testScheduler, testScheduler)
+        val testScheduler = TestScheduler()
+
+        RxJavaPlugins.setComputationSchedulerHandler { scheduler -> testScheduler }
+
+        mCodeVerificationViewModel.setTimer(3)
 
         testScheduler.advanceTimeBy(1, TimeUnit.SECONDS)
 
-        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).data.toString(), String.format("%02d:%02d ", 0, 3))
-        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).status, Status.SUCCESS)
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).data.toString(),
+            String.format("%02d:%02d ", 0, 3)
+        )
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).status,
+            Status.SUCCESS
+        )
         Assert.assertNull(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).throwable)
 
         testScheduler.advanceTimeBy(1, TimeUnit.SECONDS)
 
-        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).data.toString(), String.format("%02d:%02d ", 0, 2))
-        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).status, Status.SUCCESS)
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).data.toString(),
+            String.format("%02d:%02d ", 0, 2)
+        )
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).status,
+            Status.SUCCESS
+        )
         Assert.assertNull(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).throwable)
 
         testScheduler.advanceTimeBy(1, TimeUnit.SECONDS)
 
-        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).data.toString(), "RESEND")
-        Assert.assertEquals(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).status, Status.SUCCESS)
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).data.toString(),
+            "RESEND"
+        )
+        Assert.assertEquals(
+            LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).status,
+            Status.SUCCESS
+        )
         Assert.assertNull(LiveDataTestUtil.getValue(mCodeVerificationViewModel.getTimerLiveData()).throwable)
 
+        resetSchedulers()
     }
-
 }

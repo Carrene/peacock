@@ -11,7 +11,6 @@ import de.netalic.peacock.data.model.UserModel
 import de.netalic.peacock.data.repository.UserRepository
 import de.netalic.peacock.ui.base.BaseViewModel
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
@@ -39,33 +38,22 @@ class CodeVerificationViewModel(private val userRepository: UserRepository) : Ba
         return mBindResponseLiveData
     }
 
-    fun setTimer(time: Long = 30, schedulers: Scheduler =Schedulers.io(), androidSchedulers: Scheduler=AndroidSchedulers.mainThread()) {
+    fun setTimer(time: Long = 30) {
 
         val timerDisposable = Observable.interval(1, TimeUnit.SECONDS)
             .take(time)
             .map { time - it }
-            .subscribeOn(schedulers)
-            .observeOn(androidSchedulers)
-            .subscribe(
-                {
-
-                    val minuteTimer = TimeUnit.SECONDS.toMinutes(it)
-                    val secondTimer = TimeUnit.SECONDS.toSeconds(it) -
-                            TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(it))
-                    mTimerLiveData.value = MyResponse.success(String.format("%02d:%02d ", minuteTimer, secondTimer))
-
-                },
-                {
-
-                },
-                {
-                    mTimerLiveData.value = MyResponse.success(sResend)
-
-                }
-            )
-
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                val minuteTimer = TimeUnit.SECONDS.toMinutes(it)
+                val secondTimer = TimeUnit.SECONDS.toSeconds(it) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(it))
+                mTimerLiveData.value = MyResponse.success(String.format("%02d:%02d ", minuteTimer, secondTimer))
+            }, {}, {
+                mTimerLiveData.value = MyResponse.success(sResend)
+            })
         mCompositeDisposable.add(timerDisposable)
-
     }
 
     fun bind(user: UserModel) {
