@@ -1,6 +1,6 @@
-package de.netalic.peacock.common
+package de.netalic.peacock.util
 
-class Validator {
+class PasswordValidator {
 
     fun hasMinimumLength(password: String, length: Int): Boolean {
         return password.length >= length

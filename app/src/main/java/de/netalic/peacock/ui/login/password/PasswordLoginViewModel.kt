@@ -2,7 +2,7 @@ package de.netalic.peacock.ui.login.password
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import de.netalic.peacock.common.Validator
+import de.netalic.peacock.util.PasswordValidator
 import de.netalic.peacock.data.model.MyResponse
 import de.netalic.peacock.ui.base.BaseViewModel
 
@@ -12,10 +12,9 @@ enum class ResponseStatus {
     SUCCESS_DIGIT,
     SUCCESS_SPECIAL_CHAR,
     PASSWORD_MATCH,
-    PASSWORD_NOT_MATCH
 }
 
-class PasswordLoginViewModel(private val validator: Validator) : BaseViewModel(){
+class PasswordLoginViewModel(private val passwordValidator: PasswordValidator) : BaseViewModel(){
 
     private var mPassword: String? = null
     private var mPasswordRepeat: String? = null
@@ -42,28 +41,28 @@ class PasswordLoginViewModel(private val validator: Validator) : BaseViewModel()
 
         var counter = 0
 
-        if (validator.hasMinimumLength(password, PASSWORD_LENGTH)) {
+        if (passwordValidator.hasMinimumLength(password, PASSWORD_LENGTH)) {
             mPasswordResponse.value = MyResponse.success(ResponseStatus.SUCCESS_MINIMUM_CHARS)
             ++counter
         } else {
             mPasswordResponse.value = MyResponse.failed(Throwable(FAILED_MINIMUM_CHARS))
         }
 
-        if (validator.hasCapitalLetter(password)) {
+        if (passwordValidator.hasCapitalLetter(password)) {
             mPasswordResponse.value = MyResponse.success(ResponseStatus.SUCCESS_UPPERCASE)
             ++counter
         } else {
             mPasswordResponse.value = MyResponse.failed(Throwable(FAILED_UPPERCASE))
         }
 
-        if (validator.hasDigit(password)) {
+        if (passwordValidator.hasDigit(password)) {
             mPasswordResponse.value = MyResponse.success(ResponseStatus.SUCCESS_DIGIT)
             ++counter
         } else {
             mPasswordResponse.value = MyResponse.failed(Throwable(FAILED_DIGIT))
         }
 
-        if (validator.hasSpecialCharacters(password)) {
+        if (passwordValidator.hasSpecialCharacters(password)) {
             mPasswordResponse.value = MyResponse.success(ResponseStatus.SUCCESS_SPECIAL_CHAR)
             ++counter
         } else {
@@ -86,14 +85,20 @@ class PasswordLoginViewModel(private val validator: Validator) : BaseViewModel()
 
     private fun isPasswordMatch() {
         if (mPassword == null || mPasswordRepeat == null) {
-            mResponseEquality.value = MyResponse.success(ResponseStatus.PASSWORD_NOT_MATCH)
+            mResponseEquality.value = MyResponse.failed(Throwable("No password match"))
             return
         }
         if (mPassword == mPasswordRepeat) {
             mResponseEquality.value = MyResponse.success(ResponseStatus.PASSWORD_MATCH)
         } else {
-            mResponseEquality.value = MyResponse.success(ResponseStatus.PASSWORD_NOT_MATCH)
+            mResponseEquality.value = MyResponse.failed(Throwable(FAILED_PASSWORD_MATCH))
         }
+    }
+
+    fun getSpanRange(text: String, search: String): Pair<Int, Int> {
+        val startIndex = text.indexOf(search)
+        val endIndex = startIndex + search.length
+        return Pair(startIndex, endIndex)
     }
 
     companion object {
@@ -101,6 +106,7 @@ class PasswordLoginViewModel(private val validator: Validator) : BaseViewModel()
         const val FAILED_UPPERCASE = "failed_uppercase"
         const val FAILED_DIGIT = "failed_digit"
         const val FAILED_SPECIAL_CHAR = "failed_special_char"
+        const val FAILED_PASSWORD_MATCH = "failed_password_match"
 
         private const val PASSWORD_LENGTH = 8
     }

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.andrognito.patternlockview.PatternLockView
 import com.andrognito.patternlockview.listener.PatternLockViewListener
@@ -37,7 +36,7 @@ class PatternFragment : BaseFragment(), PatternLockViewListener {
 
     override fun initUiComponents() {
         updateToolbar()
-        mImageViewProfile.setImageResource(R.drawable.temp)
+        mImageViewProfile.setImageResource(R.drawable.temp_profilephoto_placeholder)
         initObservers()
     }
 

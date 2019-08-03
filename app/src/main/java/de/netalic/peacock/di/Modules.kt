@@ -1,6 +1,6 @@
 package de.netalic.peacock.di
 
-import de.netalic.peacock.common.Validator
+import de.netalic.peacock.util.PasswordValidator
 import de.netalic.peacock.data.repository.UserRepository
 import de.netalic.peacock.data.webservice.ApiClient
 import de.netalic.peacock.ui.login.password.PasswordLoginViewModel
@@ -30,7 +30,7 @@ val apiModule = module {
 }
 
 val validatorModule = module {
-    factory { Validator() }
+    factory { PasswordValidator() }
 }
 
 val passwordLogonViewModelModule = module {

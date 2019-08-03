@@ -40,7 +40,7 @@ class PasswordLoginFragment : BaseFragment() {
 
     override fun initUiComponents() {
         updateToolbar()
-        mImageViewProfile.setImageResource(R.drawable.temp)
+        mImageViewProfile.setImageResource(R.drawable.temp_profilephoto_placeholder)
         initObservers()
     }
 
@@ -69,28 +69,20 @@ class PasswordLoginFragment : BaseFragment() {
 
                 when (response.data) {
                     ResponseStatus.SUCCESS_MINIMUM_CHARS -> {
-                        val startIndex = message.indexOf(messageParts[0])
-                        val endIndex = startIndex + (messageParts[0].length)
-                        spannableString.setSpan(ForegroundColorSpan(successColor), startIndex, endIndex,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        val (start, end) = mViewModel.getSpanRange(message, messageParts[0])
+                        setColorSpan(spannableString, successColor, start, end)
                     }
                     ResponseStatus.SUCCESS_UPPERCASE -> {
-                        val startIndex = message.indexOf(messageParts[1])
-                        val endIndex = startIndex + (messageParts[1].length)
-                        spannableString.setSpan(ForegroundColorSpan(successColor), startIndex, endIndex,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        val (start, end) = mViewModel.getSpanRange(message, messageParts[1])
+                        setColorSpan(spannableString, successColor, start, end)
                     }
                     ResponseStatus.SUCCESS_DIGIT -> {
-                        val startIndex = message.indexOf(messageParts[2])
-                        val endIndex = startIndex + (messageParts[2].length)
-                        spannableString.setSpan(ForegroundColorSpan(successColor), startIndex, endIndex,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        val (start, end) = mViewModel.getSpanRange(message, messageParts[2])
+                        setColorSpan(spannableString, successColor, start, end)
                     }
                     ResponseStatus.SUCCESS_SPECIAL_CHAR -> {
-                        val startIndex = message.indexOf(messageParts[3])
-                        val endIndex = startIndex + (messageParts[3].length)
-                        spannableString.setSpan(ForegroundColorSpan(successColor), startIndex, endIndex,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        val (start, end) = mViewModel.getSpanRange(message, messageParts[3])
+                        setColorSpan(spannableString, successColor, start, end)
                     }
                     else -> {}
                 }
@@ -101,28 +93,20 @@ class PasswordLoginFragment : BaseFragment() {
                 val throwableMessage = response.throwable?.message ?: return@Observer
                 when (throwableMessage) {
                     PasswordLoginViewModel.FAILED_MINIMUM_CHARS -> {
-                        val startIndex = message.indexOf(messageParts[0])
-                        val endIndex = startIndex + (messageParts[0].length)
-                        spannableString.setSpan(ForegroundColorSpan(errorColor), startIndex, endIndex,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        val (start, end) = mViewModel.getSpanRange(message, messageParts[0])
+                        setColorSpan(spannableString, errorColor, start, end)
                     }
                     PasswordLoginViewModel.FAILED_UPPERCASE -> {
-                        val startIndex = message.indexOf(messageParts[1])
-                        val endIndex = startIndex + (messageParts[1].length)
-                        spannableString.setSpan(ForegroundColorSpan(errorColor), startIndex, endIndex,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        val (start, end) = mViewModel.getSpanRange(message, messageParts[1])
+                        setColorSpan(spannableString, errorColor, start, end)
                     }
                     PasswordLoginViewModel.FAILED_DIGIT -> {
-                        val startIndex = message.indexOf(messageParts[2])
-                        val endIndex = startIndex + (messageParts[2].length)
-                        spannableString.setSpan(ForegroundColorSpan(errorColor), startIndex, endIndex,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        val (start, end) = mViewModel.getSpanRange(message, messageParts[2])
+                        setColorSpan(spannableString, errorColor, start, end)
                     }
                     PasswordLoginViewModel.FAILED_SPECIAL_CHAR -> {
-                        val startIndex = message.indexOf(messageParts[3])
-                        val endIndex = startIndex + (messageParts[3].length)
-                        spannableString.setSpan(ForegroundColorSpan(errorColor), startIndex, endIndex,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        val (start, end) = mViewModel.getSpanRange(message, messageParts[3])
+                        setColorSpan(spannableString, errorColor, start, end)
                     }
                 }
             }
@@ -131,19 +115,24 @@ class PasswordLoginFragment : BaseFragment() {
     }
 
     private fun initPasswordRepeatObserver() {
-        mViewModel.getRepeatResponse().observe(this, Observer {})
+        mViewModel.getRepeatResponse().observe(this, Observer {
+
+        })
+    }
+
+    private fun setColorSpan(spannableString: SpannableString, color: Int, start: Int, end: Int) {
+        spannableString.setSpan(ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     }
 
     private fun initPasswordEqualityObserver() {
-        mViewModel.getEqualityResponse().observe(this, Observer {
-            val status = it.data ?: throw IllegalArgumentException("Data is null")
-            if (status == ResponseStatus.PASSWORD_MATCH) {
+        mViewModel.getEqualityResponse().observe(this, Observer { response ->
+            if (response.status == Status.FAILED) {
+                mButtonContinue.isEnabled = false
+                //mButtonContinue.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.colorPrimaryDark)
+            } else {
                 Toast.makeText(context, "Password Match", Toast.LENGTH_LONG).show()
                 mButtonContinue.isEnabled = true
-                mButtonContinue.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.colorTertiary)
-            } else {
-                mButtonContinue.isEnabled = false
-                mButtonContinue.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.colorPrimaryDark)
+                //mButtonContinue.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.colorTertiary)
             }
         })
     }
@@ -156,21 +145,21 @@ class PasswordLoginFragment : BaseFragment() {
     }
 
     inner class PasswordListener : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
-            val input = s?.toString() ?: return
+        override fun afterTextChanged(editable: Editable?) {
+            val input = editable?.toString() ?: return
             mViewModel.onPasswordEntered(input)
         }
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        override fun beforeTextChanged(charsequence: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(charsequence: CharSequence?, start: Int, before: Int, count: Int) {}
     }
 
     inner class PasswordRepeatListener : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
-            val input = s?.toString() ?: return
+        override fun afterTextChanged(editable: Editable?) {
+            val input = editable?.toString() ?: return
             mViewModel.onPasswordRepeated(input)
         }
-        override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-        override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        override fun beforeTextChanged(charsequence: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(charsequence: CharSequence?, start: Int, before: Int, count: Int) {}
     }
 
 }
